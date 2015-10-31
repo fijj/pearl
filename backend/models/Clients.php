@@ -7,19 +7,18 @@ use yii\data\ActiveDataProvider;
 
 class Clients extends ActiveRecord
 {
-    public $fullName;
-
     public function rules(){
         return [
-            [['firstName', 'secondName', 'thirdName', 'phone'], 'required', 'on' => 'default'],
-            [['firstName', 'secondName', 'thirdName', 'phone'], 'safe', 'on' => 'filter'],
+            [['firstName', 'secondName', 'thirdName'], 'required', 'on' => 'default'],
+            [['phoneHome', 'fullName'], 'safe', 'on' => 'default'],
+            [['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome'], 'safe', 'on' => 'filter'],
         ];
     }
 
     public function scenarios(){
         return[
-            'default' => ['firstName', 'secondName', 'thirdName', 'phone'],
-            'filter' => ['firstName', 'secondName', 'thirdName', 'phone']
+            'default' => ['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome', 'fullName'],
+            'filter' => ['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome']
         ];
     }
 
@@ -28,18 +27,8 @@ class Clients extends ActiveRecord
             'firstName' => 'Фамилия',
             'secondName' => 'Имя',
             'thirdName' => 'Отчество',
-            'phone' => 'Телефон',
-        ];
-    }
-
-    public static function inputs(){
-        $array = Yii::$app->request->post('Clients');
-        $array = explode(' ', $array['fullName']);
-        return [
-            'firstName' => $array[0],
-            'secondName' => $array[1],
-            'thirdName' => $array[2],
-            'phone' => $array[3],
+            'phone' => 'Телефон мобильный',
+            'phoneHome' => 'Телефон домашний'
         ];
     }
 
@@ -61,8 +50,8 @@ class Clients extends ActiveRecord
         $query->andFilterWhere(['like', 'firstName', $this->firstName])
             ->andFilterWhere(['like', 'secondName', $this->secondName])
             ->andFilterWhere(['like', 'thirdName', $this->thirdName])
-            ->andFilterWhere(['like', 'phone', $this->phone]);
-
+            ->andFilterWhere(['like', 'phone', $this->phone])
+            ->andFilterWhere(['like', 'phoneHome', $this->phoneHome]);
         return $dataProvider;
     }
 }

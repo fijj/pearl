@@ -30,11 +30,17 @@ $this->params['breadcrumbs'][] = $this->title;
             'attribute' => 'phone'
         ],
         [
+            'attribute' => 'phoneHome'
+        ],
+        [
             'class' => 'yii\grid\ActionColumn',
-            // you may configure additional properties here
+            'buttons' => [
+                'view' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-plus"></span>', ['orders/new', 'id' => $model->id]);
+                    },
+            ],
         ],
 
     ],
 ]) ?>
-
 <? Pjax::end() ?>

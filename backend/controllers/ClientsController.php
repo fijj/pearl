@@ -65,10 +65,10 @@ class ClientsController extends Controller
     }
 
     public function actionSearch($term){
-        $model = Clients::find()->where(['like', 'firstName',  $term])->orWhere(['like', 'phone',  $term])->limit(10)->all();
+        $model = Clients::find()->where(['like', 'fullName',  $term])->orWhere(['like', 'phone',  $term])->limit(10)->all();
         foreach ($model as $key => $data){
             $array[$key]['id'] = $data->id;
-            $array[$key]['label'] = $data->firstName.' '.$data->secondName.' '.$data->thirdName.' '.$data->phone;
+            $array[$key]['label'] = $data->fullName.' '.$data->phone;
         }
         echo json_encode($array);
     }
@@ -76,9 +76,10 @@ class ClientsController extends Controller
     public function actionNew(){
         $clients = new Clients();
         if ($clients->load(Yii::$app->request->post()) && $clients->validate()) {
+            $clients->fullName = $clients->firstName.' '.$clients->secondName.' '.$clients->thirdName;
             $clients->save();
             Yii::$app->getSession()->setFlash('success', 'Карточка клиента создана');
-            return $this->redirect(['clients/index']);
+            return $this->redirect(['orders/new', 'id' => $clients->id]);
         }
         return $this->render('form',[
             'clients' => $clients,
@@ -90,6 +91,7 @@ class ClientsController extends Controller
     public function actionUpdate($id){
         $clients = Clients::findOne($id);
         if ($clients->load(Yii::$app->request->post()) && $clients->validate()) {
+            $clients->fullName = $clients->firstName.' '.$clients->secondName.' '.$clients->thirdName;
             $clients->save();
             Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
         }

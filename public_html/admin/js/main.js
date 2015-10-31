@@ -9,7 +9,14 @@ tinymce.init({
 //DATEPICKER
 $(document).ready(function(){
     $('.datepicker').pickadate({
-        dateFormat: "yy-mm-dd",
+        format: 'yyyy-mm-dd',
+        formatSubmit: 'yyyy-mm-dd'
+    });
+});
+
+$(document).on('pjax:complete', function() {
+    $('.datepicker').pickadate({
+        format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
     });
 });
@@ -35,6 +42,7 @@ $(document).ready(function(){
         }
     });
 });
+/*
 $(document).ready(function () {
     $('#clients-fullname').autocomplete({
         'select' : function( event, ui ) {
@@ -43,3 +51,4 @@ $(document).ready(function () {
     });
 });
 
+*/

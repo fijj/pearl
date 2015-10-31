@@ -42,10 +42,16 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вход', 'url' => ['site/login']];
     } else {
         $menuItems[] = [
+            'label' => 'Заказы', 'url' => ['orders/index'],
+        ];
+        $menuItems[] = [
             'label' => 'Клиенты', 'url' => ['clients/index'],
         ];
         $menuItems[] = [
             'label' => 'Менеджеры', 'url' => ['settings/managers/index'],
+        ];
+        $menuItems[] = [
+            'label' => 'Точки', 'url' => ['settings/point/index'],
         ];
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',

@@ -24,6 +24,9 @@ $this->title = 'Поиск клиента';
             'attribute' => 'firstName',
             'clientOptions' => [
                 'source' => Url::to(['clients/search']),
+                'select' => new JsExpression("function( event, ui ) {
+            window.location = 'index.php?r=orders/new&id=' + ui.item.id;
+        }")
             ],
             'options' => [
                 'class' => 'form-control clients-main-search',

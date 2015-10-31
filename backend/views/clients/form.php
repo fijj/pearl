@@ -13,7 +13,6 @@ $this->params['breadcrumbs'][] = [
 if($action == "update"){
     $this->params['breadcrumbs'][] = [
         'label' => $clients->firstName,
-        'url' => Url::to(['/clients/view', 'id' => $clients->id]),
     ];
 }
 $this->params['breadcrumbs'][] = $this->title;
@@ -29,6 +28,7 @@ $form = ActiveForm::begin([
 <?= $form->field($clients, 'secondName') ?>
 <?= $form->field($clients, 'thirdName') ?>
 <?= $form->field($clients, 'phone') ?>
+<?= $form->field($clients, 'phoneHome') ?>
 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right']) ?>
 
 <?php ActiveForm::end() ?>
