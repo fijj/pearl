@@ -49,11 +49,22 @@ class Orders extends ActiveRecord
     public function search($params)
     {
         $this->scenario = 'filter';
-        $query = Orders::find()->orderBy(['date' => SORT_DESC]);
+        $query = Orders::find();
+        $query->joinWith(['clients']);
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
         ]);
+
+        $dataProvider->sort->attributes['clientId'] = [
+            'asc' => ['clients.firstName' => SORT_ASC],
+            'desc' => ['clients.firstName' => SORT_DESC],
+        ];
 
         // load the search form data and validate
         if (!($this->load($params) && $this->validate())) {

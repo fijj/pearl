@@ -32,7 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]),
                 'value' => function($data){
                         return Yii::$app->formatter->asDate($data->date, 'php:d-m-Y');
-                    }
+                    },
             ],
             [
                 'attribute' => 'number'
