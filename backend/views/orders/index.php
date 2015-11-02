@@ -12,7 +12,8 @@ $this->params['breadcrumbs'][] = [
 
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="col-lg-11">
+
+<div class="col-lg-12">
     <? Pjax::begin() ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -20,10 +21,24 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             [
                 'attribute' => 'date',
-                'filterInputOptions' => ['class'=>'datepicker form-control'],
+                'filter' => \yii\jui\DatePicker::widget([
+                        'language' => 'ru',
+                        'dateFormat' => 'yyyy-MM-dd',
+                        'model' => $searchModel,
+                        'attribute' => 'date',
+                        'options' =>[
+                            'class' => 'form-control'
+                        ]
+                    ]),
+                'value' => function($data){
+                        return Yii::$app->formatter->asDate($data->date, 'php:d-m-Y');
+                    }
             ],
             [
                 'attribute' => 'number'
+            ],
+            [
+                'attribute' => 'contract'
             ],
             [
                 'attribute' => 'typeId',
@@ -42,13 +57,33 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'attribute' => 'outDate',
-                'filterInputOptions' => ['class'=>'datepicker form-control'],
+                'filter' => \yii\jui\DatePicker::widget([
+                        'language' => 'ru',
+                        'dateFormat' => 'yyyy-MM-dd',
+                        'model' => $searchModel,
+                        'attribute' => 'outDate',
+                        'options' =>[
+                            'class' => 'form-control'
+                        ]
+                    ]),
+                'value' => function($data){
+                        return Yii::$app->formatter->asDate($data->outDate, 'php:d-m-Y');
+                    }
             ],
             [
                 'format' => 'html',
                 'attribute' => 'clientId',
                 'value' => function($data){
                         return Html::a($data->clients->fullName, ['clients/update', 'id' => $data->clients->id]);
+                    }
+            ],
+            [
+                'attribute' => 'cost',
+            ],
+            [
+                'attribute' => 'debt',
+                'value' => function($data){
+                        return $data->debt();
                     }
             ],
             [
@@ -61,3 +96,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <? Pjax::end() ?>
 </div>
+
+<style>
+    .main-body.container{
+        width: auto;
+    }
+</style>

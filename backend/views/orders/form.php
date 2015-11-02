@@ -29,6 +29,7 @@ $form = ActiveForm::begin([
 
 <?= $form->field($orders, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
 <?= $form->field($orders, 'number') ?>
+<?= $form->field($orders, 'contract') ?>
 <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray()) ?>
 <?= $form->field($orders, 'pointId')->dropDownList(Point::dropDownArray()) ?>
 <?= $form->field($orders, 'statusId')->dropDownList(Status::dropDownArray()) ?>

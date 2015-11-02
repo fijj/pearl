@@ -14,11 +14,8 @@ $(document).ready(function(){
     });
 });
 
-$(document).on('pjax:complete', function() {
-    $('.datepicker').pickadate({
-        format: 'yyyy-mm-dd',
-        formatSubmit: 'yyyy-mm-dd'
-    });
+$(document).on('pjax:success', function() {
+     $('.datepicker').pickadate();
 });
 
 //CONFIRM

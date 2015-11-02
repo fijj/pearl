@@ -69,6 +69,7 @@ class OrdersController extends Controller
             $orders->clientId = $id;
             $orders->managerId = Yii::$app->user->identity->managerId;
             $orders->costTotal = $orders->costTotal();
+            $orders->debt = $orders->debt();
             $orders->save();
             Yii::$app->getSession()->setFlash('success', 'Заказ создан');
             return $this->redirect(['orders/index']);
@@ -84,6 +85,7 @@ class OrdersController extends Controller
         $orders = Orders::findOne($id);
         if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
             $orders->costTotal = $orders->costTotal();
+            $orders->debt = $orders->debt();
             $orders->save();
             Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
         }

@@ -14,16 +14,17 @@ class Orders extends ActiveRecord
     public function rules(){
         return [
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
+            [['contract'], 'safe'],
             [['number'], 'integer'],
             [['cost', 'paid', 'costTotal'], 'double'],
-            [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate'], 'safe', 'on' => 'filter'],
+            [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
         ];
     }
 
     public function scenarios(){
         return[
-            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal'],
-            'filter' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate']
+            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt'],
+            'filter' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate', 'contract', 'debt']
         ];
     }
 
@@ -38,7 +39,9 @@ class Orders extends ActiveRecord
             'statusId' => 'Статус',
             'clientId' => 'Клиент',
             'outDate' => 'Дата завершения',
-            'costTotal' => 'Итого с учетом коэффицента скидки'
+            'costTotal' => 'Итого с учетом коэффицента скидки',
+            'contract' => 'Номер квитанции',
+            'debt' => 'Долг'
         ];
     }
 
@@ -65,7 +68,10 @@ class Orders extends ActiveRecord
             ->andFilterWhere(['like', 'pointId', $this->pointId])
             ->andFilterWhere(['like', 'statusId', $this->statusId])
             ->andFilterWhere(['like', 'firstName', $this->clientId])
-            ->andFilterWhere(['like', 'outDate', $this->outDate]);
+            ->andFilterWhere(['like', 'outDate', $this->outDate])
+            ->andFilterWhere(['like', 'contract', $this->contract])
+            ->andFilterWhere(['like', 'cost', $this->cost])
+            ->andFilterWhere(['like', 'debt', $this->debt]);
         return $dataProvider;
     }
 
@@ -87,5 +93,9 @@ class Orders extends ActiveRecord
 
     public function costTotal(){
         return $this->cost * (100 - $this->point->discount) / 100;
+    }
+
+    public function debt(){
+        return $this->cost - $this->paid;
     }
 }

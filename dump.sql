@@ -1,6 +1,6 @@
 /*
 SQLyog Ultimate v10.42 
-MySQL - 5.5.38-log : Database - pearl
+MySQL - 5.5.41-log : Database - pearl
 *********************************************************************
 */
 
@@ -80,12 +80,14 @@ CREATE TABLE `orders` (
   `statusId` int(11) DEFAULT NULL,
   `outDate` date DEFAULT NULL,
   `costTotal` decimal(10,2) NOT NULL DEFAULT '0.00',
+  `contract` varchar(255) NOT NULL,
+  `debt` decimal(10,2) NOT NULL DEFAULT '0.00',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 /*Data for the table `orders` */
 
-insert  into `orders`(`id`,`clientId`,`cost`,`paid`,`date`,`number`,`typeId`,`pointId`,`managerId`,`statusId`,`outDate`,`costTotal`) values (1,1,900.00,0.00,'2015-11-01',8,1,4,1,1,'2015-11-01',630.00),(2,1,123.00,123.00,'2015-11-01',8898,1,1,1,1,'2015-11-01',123.00);
+insert  into `orders`(`id`,`clientId`,`cost`,`paid`,`date`,`number`,`typeId`,`pointId`,`managerId`,`statusId`,`outDate`,`costTotal`,`contract`,`debt`) values (1,1,900.00,800.00,'2015-11-02',8,1,4,1,1,'2015-11-01',630.00,'',100.00),(2,1,123.00,8999.00,'2015-11-01',8898,1,1,1,1,'2015-11-01',123.00,'89к',0.00),(3,1,89989.00,90.00,'2015-11-04',900,1,1,1,1,'2015-10-29',89989.00,'8000000',0.00);
 
 /*Table structure for table `point` */
 
