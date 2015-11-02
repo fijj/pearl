@@ -51,7 +51,6 @@ class Orders extends ActiveRecord
         $this->scenario = 'filter';
         $query = Orders::find();
         $query->joinWith(['clients']);
-
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
@@ -72,7 +71,6 @@ class Orders extends ActiveRecord
         }
 
         // adjust the query by adding the filters
-        $query->joinWith(['clients' => function($query) { $query->from(['id' => 'clients']); }]);
         $query->andFilterWhere(['like', 'date', $this->date])
             ->andFilterWhere(['like', 'number', $this->number])
             ->andFilterWhere(['like', 'typeId', $this->typeId])
