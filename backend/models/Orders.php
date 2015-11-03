@@ -49,8 +49,7 @@ class Orders extends ActiveRecord
     public function search($params)
     {
         $this->scenario = 'filter';
-        $query = Orders::find();
-        $query->joinWith(['clients']);
+        $query = Orders::find()->joinWith('clients');
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'sort' => [
