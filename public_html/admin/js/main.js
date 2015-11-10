@@ -14,10 +14,6 @@ $(document).ready(function(){
     });
 });
 
-$(document).on('pjax:success', function() {
-     $('.datepicker').pickadate();
-});
-
 //CONFIRM
 $('.btn-danger, .confirm-msg').on('click', function(e){
     if(confirm('Вы точно хотите удалить?')){

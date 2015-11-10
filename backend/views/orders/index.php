@@ -43,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'typeId',
                 'value' => 'type.label',
-                'filter'=> \backend\models\settings\Type::dropDownArray()
+                'filter' => \backend\models\settings\Type::dropDownArray()
             ],
             [
                 'attribute' => 'pointId',
@@ -93,7 +93,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
         ],
     ]) ?>
-
     <? Pjax::end() ?>
 </div>
 
