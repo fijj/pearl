@@ -17,7 +17,7 @@ $this->title = 'Поиск клиента';
     ])
     ?>
     <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-11">
         <?= Html::checkbox('123', '', ['label' => 'По номеру телефона', 'class' => 'search-option-checkbox']) ?>
         <?= $form->field($clients, 'fullName')->widget(AutoComplete::className(),[
             'model' => $clients,
@@ -33,10 +33,60 @@ $this->title = 'Поиск клиента';
             ],
         ])->label(false) ?>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-1">
             <?= Html::a('<span class= "glyphicon glyphicon-plus"></span>', ['clients/new']) ?>
             <!--<?= Html::submitButton('<span class= "glyphicon glyphicon-plus"></span>', ['class' => 'btn btn-primary pull-right']) ?>-->
         </div>
     </div>
     <?php ActiveForm::end() ?>
+    <div class="row">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Статистик</th>
+                            <th colspan="2">Сегодня</th>
+                            <th colspan="2">Вчера</th>
+                            <? if(Yii::$app->user->identity->access > 50): ?>
+                                <th colspan="2">Текущий месяц</th>
+                                <th colspan="2">Предыдущий месяц</th>
+                            <? endif ?>
+                            <th>Долг</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Человек</th>
+                            <th>Денег</th>
+                            <th>Человек</th>
+                            <th>Денег</th>
+                            <? if(Yii::$app->user->identity->access > 50): ?>
+                                <th>Человек</th>
+                                <th>Денег</th>
+                                <th>Человек</th>
+                                <th>Денег</th>
+                            <? endif ?>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <? foreach ($stats as $data): ?>
+                        <tr>
+                            <td><?= $data['point'] ?></td>
+                            <td><?= $data['peopleToday'] ?></td>
+                            <td><?= $data['profitToday'] ?></td>
+                            <td><?= $data['peopleTomorrow'] ?></td>
+                            <td><?= $data['profitTomorrow'] ?></td>
+                            <? if(Yii::$app->user->identity->access > 50): ?>
+                                <td><?= $data['peopleThisMonth'] ?></td>
+                                <td><?= $data['profitThisMonth'] ?></td>
+                                <td><?= $data['peoplePrevMonth'] ?></td>
+                                <td><?= $data['profitPrevMonth'] ?></td>
+                            <? endif ?>
+                            <td><?= $data['debt'] ?></td>
+                        </tr>
+                    <? endforeach ?>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>

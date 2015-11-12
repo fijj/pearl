@@ -1,6 +1,8 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Orders;
+use backend\models\settings\Point;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -57,10 +59,27 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $clients = new Clients();
+        $points = Point::find()->all();
+        foreach ($points as $point){
+            $stats[] = [
+                'point' => $point->label,
+                'peopleToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->count(),
+                'profitToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->sum('cost'),
+                'peopleTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()-1')->count(),
+                'profitTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()-1')->sum('cost'),
+                'peopleThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->count(),
+                'profitThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->sum('cost'),
+                'peoplePrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->count(),
+                'profitPrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->sum('cost'),
+                'debt' => Orders::find()->where(['pointId' => $point->id])->sum('debt'),
+            ];
+        }
 
         return $this->render('index',[
-            'clients' => $clients
+            'clients' => $clients,
+            'stats' => $stats
         ]);
+
     }
 
     public function actionLogin()

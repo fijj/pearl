@@ -230,7 +230,7 @@ label.file-in{
 /********************************************************/
 
 #client-search-form{
-    margin: 130px auto;
+    margin: 20px auto;
 }
 
 #client-search-form #clients-fullname{
@@ -240,10 +240,10 @@ label.file-in{
 }
 #client-search-form a{
     text-align: center;
-    display: inline-block;
-    font-size: 21px;
-    padding: 6px 10px;
-    margin-top: 42px;
+    display: block;
+    font-size: 27px;
+    margin: 46px auto;
+    width: 30px;
 }
 #client-search-form button{
     width: 100%;
