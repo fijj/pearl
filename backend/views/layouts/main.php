@@ -51,6 +51,9 @@ AppAsset::register($this);
             'label' => 'Менеджеры', 'url' => ['settings/managers/index'],
         ];
         $menuItems[] = [
+            'label' => 'Задачи', 'url' => ['tasks/index'],
+        ];
+        $menuItems[] = [
             'label' => 'Точки', 'url' => ['settings/point/index'],
         ];
         $menuItems[] = [

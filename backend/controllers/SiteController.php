@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use backend\models\Orders;
 use backend\models\settings\Point;
+use backend\models\Tasks;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -59,6 +60,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $clients = new Clients();
+        $tasks = Tasks::find()->orderBy(['id' => SORT_DESC])->all();
         $points = Point::find()->all();
         foreach ($points as $point){
             $stats[] = [
@@ -77,7 +79,8 @@ class SiteController extends Controller
 
         return $this->render('index',[
             'clients' => $clients,
-            'stats' => $stats
+            'stats' => $stats,
+            'tasks' => $tasks
         ]);
 
     }

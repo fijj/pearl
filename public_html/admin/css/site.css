@@ -253,3 +253,47 @@ label.file-in{
 .ui-autocomplete{
     font-size: 21px;
 }
+
+.tasks-container{
+    min-height: 300px;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.tasks-container .glyphicon{
+
+}
+.task-date{
+    padding: 0px 5px 0 5px;
+    color: #b7b8b8;
+    font-size: 12px;
+}
+
+.blink {
+    -webkit-animation: blink 2s linear infinite;
+    animation: blink 2s linear infinite;
+}
+
+@-webkit-keyframes blink {
+    0% {
+        color: rgb(219, 0, 0);
+    }
+    50% {
+        color: rgba(34, 34, 34, 0);
+    }
+    100% {
+        color: rgb(219, 0, 0);
+    }
+}
+
+@keyframes blink {
+    0% {
+        color: rgb(219, 0, 0);
+    }
+    50% {
+        color: rgba(34, 34, 34, 0);
+    }
+    100% {
+        color: rgb(219, 0, 0);
+    }
+}

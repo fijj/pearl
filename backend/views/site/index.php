@@ -39,6 +39,30 @@ $this->title = 'Поиск клиента';
         </div>
     </div>
     <?php ActiveForm::end() ?>
+
+    <div class="row">
+        <div class="tasks-container panel panel-default">
+            <div class="panel-body">
+                <? foreach($tasks as $data): ?>
+                    <blockquote>
+                        <p>
+                           <? if ($data->type == 0): ?>
+
+                           <? elseif ($data->type == 1): ?>
+                                <span class="glyphicon glyphicon-star"></span>
+                           <? elseif ($data->type == 2): ?>
+                                <span class="blink glyphicon glyphicon-eye-open"></span>
+                           <? endif ?>
+                           <span class="task-date"><?= $data->date ?></span>
+                        </p>
+                        <p><?= $data->title ?></p>
+                        <footer><?= $data->message ?></footer>
+                    </blockquote>
+                <? endforeach ?>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-body">
