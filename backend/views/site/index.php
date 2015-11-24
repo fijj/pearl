@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\web\JsExpression;
 
 $this->title = 'Поиск клиента';
+$total = [];
 ?>
 <div class="site-index">
     <?
@@ -108,7 +109,33 @@ $this->title = 'Поиск клиента';
                             <? endif ?>
                             <td><?= $data['debt'] ?></td>
                         </tr>
+                        <?
+                        //Итого
+                            $total['peopleToday'] += $data['peopleToday'];
+                            $total['profitToday'] += $data['profitToday'];
+                            $total['peopleTomorrow'] += $data['peopleTomorrow'];
+                            $total['profitTomorrow'] += $data['profitTomorrow'];
+                            $total['peopleThisMonth'] += $data['peopleThisMonth'];
+                            $total['profitThisMonth'] += $data['profitThisMonth'];
+                            $total['peoplePrevMonth'] += $data['peoplePrevMonth'];
+                            $total['profitPrevMonth'] += $data['profitPrevMonth'];
+                            $total['debt'] += $data['debt'];
+                        ?>
                     <? endforeach ?>
+                    <tr>
+                        <td><b>Итого</b></td>
+                        <td><b><?= $total['peopleToday'] ?></b></td>
+                        <td><b><?= $total['profitToday'] ?></b></td>
+                        <td><b><?= $total['peopleTomorrow'] ?></b></td>
+                        <td><b><?= $total['profitTomorrow'] ?></b></td>
+                        <? if(Yii::$app->user->identity->access > 50): ?>
+                            <td><b><?= $total['peopleThisMonth'] ?></b></td>
+                            <td><b><?= $total['profitThisMonth'] ?></b></td>
+                            <td><b><?= $total['peoplePrevMonth'] ?></b></td>
+                            <td><b><?= $total['profitPrevMonth'] ?></b></td>
+                        <? endif ?>
+                        <td><b><?= $total['debt'] ?></b></td>
+                    </tr>
                 </table>
             </div>
         </div>
