@@ -23,6 +23,7 @@ $('.btn-danger, .confirm-msg').on('click', function(e){
     }
 });
 
+//MASK
 $(document).ready(function(){
     $("#clients-phone").mask("+7 (999) 999-99-99");
 });
@@ -35,13 +36,7 @@ $(document).ready(function(){
         }
     });
 });
-/*
-$(document).ready(function () {
-    $('#clients-fullname').autocomplete({
-        'select' : function( event, ui ) {
-            window.location = 'index.php?r=orders/new&id=' + ui.item.id;
-        }
-    });
-});
 
-*/
+$( "#sort1, #sort2" ).sortable({
+    connectWith: ".connectedSortable"
+}).disableSelection();

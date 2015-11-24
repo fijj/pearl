@@ -42,6 +42,9 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Вход', 'url' => ['site/login']];
     } else {
         $menuItems[] = [
+            'label' => 'Приемка', 'url' => ['reception/index'],
+        ];
+        $menuItems[] = [
             'label' => 'Заказы', 'url' => ['orders/index'],
         ];
         $menuItems[] = [
