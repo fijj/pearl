@@ -74,7 +74,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'attribute' => 'clientId',
                 'value' => function($data){
-                        return Html::a($data->clients->fullName, ['clients/update', 'id' => $data->clients->id]);
+                        return Html::a($data->clients->fullName, ['clients/view', 'id' => $data->clients->id]);
                     }
             ],
             [

@@ -10,6 +10,9 @@ use backend\models\settings\Type;
 
 class Orders extends ActiveRecord
 {
+    const STATUS_IN_WORKSHOP = '1';
+    const STATUS_READY = '2';
+    const STATUS_HISTORY = '3';
 
     public function rules(){
         return [

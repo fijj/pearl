@@ -1,6 +1,7 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Orders;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
@@ -27,7 +28,7 @@ class ClientsController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete', 'view'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -71,6 +72,49 @@ class ClientsController extends Controller
             $array[$key]['label'] = $data->fullName.' '.$data->phone;
         }
         echo json_encode($array);
+    }
+
+    public function actionView($id){
+        $client = Clients::findOne($id);
+        $orders['total'] = Orders::find()->where(['clientId' => $id])->sum('cost');
+        $orders['debt'] = Orders::find()->where(['clientId' => $id])->sum('debt');
+        $orders['visits'] = Orders::find()->where(['clientId' => $id])->count();
+
+        $dataProvider['ready'] = new ActiveDataProvider([
+            'query' => Orders::find()->where(['clientId' => $id, 'statusId' => Orders::STATUS_READY]),
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
+        ]);
+        $dataProvider['workshop'] = new ActiveDataProvider([
+            'query' => Orders::find()->where(['clientId' => $id, 'statusId' => Orders::STATUS_IN_WORKSHOP]),
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
+        ]);
+        $dataProvider['history'] = new ActiveDataProvider([
+            'query' => Orders::find()->where(['clientId' => $id, 'statusId' => Orders::STATUS_HISTORY]),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'date' => SORT_DESC,
+                ],
+            ],
+        ]);
+
+        return $this->render('view',[
+            'dataProvider' => $dataProvider,
+            'client' => $client,
+            'orders' => $orders,
+            'action' => 'create'
+        ]);
+
     }
 
     public function actionNew(){

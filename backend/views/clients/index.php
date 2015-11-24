@@ -18,7 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     'filterModel' => $searchModel,
     'columns' => [
         [
-            'attribute' => 'firstName'
+            'attribute' => 'firstName',
+            'format' => 'html',
+            'value' => function($data){
+                return Html::a($data->firstName, ['clients/view', 'id' => $data->id]);
+            }
         ],
         [
             'attribute' => 'secondName'
