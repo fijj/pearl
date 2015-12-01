@@ -21,7 +21,7 @@ class Point extends ActiveRecord
         ];
     }
 
-    public static  function dropDownArray(){
+    public static function dropDownArray(){
         return ArrayHelper::map(self::find()->asArray()->all(), 'id', 'label');
     }
 }

@@ -1,16 +1,16 @@
 <?php
 namespace backend\controllers;
 
+use backend\models\Stats;
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use backend\models\Orders;
 
 /**
  * Site controller
  */
-class ReceptionController extends Controller
+class StatsController extends Controller
 {
     /**
      * @inheritdoc
@@ -26,9 +26,12 @@ class ReceptionController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete'],
+                        'actions' => ['logout', 'index', 'profit', 'visits'],
                         'allow' => true,
                         'roles' => ['@'],
+                        'matchCallback' => function ($rule, $action) {
+                                return (Yii::$app->user->identity->access > 50)? true : false;
+                            }
                     ],
                 ],
             ],
@@ -52,10 +55,13 @@ class ReceptionController extends Controller
             ],
         ];
     }
-
     public function actionIndex(){
-
-        return $this->render('index', [
+        $model = new Stats();
+        $model->load(Yii::$app->request->get());
+        $data = $model->dateArr();
+        return $this->render('index',[
+            'model' => $model,
+            'data' => $data
         ]);
     }
 }

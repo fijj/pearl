@@ -36,7 +36,3 @@ $(document).ready(function(){
         }
     });
 });
-
-$( "#sort1, #sort2" ).sortable({
-    connectWith: ".connectedSortable"
-}).disableSelection();

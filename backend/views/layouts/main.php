@@ -63,6 +63,9 @@ AppAsset::register($this);
             'label' => 'Камеры', 'url' => ['cams/index'],
         ];
         $menuItems[] = [
+            'label' => 'Статистика', 'url' => ['stats/index'],
+        ];
+        $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
             'url' => ['site/logout'],
             'linkOptions' => ['data-method' => 'post']
