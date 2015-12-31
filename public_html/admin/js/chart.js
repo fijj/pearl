@@ -1,5 +1,10 @@
 //FLOT
 $(function() {
+
+    for (var i = 0; i < data.length; ++i) {
+        data[i][0] += 60 * 60 * 1000;
+    }
+
     function weekendAreas(axes) {
 
         var markings = [],
