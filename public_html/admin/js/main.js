@@ -36,3 +36,8 @@ $(document).ready(function(){
         }
     });
 });
+
+//submit btn disable
+$('#clients-form').on('submit', function(e) {
+    $('button').prop('disabled', true);
+});
