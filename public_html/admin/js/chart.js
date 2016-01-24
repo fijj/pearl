@@ -44,7 +44,7 @@ $(function() {
     var plot = $.plot("#placeholder", [
         {
             data: data,
-            label: label,
+            label: label
         }
     ], {
         series: {
@@ -57,7 +57,7 @@ $(function() {
             },
             bars: {
                 show: true,
-                lineWidth: 3
+                lineWidth: 5
             }
         },
         grid: {
@@ -69,11 +69,15 @@ $(function() {
             mode: "time",
             timeformat: "%d.%m.%Y",
             minTickSize: [1, "day"],
-            tickDecimals: 0
+            tickDecimals: 0,
+            zoomRange: true,
+            panRange: true
         },
         yaxis: {
             min: 0,
-            tickDecimals: 0
+            tickDecimals: 0,
+            zoomRange: false,
+            panRange: [0, 10000000]
         },
         zoom: {
             interactive: true
