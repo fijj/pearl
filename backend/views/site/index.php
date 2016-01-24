@@ -98,43 +98,43 @@ $total = [];
                         <tr>
                             <td><?= $data['point'] ?></td>
                             <td><?= $data['peopleToday'] ?></td>
-                            <td><?= $data['profitToday'] ?></td>
+                            <td><?= Yii::$app->formatter->asDecimal($data['profitToday'], 2) ?></td>
                             <td><?= $data['peopleTomorrow'] ?></td>
-                            <td><?= $data['profitTomorrow'] ?></td>
+                            <td><?= Yii::$app->formatter->asDecimal($data['profitTomorrow'], 2) ?></td>
                             <? if(Yii::$app->user->identity->access > 50): ?>
                                 <td><?= $data['peopleThisMonth'] ?></td>
-                                <td><?= $data['profitThisMonth'] ?></td>
+                                <td><?= Yii::$app->formatter->asDecimal($data['profitThisMonth'], 2) ?></td>
                                 <td><?= $data['peoplePrevMonth'] ?></td>
-                                <td><?= $data['profitPrevMonth'] ?></td>
+                                <td><?= Yii::$app->formatter->asDecimal($data['profitPrevMonth'], 2) ?></td>
                             <? endif ?>
-                            <td><?= $data['debt'] ?></td>
+                            <td><?= Yii::$app->formatter->asDecimal($data['debt'], 2) ?></td>
                         </tr>
                         <?
                         //Итого
                             $total['peopleToday'] += $data['peopleToday'];
-                            $total['profitToday'] += $data['profitToday'];
+                            Yii::$app->formatter->asDecimal($total['profitToday'] += $data['profitToday'], 2);
                             $total['peopleTomorrow'] += $data['peopleTomorrow'];
-                            $total['profitTomorrow'] += $data['profitTomorrow'];
+                            Yii::$app->formatter->asDecimal($total['profitTomorrow'] += $data['profitTomorrow'], 2);
                             $total['peopleThisMonth'] += $data['peopleThisMonth'];
-                            $total['profitThisMonth'] += $data['profitThisMonth'];
+                            Yii::$app->formatter->asDecimal($total['profitThisMonth'] += $data['profitThisMonth'], 2);
                             $total['peoplePrevMonth'] += $data['peoplePrevMonth'];
-                            $total['profitPrevMonth'] += $data['profitPrevMonth'];
-                            $total['debt'] += $data['debt'];
+                            Yii::$app->formatter->asDecimal($total['profitPrevMonth'] += $data['profitPrevMonth'], 2);
+                            Yii::$app->formatter->asDecimal($total['debt'] += $data['debt'], 2);
                         ?>
                     <? endforeach ?>
                     <tr>
                         <td><b>Итого</b></td>
                         <td><b><?= $total['peopleToday'] ?></b></td>
-                        <td><b><?= $total['profitToday'] ?></b></td>
+                        <td><b><?= Yii::$app->formatter->asDecimal($total['profitToday'], 2) ?></b></td>
                         <td><b><?= $total['peopleTomorrow'] ?></b></td>
-                        <td><b><?= $total['profitTomorrow'] ?></b></td>
+                        <td><b><?= Yii::$app->formatter->asDecimal($total['profitTomorrow'], 2) ?></b></td>
                         <? if(Yii::$app->user->identity->access > 50): ?>
                             <td><b><?= $total['peopleThisMonth'] ?></b></td>
-                            <td><b><?= $total['profitThisMonth'] ?></b></td>
+                            <td><b><?= Yii::$app->formatter->asDecimal($total['profitThisMonth'], 2) ?></b></td>
                             <td><b><?= $total['peoplePrevMonth'] ?></b></td>
-                            <td><b><?= $total['profitPrevMonth'] ?></b></td>
+                            <td><b><?= Yii::$app->formatter->asDecimal($total['profitPrevMonth'], 2) ?></b></td>
                         <? endif ?>
-                        <td><b><?= $total['debt'] ?></b></td>
+                        <td><b><?= Yii::$app->formatter->asDecimal($total['debt'], 2) ?></b></td>
                     </tr>
                 </table>
             </div>

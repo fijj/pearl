@@ -66,13 +66,13 @@ class SiteController extends Controller
             $stats[] = [
                 'point' => $point->label,
                 'peopleToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->count(),
-                'profitToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->sum('cost'),
+                'profitToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->sum('cost') * ((100 - $point->discount)/100),
                 'peopleTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()-1')->count(),
-                'profitTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()-1')->sum('cost'),
+                'profitTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()-1')->sum('cost') * ((100 - $point->discount)/100),
                 'peopleThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->count(),
-                'profitThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->sum('cost'),
+                'profitThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->sum('cost') * ((100 - $point->discount)/100),
                 'peoplePrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->count(),
-                'profitPrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->sum('cost'),
+                'profitPrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->sum('cost') * ((100 - $point->discount)/100),
                 'debt' => Orders::find()->where(['pointId' => $point->id])->sum('debt'),
             ];
         }
