@@ -7,6 +7,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use backend\models\Orders;
+use backend\models\Ticket1;
+use backend\models\Ticket2;
+use backend\models\Ticket3;
 
 /**
  * Site controller
@@ -71,6 +74,31 @@ class OrdersController extends Controller
             $orders->costTotal = $orders->costTotal();
             $orders->debt = $orders->debt();
             $orders->save();
+
+            if($orders->typeId == 4){
+                $ticket = new Ticket1();
+                $ticket->orderId = $orders->id;
+                $ticket->clientId = $orders->clientId;
+                $ticket->save();
+                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '1']);
+            }
+
+            elseif($orders->typeId == 7){
+                $ticket = new Ticket2();
+                $ticket->orderId = $orders->id;
+                $ticket->clientId = $orders->clientId;
+                $ticket->save();
+                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '2']);
+            }
+
+            else{
+                $ticket = new Ticket3();
+                $ticket->orderId = $orders->id;
+                $ticket->clientId = $orders->clientId;
+                $ticket->save();
+                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '3']);
+            }
+
             Yii::$app->getSession()->setFlash('success', 'Заказ создан');
             return $this->redirect(['orders/index']);
         }

@@ -10,14 +10,14 @@ class Clients extends ActiveRecord
     public function rules(){
         return [
             [['firstName', 'secondName', 'thirdName'], 'required', 'on' => 'default'],
-            [['phoneHome', 'fullName'], 'safe', 'on' => 'default'],
+            [['phoneHome', 'fullName', 'address'], 'safe', 'on' => 'default'],
             [['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome'], 'safe', 'on' => 'filter'],
         ];
     }
 
     public function scenarios(){
         return[
-            'default' => ['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome', 'fullName'],
+            'default' => ['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome', 'fullName', 'address'],
             'filter' => ['firstName', 'secondName', 'thirdName', 'phone', 'phoneHome']
         ];
     }
@@ -28,7 +28,8 @@ class Clients extends ActiveRecord
             'secondName' => 'Имя',
             'thirdName' => 'Отчество',
             'phone' => 'Телефон мобильный',
-            'phoneHome' => 'Телефон домашний'
+            'phoneHome' => 'Телефон домашний',
+            'address' => 'Адрес'
         ];
     }
 

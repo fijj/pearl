@@ -31,7 +31,7 @@ AppAsset::register($this);
         'brandLabel' => 'Жемчужина CRM',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
+            'class' => 'navbar-inverse navbar-fixed-top hidden-print',
         ],
         //'innerContainerOptions' => ['class'=>'container-fluid'],
     ]);
@@ -81,13 +81,14 @@ AppAsset::register($this);
     <div class="main-body container">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            'options' => ['class' => 'breadcrumb hidden-print']
         ]) ?>
         <?= Alert::widget() ?>
         <?= $content ?>
     </div>
 </div>
 
-<footer class="footer">
+<footer class="footer hidden-print">
     <div class="container">
         <p class="pull-left">&copy; Жемчужина <?= date('Y') ?></p>
 

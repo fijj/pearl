@@ -88,6 +88,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             [
                 'class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'view' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-list-alt"></span>', ['ticket/update', 'id' => $model->id]);
+                        }
+                ],
 
             ],
 

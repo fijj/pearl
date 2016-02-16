@@ -29,7 +29,6 @@ $form = ActiveForm::begin([
 <?= $form->field($clients, 'thirdName') ?>
 <?= $form->field($clients, 'phone') ?>
 <?= $form->field($clients, 'phoneHome') ?>
-<?= $form->field($clients, 'address') ?>
 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right']) ?>
 
 <?php ActiveForm::end() ?>
