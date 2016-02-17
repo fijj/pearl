@@ -6,6 +6,7 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use backend\models\Orders;
+use backend\models\Reception;
 
 /**
  * Site controller
@@ -26,16 +27,10 @@ class ReceptionController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete'],
+                        'actions' => ['logout', 'index'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -54,8 +49,14 @@ class ReceptionController extends Controller
     }
 
     public function actionIndex(){
+        $model = new Reception();
+
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+        }
 
         return $this->render('index', [
+            'model' => $model
         ]);
     }
 }

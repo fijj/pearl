@@ -276,26 +276,35 @@ label.file-in{
 
 @-webkit-keyframes blink {
     0% {
-        color: rgb(219, 0, 0);
+        opacity: 1;
     }
     50% {
-        color: rgba(34, 34, 34, 0);
+        opacity: 0;
     }
     100% {
-        color: rgb(219, 0, 0);
+        opacity: 1;
     }
 }
 
 @keyframes blink {
     0% {
-        color: rgb(219, 0, 0);
+        opacity: 1;
     }
     50% {
-        color: rgba(34, 34, 34, 0);
+        opacity: 0;
     }
     100% {
-        color: rgb(219, 0, 0);
+        opacity: 1;
     }
+}
+
+/************** RECEPTION *****************/
+.scanner{
+    display: block;
+    margin: 0 auto;
+}
+#reception-code{
+    opacity: 0;
 }
 /************** TICKET-HEADER *****************/
 .ticket-logo{
@@ -414,7 +423,7 @@ label.file-in{
     width: 45px;
 }
 .param3{
-    width: 200px;
+    width: 100%;
 }
 .cost{
     width: 45px;

@@ -117,7 +117,7 @@ class OrdersController extends Controller
             $orders->save();
             Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
         }
-        return $this->render('form',[
+        return $this->renderAjax('form',[
             'orders' => $orders,
             'action' => 'update'
         ]);

@@ -7,11 +7,14 @@ tinymce.init({
 });
 
 //DATEPICKER
-$(document).ready(function(){
+function datepicker(){
     $('.datepicker').pickadate({
         format: 'yyyy-mm-dd',
         formatSubmit: 'yyyy-mm-dd'
     });
+}
+$(document).ready(function(){
+    datepicker();
 });
 
 //CONFIRM
@@ -40,4 +43,43 @@ $(document).ready(function(){
 //submit btn disable
 $('#clients-form').on('submit', function(e) {
     $('button').prop('disabled', true);
+});
+
+//scanner
+$('#reception-code').keyup(function() {
+    return function() {
+        var $this = $(this);
+        clearTimeout($this.data('timeout'));
+        $this.data('timeout', setTimeout(function(){
+            $.get( "index.php?r=orders/update&id=" + $this.val(), function( data ) {
+                $('.scanner-header').remove();
+                $( ".result" ).html( data );
+                datepicker();
+            });
+        }, 200));
+    };
+}());
+
+$(document).on("beforeSubmit", "#order-form", function () {
+    var form = $(this);
+    if(form.find('.has-error').length) {
+        return false;
+    }
+
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(data) {
+            document.location.href="index.php?r=reception/index";
+        },
+        error: function(){
+            alert('ошибка');
+        }
+    });
+    return false;
+});
+
+$(document).on('click', function(){
+    $('#reception-code').focus();
 });

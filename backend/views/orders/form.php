@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <?
 $form = ActiveForm::begin([
-    'id' => 'clients-form',
+    'id' => 'order-form',
 ])
 ?>
 
