@@ -15,7 +15,10 @@ $config = [
             // message source
             // 'downloadAction' => 'gridview/export/download',
             // 'i18n' => []
-        ]
+        ],
+        'dialog' => [
+            'class' => 'backend\modules\dialog\Module',
+        ],
     ]
 ];
 

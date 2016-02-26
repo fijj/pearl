@@ -36,38 +36,41 @@ AppAsset::register($this);
         //'innerContainerOptions' => ['class'=>'container-fluid'],
     ]);
     $menuItems = [
-        ['label' => 'Главная', 'url' => ['site/index']],
+        ['label' => 'Главная', 'url' => ['/site/index']],
     ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Вход', 'url' => ['site/login']];
+        $menuItems[] = ['label' => 'Вход', 'url' => ['/site/login']];
     } else {
         $menuItems[] = [
-            'label' => 'Приемка', 'url' => ['reception/index'],
+            'label' => 'Приемка', 'url' => ['/reception/index'],
         ];
         $menuItems[] = [
-            'label' => 'Заказы', 'url' => ['orders/index'],
+            'label' => 'Заказы', 'url' => ['/orders/index'],
         ];
         $menuItems[] = [
-            'label' => 'Клиенты', 'url' => ['clients/index'],
+            'label' => 'Клиенты', 'url' => ['/clients/index'],
         ];
         $menuItems[] = [
-            'label' => 'Менеджеры', 'url' => ['settings/managers/index'],
+            'label' => 'Менеджеры', 'url' => ['/settings/managers/index'],
         ];
         $menuItems[] = [
-            'label' => 'Задачи', 'url' => ['tasks/index'],
+            'label' => 'Задачи', 'url' => ['/tasks/index'],
         ];
         $menuItems[] = [
-            'label' => 'Точки', 'url' => ['settings/point/index'],
+            'label' => 'Диалоги', 'url' => ['/dialog/dialog/index'],
         ];
         $menuItems[] = [
-            'label' => 'Камеры', 'url' => ['cams/index'],
+            'label' => 'Точки', 'url' => ['/settings/point/index'],
         ];
         $menuItems[] = [
-            'label' => 'Статистика', 'url' => ['stats/index'],
+            'label' => 'Камеры', 'url' => ['/cams/index'],
+        ];
+        $menuItems[] = [
+            'label' => 'Статистика', 'url' => ['/stats/index'],
         ];
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',
-            'url' => ['site/logout'],
+            'url' => ['/site/logout'],
             'linkOptions' => ['data-method' => 'post']
         ];
     }
