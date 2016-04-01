@@ -69,7 +69,7 @@ class ClientsController extends Controller
         $model = Clients::find()->where(['like', 'fullName',  $term])->orWhere(['like', 'phone',  $term])->limit(10)->all();
         foreach ($model as $key => $data){
             $array[$key]['id'] = $data->id;
-            $array[$key]['label'] = $data->fullName.' '.$data->phone;
+            $array[$key]['label'] = $data->fullName.' '.$data->phone.' | Заказов:'.Orders::find()->where(['clientId' => $data->id])->count();;
         }
         echo json_encode($array);
     }

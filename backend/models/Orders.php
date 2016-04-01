@@ -10,15 +10,16 @@ use backend\models\settings\Type;
 
 class Orders extends ActiveRecord
 {
-    const STATUS_IN_WORKSHOP = '1';
-    const STATUS_READY = '2';
-    const STATUS_HISTORY = '3';
+    const STATUS_IN_WORKSHOP = 1;
+    const STATUS_READY = 2;
+    const STATUS_HISTORY = 3;
+    const STATUS_RECLEAN = 4;
 
     public function rules(){
         return [
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
             [['contract'], 'safe'],
-            [['number'], 'integer'],
+            [['number', 'ccount'], 'integer'],
             [['cost', 'paid', 'costTotal'], 'double'],
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
         ];
@@ -26,7 +27,7 @@ class Orders extends ActiveRecord
 
     public function scenarios(){
         return[
-            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt'],
+            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt', 'ccount'],
             'filter' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate', 'contract', 'debt']
         ];
     }
@@ -44,7 +45,8 @@ class Orders extends ActiveRecord
             'outDate' => 'Дата завершения',
             'costTotal' => 'Итого с учетом коэффицента скидки',
             'contract' => 'Номер квитанции',
-            'debt' => 'Долг'
+            'debt' => 'Долг',
+            'ccount' => 'Перечистки'
         ];
     }
 

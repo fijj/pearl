@@ -114,6 +114,9 @@ class OrdersController extends Controller
         if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
             $orders->costTotal = $orders->costTotal();
             $orders->debt = $orders->debt();
+            if($orders->statusId == Orders::STATUS_RECLEAN && $orders->getOldAttribute('statusId') != Orders::STATUS_RECLEAN){
+                $orders->updateCounters(['ccount' => 1]);
+            }
             $orders->save();
             Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
         }

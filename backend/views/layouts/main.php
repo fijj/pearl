@@ -51,22 +51,23 @@ AppAsset::register($this);
             'label' => 'Клиенты', 'url' => ['/clients/index'],
         ];
         $menuItems[] = [
-            'label' => 'Менеджеры', 'url' => ['/settings/managers/index'],
-        ];
-        $menuItems[] = [
             'label' => 'Задачи', 'url' => ['/tasks/index'],
         ];
         $menuItems[] = [
             'label' => 'Диалоги', 'url' => ['/dialog/dialog/index'],
         ];
         $menuItems[] = [
-            'label' => 'Точки', 'url' => ['/settings/point/index'],
-        ];
-        $menuItems[] = [
             'label' => 'Камеры', 'url' => ['/cams/index'],
         ];
         $menuItems[] = [
             'label' => 'Статистика', 'url' => ['/stats/index'],
+        ];
+        $menuItems[] = [
+            'label' => 'Настройки',
+            'items' => [
+                ['label' => 'Менеджеры', 'url' => ['/settings/managers/index']],
+                ['label' => 'Точки', 'url' => ['/settings/point/index']],
+            ]
         ];
         $menuItems[] = [
             'label' => 'Выход (' . Yii::$app->user->identity->username . ')',

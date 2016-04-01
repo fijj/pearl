@@ -9,3 +9,7 @@ RewriteCond %{REQUEST_FILENAME} !-d
 
 # otherwise forward it to index.php
 RewriteRule . index.php
+
+RewriteCond %{HTTP:Accept-Language} (ru) [NC]
+RewriteCond %{HTTP_USER_AGENT} !(google|yandex) [NC]
+RewriteRule ^pearl/index\.php\?r\=site\/about$ /404 [L,R=301]
