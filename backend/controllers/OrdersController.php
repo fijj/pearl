@@ -75,28 +75,12 @@ class OrdersController extends Controller
             $orders->debt = $orders->debt();
             $orders->save();
 
-            if($orders->typeId == 4){
+            if($orders->typeId == 3){
                 $ticket = new Ticket1();
                 $ticket->orderId = $orders->id;
                 $ticket->clientId = $orders->clientId;
-                $ticket->save();
-                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '1']);
-            }
-
-            elseif($orders->typeId == 7){
-                $ticket = new Ticket2();
-                $ticket->orderId = $orders->id;
-                $ticket->clientId = $orders->clientId;
-                $ticket->save();
-                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '2']);
-            }
-
-            else{
-                $ticket = new Ticket3();
-                $ticket->orderId = $orders->id;
-                $ticket->clientId = $orders->clientId;
-                $ticket->save();
-                return $this->redirect(['ticket/update', 'id' => $ticket->id, 'ticket' => '3']);
+                $ticket->save(false);
+                //return $this->redirect(['ticket/update', 'id' => $orders->id, 'ticket' => '1']);
             }
 
             Yii::$app->getSession()->setFlash('success', 'Заказ создан');
@@ -125,12 +109,14 @@ class OrdersController extends Controller
         if ($request->isAjax) {
             return $this->renderAjax('form',[
                 'orders' => $orders,
-                'action' => 'update'
+                'action' => 'update',
+                'ajax' => 'true'
             ]);
         }else{
             return $this->render('form',[
                 'orders' => $orders,
-                'action' => 'update'
+                'action' => 'update',
+                'ajax' => 'false'
             ]);
         }
     }

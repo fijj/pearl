@@ -24,6 +24,9 @@ $this->params['breadcrumbs'][] = $this->title;
 <?
 $form = ActiveForm::begin([
     'id' => 'order-form',
+    'options' => [
+        'ajax' => $ajax,
+    ]
 ])
 ?>
     <div class="row">

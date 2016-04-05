@@ -11,8 +11,6 @@ use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use backend\models\Ticket1;
-use backend\models\Ticket2;
-use backend\models\Ticket3;
 use backend\libs\Barcode;
 
 /**
@@ -34,7 +32,7 @@ class TicketController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete', 'view', 'barcode'],
+                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete', 'view', 'barcode', 'print'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -71,21 +69,14 @@ class TicketController extends Controller
 
     public function actionUpdate($id){
         $order = Orders::findOne($id);
-        if($order->typeId == 4){
+        if($order->typeId == 3){
             $model = Ticket1::findOne(['orderId' => $order->id]);
             $view = 1;
         }
 
-        elseif($order->typeId == 7){
-            $model = Ticket2::findOne(['orderId' => $order->id]);
-            $view = 2;
+        if($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->save();
         }
-
-        else{
-            $model = Ticket3::findOne(['orderId' => $order->id]);
-            $view = 3;
-        }
-
 
         return $this->render('ticket-'.$view,[
             'model' => $model,
@@ -94,6 +85,14 @@ class TicketController extends Controller
 
     public function actionBarcode(){
         Barcode::generate();
+    }
+
+    public function actionPrint($id){
+        $model = Ticket1::findOne($id);
+
+        return $this->renderPartial('print-1',[
+            'model' => $model,
+        ]);
     }
 
 }

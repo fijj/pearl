@@ -60,7 +60,7 @@ $('#reception-code').keyup(function() {
     };
 }());
 
-$(document).on("beforeSubmit", "#order-form", function () {
+$(document).on("beforeSubmit", "#order-form[ajax=true]", function () {
     var form = $(this);
     if(form.find('.has-error').length) {
         return false;
