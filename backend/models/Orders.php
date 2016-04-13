@@ -15,11 +15,20 @@ class Orders extends ActiveRecord
     const STATUS_HISTORY = 3;
     const STATUS_RECLEAN = 4;
 
+    const TYPE_SUIT = 1;
+    const TYPE_COAT = 2;
+    const TYPE_TEXTILE = 3;
+    const TYPE_LEATHER = 4;
+    const TYPE_PILLOW = 5;
+    const TYPE_LEATHER_PAINT = 6;
+    const TYPE_CARPET = 7;
+    const TYPE_FURNITURE = 8;
+
+
     public function rules(){
         return [
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
-            [['contract'], 'safe'],
-            [['number', 'ccount'], 'integer'],
+            [['number', 'contract', 'ccount'], 'integer'],
             [['cost', 'paid', 'costTotal'], 'double'],
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
         ];
@@ -76,15 +85,15 @@ class Orders extends ActiveRecord
 
         // adjust the query by adding the filters
         $query->andFilterWhere(['like', 'date', $this->date])
-            ->andFilterWhere(['like', 'number', $this->number])
-            ->andFilterWhere(['like', 'typeId', $this->typeId])
-            ->andFilterWhere(['like', 'pointId', $this->pointId])
-            ->andFilterWhere(['like', 'statusId', $this->statusId])
+            ->andFilterWhere(['=', 'number', $this->number])
+            ->andFilterWhere(['=', 'typeId', $this->typeId])
+            ->andFilterWhere(['=', 'pointId', $this->pointId])
+            ->andFilterWhere(['=', 'statusId', $this->statusId])
             ->andFilterWhere(['like', 'firstName', $this->clientId])
-            ->andFilterWhere(['like', 'outDate', $this->outDate])
-            ->andFilterWhere(['like', 'contract', $this->contract])
-            ->andFilterWhere(['like', 'cost', $this->cost])
-            ->andFilterWhere(['like', 'debt', $this->debt]);
+            ->andFilterWhere(['=', 'outDate', $this->outDate])
+            ->andFilterWhere(['=', 'contract', $this->contract])
+            ->andFilterWhere(['=', 'cost', $this->cost])
+            ->andFilterWhere(['=', 'debt', $this->debt]);
         return $dataProvider;
     }
 

@@ -30,6 +30,7 @@ $form = ActiveForm::begin([
 <?= $form->field($clients, 'phone') ?>
 <?= $form->field($clients, 'phoneHome') ?>
 <?= $form->field($clients, 'address') ?>
+<?= $form->field($clients, 'from')->dropDownList($clients->fromArr, ['prompt' => '--Выбрать из списка--']) ?>
 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right']) ?>
 
 <?php ActiveForm::end() ?>

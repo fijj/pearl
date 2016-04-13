@@ -83,3 +83,10 @@ $(document).on("beforeSubmit", "#order-form[ajax=true]", function () {
 $(document).on('click', function(){
     $('#reception-code').focus();
 });
+
+//INPUT REFRESH DYNAMICFORM
+$(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
+    $(item).find("[type=checkbox]").prop('checked', false)
+    $(item).find('input').val('');
+    $(item).find('select').val(0);
+});

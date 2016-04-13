@@ -2,16 +2,14 @@
 namespace backend\controllers;
 
 use backend\models\Orders;
+use backend\models\Textile;
 use Yii;
-use yii\base\Model;
-use yii\base\Object;
-use yii\BaseYii;
-use yii\db\ActiveRecord;
+use backend\models\Model;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use backend\models\Ticket1;
 use backend\libs\Barcode;
+use yii\helpers\ArrayHelper;
 
 /**
  * Site controller
@@ -50,6 +48,7 @@ class TicketController extends Controller
     /**
      * @inheritdoc
      */
+
     public function actions()
     {
         return [
@@ -60,7 +59,7 @@ class TicketController extends Controller
     }
     public function actionIndex(){
 
-        $model = new Ticket1();
+        $model = new Textile();
 
         return $this->render('index',[
             'model' => $model,
@@ -68,18 +67,47 @@ class TicketController extends Controller
     }
 
     public function actionUpdate($id){
+        //Поиск заказа
         $order = Orders::findOne($id);
-        if($order->typeId == 3){
-            $model = Ticket1::findOne(['orderId' => $order->id]);
-            $view = 1;
-        }
 
-        if($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->save();
-        }
+        //Определение типа квитанции
+        $ticket = $this->ticketModel($order);
 
-        return $this->render('ticket-'.$view,[
-            'model' => $model,
+        //Получение всех записей для квитанции
+        $model = $ticket::find()->where(['orderId' => $order->id])->all();
+
+        if (Yii::$app->request->isPost) {
+
+            //Список старых записей
+            $modelOldIDs = ArrayHelper::map($model, 'id', 'id');
+
+            //Множественное создание моделей
+            $model = Model::createMultiple($ticket, $model);
+
+            //Загрузка данных в модель из POST
+            Model::loadMultiple($model, Yii::$app->request->post());
+
+            //Удаленные записи
+            $modelDeletedIDs = array_diff($modelOldIDs, array_filter(ArrayHelper::map($model, 'id', 'id')));
+
+            //Валидация всех моделей
+            $valid = Model::validateMultiple($model);
+
+
+
+            if($valid){
+                if (! empty($modelDeletedIDs)) {
+                    $ticket::deleteAll(['id' => $modelDeletedIDs]);
+                }
+                foreach ($model as $item) {
+                    $item->orderId = $order->id;
+                    $item->clientId = $order->clientId;
+                    $item->save(false);
+                }
+            }
+        }
+        return $this->render('form/'.$ticket::TEMPLATE,[
+            'model' => (empty($model)) ? [new $ticket] : $model
         ]);
     }
 
@@ -88,11 +116,46 @@ class TicketController extends Controller
     }
 
     public function actionPrint($id){
-        $model = Ticket1::findOne($id);
-
-        return $this->renderPartial('print-1',[
-            'model' => $model,
+        $order = Orders::findOne($id);
+        $Ticket = $this->ticketModel($order);
+        $models = $Ticket::findAll(['orderId' => $id]);
+        return $this->renderPartial('print/'.$Ticket::TEMPLATE,[
+            'order' => $order,
+            'models' => $models
         ]);
+    }
+
+    private function ticketModel($order)
+        //Определение типа квитанции
+    {
+        switch ($order->typeId){
+            case(Orders::TYPE_SUIT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_COAT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_TEXTILE):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_PILLOW):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER_PAINT):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_CARPET):
+                $ticket = Carpet::className();
+                break;
+            case(Orders::TYPE_FURNITURE):
+                $ticket = Textile::className();
+                break;
+        }
+
+        return $ticket;
     }
 
 }

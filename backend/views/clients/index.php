@@ -18,6 +18,11 @@ $this->params['breadcrumbs'][] = $this->title;
     'filterModel' => $searchModel,
     'columns' => [
         [
+            'attribute' => 'ordersCount',
+            'format' => 'raw',
+            'contentOptions' => ['align' => 'center'],
+        ],
+        [
             'attribute' => 'firstName',
             'format' => 'html',
             'value' => function($data){
@@ -44,7 +49,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     },
             ],
         ],
-
     ],
 ]) ?>
 <? Pjax::end() ?>

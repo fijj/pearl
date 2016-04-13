@@ -4,8 +4,11 @@ namespace backend\models;
 use Yii;
 use yii\db\ActiveRecord;
 
-class Ticket1 extends ActiveRecord
+class Textile extends ActiveRecord
 {
+
+    const TEMPLATE = 'textile';
+
     public $numberArr = [
         0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
     ];
@@ -33,7 +36,7 @@ class Ticket1 extends ActiveRecord
         7 => '70%',
         8 => '80%',
         9 => '90%',
-        10 => '100'
+        10 => '100%'
     ];
 
     public $pollutionArr = [
@@ -45,6 +48,7 @@ class Ticket1 extends ActiveRecord
     public function rules(){
         return [
             [['caption'], 'required'],
+            [['param1n', 'param5n', 'param31n'], 'integer'],
             [[
                 'orderId',
                 'clientId',
