@@ -147,8 +147,14 @@ class ClientsController extends Controller
 
     public function actionDelete($id){
         $clients = Clients::findOne($id);
-        $clients->delete();
-        Yii::$app->getSession()->setFlash('success', 'Запись удалена');
-        return $this->redirect(['clients/index']);
+        $orders = Orders::find()->where(['clientId' => $id])->count();
+        if($orders > 0){
+            Yii::$app->getSession()->setFlash('error', 'У клиента есть заказы, удаление запрещено');
+            return $this->redirect(['clients/index']);
+        }else{
+            $clients->delete();
+            Yii::$app->getSession()->setFlash('success', 'Запись удалена');
+            return $this->redirect(['clients/index']);
+        }
     }
 }

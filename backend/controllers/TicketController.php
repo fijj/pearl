@@ -111,8 +111,9 @@ class TicketController extends Controller
         ]);
     }
 
-    public function actionBarcode(){
-        Barcode::generate();
+    public function actionBarcode($code){
+        $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
+        echo $generator->getBarcode($code, $generator::TYPE_CODE_128, 3, 60);
     }
 
     public function actionPrint($id){

@@ -118,8 +118,14 @@ class OrdersController extends Controller
     public function actionUpdate($id){
         $orders = Orders::findOne($id);
         if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
+
+            //Доход с учетом скидки для точки
             $orders->costTotal = $orders->costTotal();
+
+            //Расчет задолженности
             $orders->debt = $orders->debt();
+
+            //Счетчик перечисток
             if($orders->statusId == Orders::STATUS_RECLEAN && $orders->getOldAttribute('statusId') != Orders::STATUS_RECLEAN){
                 $orders->updateCounters(['ccount' => 1]);
             }

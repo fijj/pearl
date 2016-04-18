@@ -30,10 +30,10 @@ $form = ActiveForm::begin([
 ])
 ?>
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-2">
             <?= $form->field($orders, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-2">
             <?= $form->field($orders, 'outDate')->input('date', ['class' => 'datepicker form-control']) ?>
         </div>
     </div>

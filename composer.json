@@ -22,7 +22,8 @@
         "kartik-v/yii2-mpdf": "dev-master",
         "yiisoft/yii2-jui": "~2.0.0",
         "kartik-v/yii2-grid": "@dev",
-        "kartik-v/yii2-widgets": "*"
+        "kartik-v/yii2-widgets": "*",
+        "picqer/php-barcode-generator": "*"
     },
     "require-dev": {
         "yiisoft/yii2-codeception": "*",

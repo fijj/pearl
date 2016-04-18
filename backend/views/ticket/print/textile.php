@@ -7,7 +7,7 @@ use yii\widgets\ActiveForm;
 <div class="container">
     <div class="header">
         <img class="ticket-logo" src="img/logo.png">
-        <?= Html::img(['ticket/barcode', 'codetype' => 'Code128', 'size' => '60', 'text' => $order->id], ['class' => 'barcode']) ?>
+        <?= Html::img(['ticket/barcode', 'code' => $order->id], ['class' => 'barcode']) ?>
         <h1>Квитанция-договор № <?= $order->contract ?> </h1>
         <p>г.Старый Оскол,пр-кт Молодёжный.д.12,тел.45-21-26 ИНН 3128091487 КПП 312801001 ОГРН 1133128000323</p>
     </div>
@@ -22,6 +22,7 @@ use yii\widgets\ActiveForm;
         <table>
             <thead>
                 <tr>
+                    <th>Номер</th>
                     <th>Наименование</th>
                     <th>Маркировка</th>
                     <th>Степень износа</th>
@@ -40,8 +41,9 @@ use yii\widgets\ActiveForm;
                 </tr>
             </thead>
             <tbody>
-            <? foreach ($models as $model): ?>
+            <? foreach ($models as $key => $model): ?>
                 <tr>
+                    <td><?= $key + 1 ?></td>
                     <td><?= $model->caption ?></td>
                     <td><?= $model->markingArr[$model->marking] ?></td>
                     <td><?= $model->wearArr[$model->wear] ?></td>
@@ -169,7 +171,7 @@ use yii\widgets\ActiveForm;
 <div class="container">
     <div class="header">
         <img class="ticket-logo" src="img/logo.png">
-        <?= Html::img(['ticket/barcode', 'codetype' => 'Code128', 'size' => '60', 'text' => $order->id], ['class' => 'barcode']) ?>
+        <?= Html::img(['ticket/barcode', 'code' => $order->id], ['class' => 'barcode']) ?>
         <h1>Квитанция-договор № <?= $order->contract ?> </h1>
         <p>г.Старый Оскол,пр-кт Молодёжный.д.12,тел.45-21-26 ИНН 3128091487 КПП 312801001 ОГРН 1133128000323</p>
     </div>
