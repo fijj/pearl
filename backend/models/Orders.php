@@ -27,16 +27,16 @@ class Orders extends ActiveRecord
 
     public function rules(){
         return [
-            [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
-            [['number', 'contract', 'ccount'], 'integer'],
-            [['cost', 'paid', 'costTotal'], 'double'],
+            [['paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
+            [['number', 'contract', 'ccount', 'delivery'], 'integer'],
+            [['cost', 'paid', 'costTotal', 'deliveryCost'], 'double'],
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
         ];
     }
 
     public function scenarios(){
         return[
-            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt', 'ccount'],
+            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt', 'ccount', 'delivery' ,'deliveryCost'],
             'filter' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate', 'contract', 'debt']
         ];
     }
@@ -55,7 +55,10 @@ class Orders extends ActiveRecord
             'costTotal' => 'Итого с учетом коэффицента скидки',
             'contract' => 'Номер квитанции',
             'debt' => 'Долг',
-            'ccount' => 'Перечистки'
+            'ccount' => 'Перечистки',
+            'delivery' => 'Доставка',
+            'deliveryCost' => 'Стоимость доставки',
+            'ticketCost' => 'Стоимость услуг'
         ];
     }
 
@@ -119,5 +122,12 @@ class Orders extends ActiveRecord
 
     public function debt(){
         return $this->cost - $this->paid;
+    }
+
+
+    public function calculate(){
+        $this->cost = $this->deliveryCost + $this->ticketCost;
+        $this->debt = $this->cost - $this->paid;
+        $this->costTotal = $this->cost * (100 - $this->point->discount) / 100;
     }
 }

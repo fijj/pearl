@@ -6,8 +6,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $this yii\web\View */
 
 $this->title = $title;
-$this->params['breadcrumbs'][] = [
-    'label' => 'Квитанция',
+$this->params['breadcrumbs'] = [
+    ['label' => 'Заказы', 'url' => ['orders/index']],
+    ['label' => 'Квитанция'],
 ];
 
 $this->params['breadcrumbs'][] = $this->title;
@@ -124,7 +125,7 @@ $form = ActiveForm::begin([
 ?>
     <div class="container-ticket">
         <?php foreach ($model as $i => $item): ?>
-        <div class="ticket">
+        <div class="ticket col-md-4">
             <?php
             // necessary for update action.
             if (! $item->isNewRecord) {
@@ -138,21 +139,32 @@ $form = ActiveForm::begin([
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-6">
                     <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-5">
                     <?= $form->field($item, "[{$i}]color")?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($item, "[{$i}]cost")?>
+                </div>
+                <div class="col-md-3">
+                    <?= $form->field($item, "[{$i}]discount")?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= $form->field($item, "[{$i}]services")?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <div class="col-md-3">
+                            <div class="accordion">
                                 <p class="sub-header">Фурнитура cъемная</p>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -165,6 +177,8 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param2")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param3")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param4")->checkbox()?>
+                            </div>
+                            <div class="accordion">
                                 <p class="sub-header">Фурнитура неcъемная</p>
                                 <div class="row">
                                     <div class="col-md-6">
@@ -183,15 +197,8 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param12")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param13")->dropDownList($item->boolArr)?>
                                 <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
-                                <p class="sub-header">Предоставляемые услуги</p>
-                                <?= $form->field($item, "[{$i}]param72")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param73")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param74")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param75")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param76")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param77")->checkbox()?>
                             </div>
-                            <div class="col-md-3">
+                            <div class="accordion">
                                 <p class="sub-header">Дефекты изделия</p>
                                 <?= $form->field($item, "[{$i}]param14")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param15")->checkbox()?>
@@ -222,7 +229,7 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param33")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param34")->checkbox()?>
                             </div>
-                            <div class="col-md-3">
+                            <div class="accordion">
                                 <p class="sub-header">Пищевые пятна</p>
                                 <?= $form->field($item, "[{$i}]param35")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param36")->checkbox()?>
@@ -235,18 +242,8 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param43")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param44")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param45")->checkbox()?>
-                                <p class="sub-header">Косметические пятна</p>
-                                <?= $form->field($item, "[{$i}]param63")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param64")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param65")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param66")->checkbox()?>
-                                <p class="sub-header">Лекарственные пятна</p>
-                                <?= $form->field($item, "[{$i}]param67")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param68")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param69")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param70")->checkbox()?>
                             </div>
-                            <div class="col-md-3">
+                            <div class="accordion">
                                 <p class="sub-header">Бытовые пятна</p>
                                 <?= $form->field($item, "[{$i}]param46")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param47")->checkbox()?>
@@ -265,6 +262,28 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param60")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param61")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param62")->checkbox()?>
+                            </div>
+                            <div class="accordion">
+                                <p class="sub-header">Косметические пятна</p>
+                                <?= $form->field($item, "[{$i}]param63")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param64")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param65")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param66")->checkbox()?>
+                            </div>
+                            <div class="accordion">
+                                <p class="sub-header">Лекарственные пятна</p>
+                                <?= $form->field($item, "[{$i}]param67")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param68")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param69")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param70")->checkbox()?>
+                            </div>
+                            <div class="accordion">
+                                <p class="sub-header">Предоставляемые услуги</p>
+                                <?= $form->field($item, "[{$i}]param72")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param73")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param74")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param75")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param76")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param71")->dropDownList($item->boolArr)?>
                                 <?= $form->field($item, "[{$i}]other")->textarea(['rows' => 5])?>
                             </div>

@@ -99,11 +99,17 @@ class TicketController extends Controller
                 if (! empty($modelDeletedIDs)) {
                     $ticket::deleteAll(['id' => $modelDeletedIDs]);
                 }
+                $cost = 0;
                 foreach ($model as $item) {
                     $item->orderId = $order->id;
                     $item->clientId = $order->clientId;
                     $item->save(false);
+                    $cost += $item->cost - ($item->cost * $item->discount / 100);
                 }
+                //Обновление задолженности и стоимости с учетом скидки для точки
+                $order->ticketCost = $cost;
+                $order->calculate();
+                $order->save();
             }
         }
         return $this->render('form/'.$ticket::TEMPLATE,[

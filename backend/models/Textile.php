@@ -48,7 +48,8 @@ class Textile extends ActiveRecord
     public function rules(){
         return [
             [['caption'], 'required'],
-            [['param1n', 'param5n', 'param31n'], 'integer'],
+            [['param1n', 'param5n', 'param31n', 'discount'], 'integer'],
+            [['cost'], 'double'],
             [[
                 'orderId',
                 'clientId',
@@ -56,6 +57,7 @@ class Textile extends ActiveRecord
                 'marking',
                 'wear',
                 'color',
+                'services',
                 'param1',
                 'param1n',
                 'param2',
@@ -137,7 +139,6 @@ class Textile extends ActiveRecord
                 'param74',
                 'param75',
                 'param76',
-                'param77',
             ], 'safe'],
         ];
     }
@@ -148,6 +149,9 @@ class Textile extends ActiveRecord
             'marking' => 'Маркировка',
             'wear' => 'Степень износа',
             'color' => 'Цвет',
+            'cost' => 'Стоимость',
+            'discount' => 'Скидка',
+            'services' => 'Доп. услуги',
             'param1' => 'Пуговицы',
             'param1n' => 'Количество',
             'param2' => 'Брошки',
@@ -228,8 +232,7 @@ class Textile extends ActiveRecord
             'param73' => 'Аква чистка',
             'param74' => 'Стирка',
             'param75' => 'ВТО',
-            'param76' => 'Пятно',
-            'param77' => 'Доставка',
+            'param76' => 'Пятно'
         ];
     }
 

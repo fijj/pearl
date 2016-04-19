@@ -307,5 +307,15 @@ label.file-in{
     opacity: 0;
 }
 
-
+/************** TICKET *****************/
+.accordion{
+    overflow: hidden;
+    height: 35px;
+}
+.accordion.open{
+    height: auto;
+}
+.accordion p{
+    cursor: pointer;
+}
 

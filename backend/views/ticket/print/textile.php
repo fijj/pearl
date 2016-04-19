@@ -157,7 +157,6 @@ use yii\widgets\ActiveForm;
             <?= ($model->param74) ? $model->getAttributeLabel('param74').',' : false ?>
             <?= ($model->param75) ? $model->getAttributeLabel('param75').',' : false ?>
             <?= ($model->param76) ? $model->getAttributeLabel('param76').',' : false ?>
-            <?= ($model->param77) ? $model->getAttributeLabel('param77').',' : false ?>
         </p>
     </div>
 

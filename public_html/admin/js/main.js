@@ -84,3 +84,7 @@ $(document).on('click', function(){
     $('#reception-code').focus();
 });
 
+//Accordion
+$('body').on('click', '.accordion p', function(){
+    $(this).parent().toggleClass('open');
+});

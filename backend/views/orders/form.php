@@ -30,14 +30,12 @@ $form = ActiveForm::begin([
 ])
 ?>
     <div class="row">
-        <div class="col-md-2">
+        <div class="col-md-4">
             <?= $form->field($orders, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
         </div>
-        <div class="col-md-2">
+        <div class="col-md-4">
             <?= $form->field($orders, 'outDate')->input('date', ['class' => 'datepicker form-control']) ?>
         </div>
-    </div>
-    <div class="row">
         <div class="col-md-2">
             <?= $form->field($orders, 'number') ?>
         </div>
@@ -47,7 +45,11 @@ $form = ActiveForm::begin([
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray()) ?>
+            <? if ($action == 'update'): ?>
+                <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray(), ['disabled' => '']) ?>
+            <? else: ?>
+                <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray()) ?>
+            <? endif ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($orders, 'pointId')->dropDownList(Point::dropDownArray()) ?>
@@ -59,11 +61,17 @@ $form = ActiveForm::begin([
     <div class="panel panel-default">
         <div class="panel-body">
             <div class="row">
-                <div class="col-md-4">
-                    <?= $form->field($orders, 'cost') ?>
-                </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <?= $form->field($orders, 'paid') ?>
+                </div>
+                <div class="col-md-2">
+                    <?= $form->field($orders, 'delivery')->checkbox() ?>
+                </div>
+                <div class="col-md-2">
+                    <?= $form->field($orders, 'deliveryCost') ?>
+                </div>
+                <div class="col-md-2">
+                    <?= $form->field($orders, 'cost')->input('integer', ['readonly' => 'true', 'placeholder' => 'рассчитывается после заполнения квитанции']) ?>
                 </div>
                 <div class="col-md-4">
                     <?= $form->field($orders, 'costTotal')->input('integer', ['readonly' => 'true', 'placeholder' => 'рассчитывается после сохранения']) ?>
@@ -71,9 +79,13 @@ $form = ActiveForm::begin([
             </div>
         </div>
     </div>
+    <div>
+        <p>Перечисток: <strong><?= $orders->ccount ?></strong></p>
+    </div>
+<? if ($action == 'update'): ?>
+    <?= Html::a('Квитанция', ['ticket/update', 'id' => $orders->id], ['class' => 'btn btn-warning']) ?>
+<? endif ?>
 
-
-    <p>Перечисток: <strong><?= $orders->ccount ?></strong></p>
 <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right']) ?>
 
 <?php ActiveForm::end() ?>

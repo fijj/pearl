@@ -72,8 +72,7 @@ class OrdersController extends Controller
         if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
             $orders->clientId = $id;
             $orders->managerId = Yii::$app->user->identity->managerId;
-            $orders->costTotal = $orders->costTotal();
-            $orders->debt = $orders->debt();
+            $orders->calculate();
             $orders->save();
 
             //Создание квитанции
@@ -119,11 +118,7 @@ class OrdersController extends Controller
         $orders = Orders::findOne($id);
         if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
 
-            //Доход с учетом скидки для точки
-            $orders->costTotal = $orders->costTotal();
-
-            //Расчет задолженности
-            $orders->debt = $orders->debt();
+            $orders->calculate();
 
             //Счетчик перечисток
             if($orders->statusId == Orders::STATUS_RECLEAN && $orders->getOldAttribute('statusId') != Orders::STATUS_RECLEAN){
