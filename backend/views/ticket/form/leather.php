@@ -78,10 +78,29 @@ $form = ActiveForm::begin([
         'param29',
         'param30',
         'param31',
-        'param31n',
         'param32',
         'param33',
         'param34',
+        'param34_1',
+        'param34_2',
+        'param34_3',
+        'param34_4',
+        'param34_5',
+        'param34_6',
+        'param34_7',
+        'param34_8',
+        'param34_9',
+        'param34_10',
+        'param34_11',
+        'param34_12',
+        'param34_13',
+        'param34_14',
+        'param34_14n',
+        'param34_15',
+        'param34_16',
+        'param34_17',
+        'param34_18',
+        'param34_19',
         'other',
         'param35',
         'param36',
@@ -128,7 +147,8 @@ $form = ActiveForm::begin([
         'param77',
         'cost',
         'discount',
-        'services'
+        'services',
+        'salinity'
     ],
 ]);
 ?>
@@ -224,17 +244,35 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param28")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param29")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param30")->checkbox()?>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <?= $form->field($item, "[{$i}]param31")->checkbox()?>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <?= $form->field($item, "[{$i}]param31n")->dropDownList($item->numberArr)->label(false)?>
-                                    </div>
-                                </div>
                                 <?= $form->field($item, "[{$i}]param32")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param33")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param34")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_1")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_2")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_3")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_4")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_5")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_6")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_7")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_8")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_9")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_10")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_11")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_12")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_13")->checkbox()?>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <?= $form->field($item, "[{$i}]param34_14")->checkbox()?>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <?= $form->field($item, "[{$i}]param34_14n")->dropDownList($item->numberArr)->label(false)?>
+                                    </div>
+                                </div>
+                                <?= $form->field($item, "[{$i}]param34_15")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_16")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_17")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_18")->checkbox()?>
+                                <?= $form->field($item, "[{$i}]param34_19")->checkbox()?>
                             </div>
                             <div class="accordion">
                                 <p class="sub-header">Пищевые пятна</p>
@@ -294,6 +332,7 @@ $form = ActiveForm::begin([
                             </div>
                             <?= $form->field($item, "[{$i}]param13")->dropDownList($item->boolArr)?>
                             <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
+                            <?= $form->field($item, "[{$i}]salinity")->dropDownList($item->salinityArr)?>
                             <?= $form->field($item, "[{$i}]param71")->dropDownList($item->boolArr)?>
                             <?= $form->field($item, "[{$i}]other")->textarea(['rows' => 5])?>
                         </div>

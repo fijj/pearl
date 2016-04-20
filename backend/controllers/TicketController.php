@@ -2,7 +2,6 @@
 namespace backend\controllers;
 
 use backend\models\Orders;
-use backend\models\Textile;
 use Yii;
 use backend\models\Model;
 use yii\filters\AccessControl;
@@ -10,6 +9,9 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use backend\libs\Barcode;
 use yii\helpers\ArrayHelper;
+use backend\models\Textile;
+use backend\models\Carpet;
+use backend\models\Leather;
 
 /**
  * Site controller
@@ -110,9 +112,11 @@ class TicketController extends Controller
                 $order->ticketCost = $cost;
                 $order->calculate();
                 $order->save();
+                Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
             }
         }
         return $this->render('form/'.$ticket::TEMPLATE,[
+            'order' => $order,
             'model' => (empty($model)) ? [new $ticket] : $model
         ]);
     }

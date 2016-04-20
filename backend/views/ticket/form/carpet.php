@@ -128,7 +128,10 @@ $form = ActiveForm::begin([
         'param77',
         'cost',
         'discount',
-        'services'
+        'services',
+        'height',
+        'width',
+        'area'
     ],
 ]);
 ?>
@@ -162,6 +165,15 @@ $form = ActiveForm::begin([
                 </div>
                 <div class="col-md-3">
                     <?= $form->field($item, "[{$i}]discount")?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($item, "[{$i}]height")?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($item, "[{$i}]width")?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($item, "[{$i}]area")?>
                 </div>
             </div>
             <div class="row">

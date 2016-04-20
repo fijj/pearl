@@ -43,7 +43,8 @@ use yii\widgets\ActiveForm;
                         Маркировка:<b><?= $model->markingArr[$model->marking] ?></b><br />
                         Степень износа:<b><?= $model->wearArr[$model->wear] ?></b><br />
                         МЗХ:<b><?= $model->boolArr[$model->param13] ?></b><br />
-                        Степень&nbspзагрязнения:<b><?= $model->pollutionArr[$model->pollution] ?></b>
+                        Степень&nbspзагрязнения:<b><?= $model->pollutionArr[$model->pollution] ?></b><br />
+                        Степепь&nbspзасаленности:<b><?= $model->pollutionArr[$model->salinity] ?></b>
                     <td>
                         <?= ($model->param1) ? $model->getAttributeLabel('param1').':'.$model->param1n.',' : false ?>
                         <?= ($model->param2) ? $model->getAttributeLabel('param2').',' : false ?>
@@ -76,10 +77,29 @@ use yii\widgets\ActiveForm;
                         <?= ($model->param28) ? $model->getAttributeLabel('param28').',' : false ?>
                         <?= ($model->param29) ? $model->getAttributeLabel('param29').',' : false ?>
                         <?= ($model->param30) ? $model->getAttributeLabel('param30').',' : false ?>
-                        <?= ($model->param31) ? $model->getAttributeLabel('param31').':'.$model->param31n.',' : false ?>
+                        <?= ($model->param31) ? $model->getAttributeLabel('param31').',' : false ?>
                         <?= ($model->param32) ? $model->getAttributeLabel('param32').',' : false ?>
                         <?= ($model->param33) ? $model->getAttributeLabel('param33').',' : false ?>
                         <?= ($model->param34) ? $model->getAttributeLabel('param34').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_1').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_2').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_3').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_4').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_5').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_6').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_7').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_8').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_9').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_10').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_11').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_12').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_13').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_14').':'.$model->param34_14n.',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_15').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_16').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_17').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_18').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_19').',' : false ?>
                     </td>
                     <td>
                         <?= $model->other ?>
@@ -188,7 +208,8 @@ use yii\widgets\ActiveForm;
                         Маркировка:<b><?= $model->markingArr[$model->marking] ?></b><br />
                         Степень износа:<b><?= $model->wearArr[$model->wear] ?></b><br />
                         МЗХ:<b><?= $model->boolArr[$model->param13] ?></b><br />
-                        Степень&nbspзагрязнения:<b><?= $model->pollutionArr[$model->pollution] ?></b>
+                        Степень&nbspзагрязнения:<b><?= $model->pollutionArr[$model->pollution] ?></b><br />
+                        Степепь&nbspзасаленности:<b><?= $model->pollutionArr[$model->salinity] ?></b>
                     <td>
                         <?= ($model->param1) ? $model->getAttributeLabel('param1').':'.$model->param1n.',' : false ?>
                         <?= ($model->param2) ? $model->getAttributeLabel('param2').',' : false ?>
@@ -221,10 +242,29 @@ use yii\widgets\ActiveForm;
                         <?= ($model->param28) ? $model->getAttributeLabel('param28').',' : false ?>
                         <?= ($model->param29) ? $model->getAttributeLabel('param29').',' : false ?>
                         <?= ($model->param30) ? $model->getAttributeLabel('param30').',' : false ?>
-                        <?= ($model->param31) ? $model->getAttributeLabel('param31').':'.$model->param31n.',' : false ?>
+                        <?= ($model->param31) ? $model->getAttributeLabel('param31').',' : false ?>
                         <?= ($model->param32) ? $model->getAttributeLabel('param32').',' : false ?>
                         <?= ($model->param33) ? $model->getAttributeLabel('param33').',' : false ?>
                         <?= ($model->param34) ? $model->getAttributeLabel('param34').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_1').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_2').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_3').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_4').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_5').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_6').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_7').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_8').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_9').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_10').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_11').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_12').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_13').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_14').':'.$model->param34_14n.',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_15').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_16').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_17').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_18').',' : false ?>
+                        <?= ($model->param34) ? $model->getAttributeLabel('param34_19').',' : false ?>
                     </td>
                     <td>
                         <?= $model->other ?>

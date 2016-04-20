@@ -84,6 +84,12 @@ $(document).on('click', function(){
     $('#reception-code').focus();
 });
 
+//Dynamic form
+//DATEPICKER REFRESH
+$(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
+    $(item).find("textarea").val('');
+});
+
 //Accordion
 $('body').on('click', '.accordion p', function(){
     $(this).parent().toggleClass('open');

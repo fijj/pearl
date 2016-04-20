@@ -4,15 +4,15 @@ namespace backend\models;
 use Yii;
 use yii\db\ActiveRecord;
 
-class Textile extends Ticket
+class Carpet extends Ticket
 {
 
-    const TEMPLATE = 'textile';
+    const TEMPLATE = 'carpet';
 
     public function rules(){
         return [
             [['caption'], 'required'],
-            [['param1n', 'param5n', 'param31n', 'discount'], 'integer'],
+            [['param1n', 'param5n', 'param31n', 'discount', 'height', 'width', 'area'], 'integer'],
             [['cost'], 'double'],
             [[
                 'orderId',
@@ -197,6 +197,9 @@ class Textile extends Ticket
             'cost' => 'Стоимость',
             'discount' => 'Скидка,%',
             'services' => 'Доп. услуги',
+            'height' => 'Высота',
+            'width' => 'Ширина',
+            'area' => 'Площадь'
         ];
     }
 }

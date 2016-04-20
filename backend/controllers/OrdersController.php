@@ -8,10 +8,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use backend\models\Orders;
-use backend\models\Ticket1;
-use backend\models\Ticket2;
-use backend\models\Ticket3;
-
 /**
  * Site controller
  */

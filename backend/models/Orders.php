@@ -7,6 +7,7 @@ use yii\data\ActiveDataProvider;
 use backend\models\settings\Status;
 use backend\models\settings\Point;
 use backend\models\settings\Type;
+use backend\models\settings\Managers;
 
 class Orders extends ActiveRecord
 {
@@ -98,6 +99,10 @@ class Orders extends ActiveRecord
             ->andFilterWhere(['=', 'cost', $this->cost])
             ->andFilterWhere(['=', 'debt', $this->debt]);
         return $dataProvider;
+    }
+
+    public function getManagers(){
+        return $this->hasOne(Managers::className(), ['id' => 'managerId']);
     }
 
     public function getStatus(){
