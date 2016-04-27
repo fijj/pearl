@@ -20,6 +20,9 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             [
+                'attribute' => 'id'
+            ],
+            [
                 'attribute' => 'date',
                 'filter' => \yii\jui\DatePicker::widget([
                         'language' => 'ru',

@@ -5,9 +5,17 @@ use Yii;
 use yii\db\ActiveRecord;
 use yii\data\ActiveDataProvider;
 use backend\models\Orders;
+use backend\behavior\EventLogsBehavior;
 
 class Clients extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            EventLogsBehavior::className(),
+        ];
+    }
+    
     public $fromArr = [
         0 => 'Тв',
         1 => 'Радио',

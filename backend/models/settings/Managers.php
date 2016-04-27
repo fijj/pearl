@@ -37,7 +37,7 @@ class Managers extends ActiveRecord
     public function scenarios(){
             return [
                 'new' => ['managerName', 'email', 'password', 'managerPhone', 'managerPhoto', 'access'],
-                'edit' => ['managerName', 'managerPhone', 'access'],
+                'edit' => ['managerName', 'managerPhone', 'access', 'password'],
                 'removePhoto' => ['managerPhoto'],
             ];
     }

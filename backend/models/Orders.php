@@ -8,9 +8,17 @@ use backend\models\settings\Status;
 use backend\models\settings\Point;
 use backend\models\settings\Type;
 use backend\models\settings\Managers;
+use backend\behavior\EventLogsBehavior;
 
 class Orders extends ActiveRecord
 {
+    public function behaviors()
+    {
+        return [
+            EventLogsBehavior::className(),
+        ];
+    }
+    
     const STATUS_IN_WORKSHOP = 1;
     const STATUS_READY = 2;
     const STATUS_HISTORY = 3;
@@ -44,6 +52,7 @@ class Orders extends ActiveRecord
 
     public function attributeLabels(){
         return [
+            'id' => 'ИД.',
             'cost' => 'Полная стоимость',
             'paid' => 'Оплатил',
             'date' => 'Дата приема',
@@ -59,7 +68,8 @@ class Orders extends ActiveRecord
             'ccount' => 'Перечистки',
             'delivery' => 'Доставка',
             'deliveryCost' => 'Стоимость доставки',
-            'ticketCost' => 'Стоимость услуг'
+            'ticketCost' => 'Стоимость услуг',
+            'managerId' => 'Менеджер',
         ];
     }
 
@@ -131,8 +141,13 @@ class Orders extends ActiveRecord
 
 
     public function calculate(){
-        $this->cost = $this->deliveryCost + $this->ticketCost;
+        if($this->cost == 0){
+            $this->cost = $this->deliveryCost + $this->ticketCost;
+        }else{
+
+        }
         $this->debt = $this->cost - $this->paid;
         $this->costTotal = $this->cost * (100 - $this->point->discount) / 100;
     }
+
 }

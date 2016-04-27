@@ -8,6 +8,7 @@ use backend\models\settings\Type;
 
 /* @var $this yii\web\View */
 
+
 $this->title = $title;
 $this->params['breadcrumbs'][] = [
     'label' => 'Заказы',
@@ -71,7 +72,7 @@ $form = ActiveForm::begin([
                     <?= $form->field($orders, 'deliveryCost') ?>
                 </div>
                 <div class="col-md-2">
-                    <?= $form->field($orders, 'cost')->input('integer', ['readonly' => 'true', 'placeholder' => 'рассчитывается после заполнения квитанции']) ?>
+                    <?= $form->field($orders, 'cost') ?>
                 </div>
                 <div class="col-md-4">
                     <?= $form->field($orders, 'costTotal')->input('integer', ['readonly' => 'true', 'placeholder' => 'рассчитывается после сохранения']) ?>

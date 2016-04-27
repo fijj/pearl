@@ -3,6 +3,7 @@ namespace backend\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use backend\behavior\EventLogsBehavior;
 
 class Leather extends Ticket
 {
