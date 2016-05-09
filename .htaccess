@@ -1,39 +1,26 @@
-﻿<VirtualHost *:80>
-       ServerName pearl-crm.herokuapp.com
-       DocumentRoot "/path/to/yii-application/frontend/web/"
+﻿<IfModule mod_rewrite.c>
+    Options +FollowSymlinks
+    RewriteEngine On
+</IfModule>
 
-       <Directory "/path/to/yii-application/frontend/web/">
-           # use mod_rewrite for pretty URL support
-           RewriteEngine on
-           # If a directory or a file exists, use the request directly
-           RewriteCond %{REQUEST_FILENAME} !-f
-           RewriteCond %{REQUEST_FILENAME} !-d
-           # Otherwise forward the request to index.php
-           RewriteRule . index.php
+<IfModule mod_rewrite.c>
+    # deal with admin first
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+    RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
 
-           # use index.php as index file
-           DirectoryIndex index.php
+    RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} ^/(admin)
+    RewriteRule ^.*$ backend/web/index.php [L]
 
-           # ...other settings...
-       </Directory>
-   </VirtualHost>
 
-   <VirtualHost *:80>
-       ServerName admin-pearl-crm.herokuapp.com
-       DocumentRoot "/path/to/yii-application/backend/web/"
+    RewriteCond %{REQUEST_URI} ^/(assets|css)
+    RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+    RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
 
-       <Directory "/path/to/yii-application/backend/web/">
-           # use mod_rewrite for pretty URL support
-           RewriteEngine on
-           # If a directory or a file exists, use the request directly
-           RewriteCond %{REQUEST_FILENAME} !-f
-           RewriteCond %{REQUEST_FILENAME} !-d
-           # Otherwise forward the request to index.php
-           RewriteRule . index.php
-
-           # use index.php as index file
-           DirectoryIndex index.php
-
-           # ...other settings...
-       </Directory>
-   </VirtualHost>
+    RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css)/
+    RewriteCond %{REQUEST_URI} !index.php
+    RewriteCond %{REQUEST_FILENAME} !-f [OR]
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^.*$ frontend/web/index.php
+</IfModule>
