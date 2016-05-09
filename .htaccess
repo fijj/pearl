@@ -1,9 +1,7 @@
-﻿<IfModule mod_rewrite.c>
+﻿
     Options +FollowSymlinks
     RewriteEngine On
-</IfModule>
 
-<IfModule mod_rewrite.c>
     # deal with admin first
     RewriteCond %{REQUEST_URI} ^/(admin)
     RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
@@ -23,4 +21,3 @@
     RewriteCond %{REQUEST_FILENAME} !-f [OR]
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^.*$ frontend/web/index.php
-</IfModule>
