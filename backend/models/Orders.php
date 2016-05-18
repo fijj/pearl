@@ -83,6 +83,7 @@ class Orders extends ActiveRecord
             'sort' => [
                 'defaultOrder' => [
                     'date' => SORT_DESC,
+                    'id' => SORT_DESC
                 ],
             ],
         ]);
