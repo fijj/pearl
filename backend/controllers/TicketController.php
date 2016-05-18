@@ -123,7 +123,7 @@ class TicketController extends Controller
 
     public function actionBarcode($code){
         $generator = new \Picqer\Barcode\BarcodeGeneratorPNG();
-        echo $generator->getBarcode($code, $generator::TYPE_CODE_128, 3, 60);
+        echo $generator->getBarcode($code, $generator::TYPE_CODE_128, 2, 40);
     }
 
     public function actionPrint($id){
