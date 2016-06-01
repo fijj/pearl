@@ -6,20 +6,19 @@ use yii\db\ActiveRecord;
 use backend\models\settings\Managers;
 use backend\modules\dialog\models\Rooms;
 
-class Msg extends ActiveRecord
+class Participants extends ActiveRecord
 {
-    const STATUS_UNREAD = 0;
-    const STATUS_READ = 1;
-
+    public $user;
+    public $group;
     public function rules(){
         return[
-            [['text', 'roomId', 'userId', 'status'], 'safe']
+            [['roomId', 'userId', 'user'], 'safe']
         ];
     }
 
     public static function tableName()
     {
-        return 'dialog_msg';
+        return 'dialog_participants';
     }
 
     public function getManagers(){
@@ -30,7 +29,4 @@ class Msg extends ActiveRecord
         return $this->hasOne(Rooms::className(), ['id' => 'roomId']);
     }
 
-    public function getTime(){
-        return date('H:i:s Y-m-d',$this->timestamp);
-    }
 }

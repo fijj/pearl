@@ -4,6 +4,7 @@ namespace backend\models\settings;
 use Yii;
 use yii\db\ActiveRecord;
 use common\models\User;
+use yii\helpers\ArrayHelper;
 
 class Managers extends ActiveRecord
 {
@@ -71,5 +72,9 @@ class Managers extends ActiveRecord
     public function deleteUser($id){
         $user = User::findOne(['managerId' => $id]);
         $user->delete();
+    }
+
+    static function managersArr(){
+        return ArrayHelper::map(Managers::find()->asArray()->all(), 'id', 'managerName');
     }
 }
