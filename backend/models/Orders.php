@@ -69,6 +69,7 @@ class Orders extends ActiveRecord
             'delivery' => 'Доставка',
             'deliveryCost' => 'Стоимость доставки',
             'ticketCost' => 'Стоимость услуг',
+            'ticketDiscount' => 'Общая скидка',
             'managerId' => 'Менеджер',
         ];
     }

@@ -21,6 +21,14 @@ use yii\widgets\ActiveForm;
                     Общая стоимость:
                 </td>
                 <td style="text-align: right">
+                    <b><?= sprintf("%.2f", $order->cost + (float)$order->ticketDiscount) ?> руб.</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    С учетом скидки:
+                </td>
+                <td style="text-align: right">
                     <b><?= $order->cost ?> руб.</b>
                 </td>
             </tr>

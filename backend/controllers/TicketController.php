@@ -102,14 +102,17 @@ class TicketController extends Controller
                     $ticket::deleteAll(['id' => $modelDeletedIDs]);
                 }
                 $cost = 0;
+                $discount = 0;
                 foreach ($model as $item) {
                     $item->orderId = $order->id;
                     $item->clientId = $order->clientId;
                     $item->save(false);
                     $cost += $item->cost - ($item->cost * $item->discount / 100);
+                    $discount += $item->cost * $item->discount / 100;
                 }
                 //Обновление задолженности и стоимости с учетом скидки для точки
                 $order->ticketCost = $cost;
+                $order->ticketDiscount = $discount;
                 $order->calculate();
                 $order->save();
                 Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');

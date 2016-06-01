@@ -7,9 +7,10 @@ use yii\widgets\ActiveForm;
 
 $this->title = '';
 $this->params['breadcrumbs'][] = $this->title;
+\app\modules\dialog\assets\DialogAsset::register($this);
 ?>
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body chat-container" data-url=<?= Url::to(['dialog/ajax', 'id' => $room->id]) ?>>
                 <? foreach ($old as $msg): ?>
@@ -52,13 +53,18 @@ $this->params['breadcrumbs'][] = $this->title;
         ]);
         ?>
 
-        <?= $form->field(new \backend\modules\dialog\models\Msg(), "text")->label(false) ?>
+        <?= $form->field(new \backend\modules\dialog\models\Msg(), "text")->input('text', ['placeholder' => 'Сообщение...'])->label(false) ?>
 
         <? ActiveForm::end(); ?>
     </div>
 </div>
 
 <style>
+    .chat-container{
+        min-height: 300px;
+        max-height: 500px;
+        overflow-y: scroll;
+    }
     .msg-container{
         margin: 15px;
     }
@@ -84,5 +90,5 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </style>
 <script>
-    document.getElementById( 'msg-text' ).scrollIntoView();
+    //document.getElementById( 'msg-text' ).scrollIntoView();
 </script>
