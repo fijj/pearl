@@ -9,7 +9,6 @@ use backend\modules\dialog\models\Rooms;
 class Participants extends ActiveRecord
 {
     public $user;
-    public $group;
     public function rules(){
         return[
             [['roomId', 'userId', 'user'], 'safe']

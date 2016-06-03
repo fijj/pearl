@@ -21,7 +21,6 @@ class Model extends \yii\base\Model
         $formName = $model->formName();
         $post     = Yii::$app->request->post($formName);
         $models   = [];
-
         if (! empty($multipleModels)) {
             $keys = array_keys(ArrayHelper::map($multipleModels, 'id', 'id'));
             $multipleModels = array_combine($keys, $multipleModels);

@@ -90,5 +90,10 @@ $this->params['breadcrumbs'][] = $this->title;
     }
 </style>
 <script>
-    //document.getElementById( 'msg-text' ).scrollIntoView();
+    (function () {
+        window.onload = function() {
+            var chat = document.querySelector('.chat-container');
+            chat.scrollTop = chat.scrollHeight;
+        };
+    }());
 </script>

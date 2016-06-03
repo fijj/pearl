@@ -5,6 +5,7 @@ use backend\models\settings\Managers;
 use yii\bootstrap\ActiveForm;
 use kartik\select2\Select2;
 use backend\modules\dialog\models\Participants;
+use backend\modules\dialog\models\Rooms;
 /* @var $this yii\web\View */
 
 $this->title = 'Диалоги';
@@ -22,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="row">
             <div class="col-xs-10">
-                <?= $form->field(new Participants(), 'user')->dropDownList(Managers::managersArr())->label(false) ?>
+                <?= $form->field(new Participants(), 'user')->dropDownList(Managers::managerArrWithoutOwner())->label(false) ?>
             </div>
             <div class="col-xs-2">
                 <?= Html::submitButton('+', ['class' => 'btn btn-primary']) ?>
@@ -47,7 +48,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             </div>
                             <div class="col-xs-2">
                                 <? if ($room->newCount): ?>
-                                    <span class="badge"><?= $room->newCount ?></span>
+                                    <span class="label label-danger"><?= $room->newCount ?></span>
                                 <? endif ?>
                             </div>
                             <div class="col-xs-2">
@@ -68,10 +69,9 @@ $this->params['breadcrumbs'][] = $this->title;
         ?>
         <div class="row">
             <div class="col-xs-10">
-                <?= $form->field(new Participants(), 'group')->widget(Select2::className(), [
-                    'data' => Managers::managersArr(),
-                    'name' => '123',
-                    'options' => ['placeholder' => 'Select a state ...'],
+                <?= $form->field(new Participants(), 'userId')->widget(Select2::className(), [
+                    'data' => Managers::managerArrWithoutOwner(),
+                    'options' => ['placeholder' => 'Участники...'],
                     'pluginOptions' => [
                         'allowClear' => true,
                         'multiple' => true
@@ -81,21 +81,34 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="col-xs-2">
                 <?= Html::submitButton('+', ['class' => 'btn btn-primary']) ?>
             </div>
+            <div class="col-xs-12">
+                <?= $form->field(new Rooms, 'title')->input('text', ['placeholder' => 'Тема'])->label(false) ?>
+            </div>
         </div>
         <? ActiveForm::end() ?>
         <? foreach($group as $room): ?>
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <div class="col-xs-9">
-
-                    </div>
-                    <div class="col-xs-1">
-                        <? if ($room->newCount): ?>
-                            <span class="badge"><?= $room->newCount ?></span>
-                        <? endif ?>
+            <a href="<?= Url::to(['/dialog/dialog/view', 'id' => $room->id])?>">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-2">
+                                <span class="glyphicon glyphicon-th-list"></span>
+                            </div>
+                            <div class="col-xs-6">
+                                <?= $room->title ?>
+                            </div>
+                            <div class="col-xs-2">
+                                <? if ($room->newCount): ?>
+                                    <span class="label label-danger"><?= $room->newCount ?></span>
+                                <? endif ?>
+                            </div>
+                            <div class="col-xs-2">
+                                <?= Html::a('<span class="glyphicon glyphicon-remove"></span>', ['/dialog/dialog/delete', 'id' => $room->id]) ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </a>
         <? endforeach ?>
     </div>
     <div class="col-md-4">

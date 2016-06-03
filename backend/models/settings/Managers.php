@@ -77,4 +77,10 @@ class Managers extends ActiveRecord
     static function managersArr(){
         return ArrayHelper::map(Managers::find()->asArray()->all(), 'id', 'managerName');
     }
+
+    static function managerArrWithoutOwner(){
+        $array = ArrayHelper::map(Managers::find()->asArray()->all(), 'id', 'managerName');
+        unset($array[Yii::$app->user->identity->managerId]);
+        return $array;
+    }
 }

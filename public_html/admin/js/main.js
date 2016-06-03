@@ -94,3 +94,17 @@ $(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
 $('body').on('click', '.accordion p', function(){
     $(this).parent().toggleClass('open');
 });
+
+//Notificaton
+setInterval(function () {
+    if(document.location.search != '?r=site%2Flogin') {
+        $.post("index.php?r=dialog/dialog/notification", function (data) {
+
+            if (data.count > 0 && $('.notification-counter').length == 0) {
+                $('<span class="label label-danger notification-counter">' + data.count + '</span>').appendTo('.dialog-notification a');
+            } else {
+                $('.notification-counter').html(data.count);
+            }
+        }, 'json');
+    }
+}, 5000);

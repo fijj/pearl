@@ -54,10 +54,8 @@ AppAsset::register($this);
             'label' => 'Задачи', 'url' => ['/tasks/index'],
         ];
         $menuItems[] = [
-            'label' => 'Диалоги', 'url' => ['/dialog/dialog/index'],
-        ];
-        $menuItems[] = [
-            'label' => 'Камеры', 'url' => ['/cams/index'],
+            'label' => 'Диалоги ', 'url' => ['/dialog/dialog/index'],
+            'options' => ['class' => 'dialog-notification']
         ];
         $menuItems[] = [
             'label' => 'Статистика', 'url' => ['/stats/index'],
@@ -69,6 +67,7 @@ AppAsset::register($this);
                 ['label' => 'Точки', 'url' => ['/settings/point/index']],
                 ['label' => 'Расходы', 'url' => ['/spent/index']],
                 ['label' => 'Логи', 'url' => ['/event-logs/index']],
+                ['label' => 'Камеры', 'url' => ['/cams/index']]
             ]
         ];
         $menuItems[] = [

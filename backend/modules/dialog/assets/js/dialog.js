@@ -7,8 +7,6 @@ $(document).ready(function() {
             success: function(data) {
                 var chat = $('.chat-container');
                 chat.append(data);
-                console.log(chat.scrollTop());
-                console.log(chat[0].scrollHeight);
                 if(chat.scrollTop() > chat[0].scrollHeight - 800){
                     chat.scrollTop(chat[0].scrollHeight);
                 }

@@ -32,7 +32,7 @@ class DialogController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['index', 'view', 'new-msg', 'ajax', 'new-private', 'new-group', 'delete'],
+                        'actions' => ['index', 'view', 'new-msg', 'ajax', 'new-private', 'new-group', 'delete', 'notification'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -86,22 +86,22 @@ class DialogController extends Controller
         $participants = new Participants();
         if ($participants->load(Yii::$app->request->post()) && $participants->validate()) {
             $room = new Rooms();
-            $room->type = Rooms::GROUP_DIALOG;
-            $room->save();
-
-
-            $model = Model::createMultiple($participants);
-            Model::loadMultiple($model, Yii::$app->request->post());
-
-
-            $valid = Model::validateMultiple($model);
-            if($valid){
-                foreach ($model as $item){
-                    $item->timestamp = microtime(true);
-                    $item->roomId = $room->id;
-                    $item->userId = $participants->user;
-                    $item->save();
-                }
+            if ($room->load(Yii::$app->request->post()) && $room->validate()) {
+                $room->type = Rooms::GROUP_DIALOG;
+                $room->save();
+            }
+            $timestamp = microtime(true);
+            $post = Yii::$app->request->post($participants->formName());
+            $participants->timestamp = $timestamp;
+            $participants->roomId = $room->id;
+            $participants->userId = Yii::$app->user->identity->managerId;
+            $participants->save();
+            foreach ($post['userId'] as $user){
+                $participants = new Participants();
+                $participants->timestamp = $timestamp;
+                $participants->roomId = $room->id;
+                $participants->userId = $user;
+                $participants->save();
             }
 
             $this->redirect(['dialog/view', 'id' => $room->id]);
@@ -135,12 +135,15 @@ class DialogController extends Controller
 
     public function actionNewMsg($id)
     {
+        $timestamp = microtime(true);
         $msg = new Msg();
         if ($msg->load(Yii::$app->request->post()) && $msg->validate()) {
-            $msg->timestamp = microtime(true);
+            $msg->timestamp = $timestamp;
             $msg->roomId = $id;
             $msg->userId = Yii::$app->user->identity->managerId;
             $msg->save();
+
+            Participants::updateAll(['lastmsg' => $timestamp],['roomId' => $id]);
         }
     }
 
@@ -175,11 +178,25 @@ class DialogController extends Controller
             'new' => $new
         ]);
     }
+    public function actionNotification(){
+        $count = 0;
+        $participants = Participants::findAll(['userId' => Yii::$app->user->identity->managerId]);
+        foreach ($participants as $item){
+            $last = Last::find()
+                ->where(['roomId' => $item->roomId])
+                ->andWhere(['userId' => Yii::$app->user->identity->managerId])
+                ->one();
+            if(! $last || $item->lastmsg > $last->timestamp){
+                $count++;
+            }
+        }
+        return json_encode(['count' => $count]);
+    }
     
     public function actionAjax($id){
         $room = Rooms::findOne($id);
         $new = Msg::find()
-            ->where(['roomId' => $id])
+            ->where(['userId' => Yii::$app->user->identity->managerId])
             ->andWhere('timestamp > :last', [':last' => $room->getLastViewTime()])
             ->with('managers')
             ->orderBy('timestamp', SORT_DESC)
