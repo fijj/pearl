@@ -21,11 +21,7 @@ $form = ActiveForm::begin([
     //'options' => ['class' => 'form-inline'],
 ])
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <?= Html::a('Назад', ['orders/update', 'id' => $order->id], ['class' => 'btn btn-warning']) ?>
-    </div>
-</div>
+
 <?php DynamicFormWidget::begin([
     'widgetContainer' => 'dynamicform_wrapper_ticket', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
     'widgetBody' => '.container-ticket', // required: css class selector

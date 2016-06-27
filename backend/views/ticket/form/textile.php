@@ -21,11 +21,7 @@ $form = ActiveForm::begin([
     //'options' => ['class' => 'form-inline'],
 ])
 ?>
-<div class="row">
-    <div class="col-md-12">
-        <?= Html::a('Назад', ['orders/update', 'id' => $order->id], ['class' => 'btn btn-warning']) ?>
-    </div>
-</div>
+
 <?php DynamicFormWidget::begin([
     'widgetContainer' => 'dynamicform_wrapper_ticket', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
     'widgetBody' => '.container-ticket', // required: css class selector
@@ -309,12 +305,6 @@ $form = ActiveForm::begin([
         </div>
     </div>
 <?php DynamicFormWidget::end(); ?>
-<div class="row">
-    <div class="col-md-12">
-        <?= Html::a('<i class ="glyphicon glyphicon-print"></i>', ['ticket/print', 'id' => $item->orderId], ['class' => 'ticket-print-btn', 'target' => '_blank']) ?>
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right hidden-print']) ?>
-    </div>
-</div>
 <?php ActiveForm::end() ?>
 
 <style>

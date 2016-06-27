@@ -108,3 +108,39 @@ setInterval(function () {
         }, 'json');
     }
 }, 5000);
+
+//Ticket ajax load
+$('#orders-typeid').on('change', function(){
+    var type = $(this).val();
+    $.ajax({
+        url: "index.php?r=ticket/create/&type=" + type,
+        type: 'get',
+        success: function(data) {
+            $('.ticket-ajax-load').html(data);
+
+        },
+        error: function(){
+            alert('ошибка');
+        }
+    });
+});
+
+$(document).on("beforeSubmit", "#order-form", function () {
+    var form = $(this);
+    if(form.find('.has-error').length) {
+        return false;
+    }
+
+    $.ajax({
+        url: form.attr('action'),
+        type: 'post',
+        data: form.serialize(),
+        success: function(data) {
+            $('#ticket-form').submit();
+        },
+        error: function(){
+            alert('ошибка');
+        }
+    });
+    return false;
+});

@@ -32,7 +32,7 @@ class TicketController extends Controller
                         'allow' => true,
                     ],
                     [
-                        'actions' => ['logout', 'index', 'search', 'new', 'update', 'delete', 'view', 'barcode', 'print'],
+                        'actions' => ['logout', 'index', 'search', 'create', 'update', 'delete', 'view', 'barcode', 'print'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -59,6 +59,7 @@ class TicketController extends Controller
             ],
         ];
     }
+
     public function actionIndex(){
 
         $model = new Textile();
@@ -66,6 +67,41 @@ class TicketController extends Controller
         return $this->render('index',[
             'model' => $model,
         ]);
+    }
+
+    public function actionCreate($type, $id = 0){
+        $model = $this->modelByType($type);
+        if(Yii::$app->request->isPost){
+            $order = Orders::findOne($id);
+            $tickets = Model::createMultiple($model);
+            Model::loadMultiple($tickets, Yii::$app->request->post());
+
+            // validate all models
+
+            $valid = Model::validateMultiple($tickets);
+
+            if ($valid) {
+                $cost = 0;
+                $discount = 0;
+                foreach ($tickets as $ticket) {
+                    $ticket->orderId = $order->id;
+                    $ticket->clientId = $order->clientId;
+                    $ticket->save(false);
+                    $cost += $ticket->cost - ($ticket->cost * $ticket->discount / 100);
+                    $discount += $ticket->cost * $ticket->discount / 100;
+                }
+                $order->ticketCost = $cost;
+                $order->ticketDiscount = $discount;
+                $order->calculate();
+                $order->save();
+            }
+        }
+
+        return $this->renderAjax('form/'.$model::TEMPLATE,[
+            'model' => [new $model]
+        ]);
+
+
     }
 
     public function actionUpdate($id){
@@ -143,6 +179,39 @@ class TicketController extends Controller
         //Определение типа квитанции
     {
         switch ($order->typeId){
+            case(Orders::TYPE_SUIT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_COAT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_TEXTILE):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_PILLOW):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER_PAINT):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_CARPET):
+                $ticket = Carpet::className();
+                break;
+            case(Orders::TYPE_FURNITURE):
+                $ticket = Textile::className();
+                break;
+        }
+
+        return $ticket;
+    }
+
+    private function modelByType($type)
+        //Определение типа квитанции по типу
+    {
+        switch ($type){
             case(Orders::TYPE_SUIT):
                 $ticket = Textile::className();
                 break;

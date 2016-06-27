@@ -8,6 +8,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\data\ActiveDataProvider;
 use backend\models\Orders;
+use backend\models\Model;
 /**
  * Site controller
  */
@@ -16,6 +17,7 @@ class OrdersController extends Controller
     /**
      * @inheritdoc
      */
+    public $enableCsrfValidation = false;
     public function behaviors()
     {
         return [
@@ -64,47 +66,16 @@ class OrdersController extends Controller
     }
 
     public function actionNew($id){
-        $orders = new Orders();
-        if ($orders->load(Yii::$app->request->post()) && $orders->validate()) {
-            $orders->clientId = $id;
-            $orders->managerId = Yii::$app->user->identity->managerId;
-            $orders->calculate();
-            $orders->save();
-
-            //Создание квитанции
-            switch ($orders->typeId){
-                case(Orders::TYPE_SUIT):
-                    $ticket = new Textile();
-                    break;
-                case(Orders::TYPE_COAT):
-                    $ticket = new Textile();
-                    break;
-                case(Orders::TYPE_TEXTILE):
-                    $ticket = new Textile();
-                    break;
-                case(Orders::TYPE_LEATHER):
-                    $ticket = new Leather();
-                    break;
-                case(Orders::TYPE_PILLOW):
-                    $ticket = new Textile();
-                    break;
-                case(Orders::TYPE_LEATHER_PAINT):
-                    $ticket = new Leather();
-                    break;
-                case(Orders::TYPE_CARPET):
-                    $ticket = new Carpet();
-                    break;
-                case(Orders::TYPE_FURNITURE):
-                    $ticket = new Textile();
-                    break;
-            }
-            $ticket->orderId = $orders->id;
-            $ticket->clientId = $orders->clientId;
-            $ticket->save(false);
-            return $this->redirect(['ticket/update', 'id' => $orders->id]);
+        $order = new Orders();
+        if ($order->load(Yii::$app->request->post())) {
+            $order->clientId = $id;
+            $order->managerId = Yii::$app->user->identity->managerId;
+            $order->save();
+            return $order->id;
         }
+
         return $this->render('form',[
-            'orders' => $orders,
+            'orders' => $order,
             'action' => 'create'
         ]);
 
