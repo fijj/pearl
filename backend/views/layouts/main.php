@@ -28,12 +28,12 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => 'Жемчужина CRM',
+        'brandLabel' => Html::img('img/logo-nav.png'),
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top hidden-print',
+            'class' => 'navbar-fixed-top hidden-print',
         ],
-        //'innerContainerOptions' => ['class'=>'container-fluid'],
+        'innerContainerOptions' => ['class'=>'container-fluid'],
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
@@ -83,7 +83,7 @@ AppAsset::register($this);
     NavBar::end();
     ?>
 
-    <div class="main-body container">
+    <div class="main-body container-fluid">
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             'options' => ['class' => 'breadcrumb hidden-print']
@@ -94,7 +94,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer hidden-print">
-    <div class="container">
+    <div class="container-fluid">
         <p class="pull-left">&copy; Жемчужина <?= date('Y') ?></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>

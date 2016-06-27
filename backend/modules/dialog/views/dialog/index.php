@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     <?= $room->managersFrom->managerName ?>
                                 <? endif; ?>
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-2"> 
                                 <? if ($room->newCount): ?>
                                     <span class="label label-danger"><?= $room->newCount ?></span>
                                 <? endif ?>
