@@ -27,7 +27,7 @@ $form = ActiveForm::begin([
     'widgetBody' => '.container-ticket', // required: css class selector
     'widgetItem' => '.ticket', // required: css class
     'limit' => 999, // the maximum times, an element can be cloned (default 999)
-    'min' => 0, // 0 or 1 (default 1)
+    'min' => 1, // 0 or 1 (default 1)
     'insertButton' => '.add-ticket', // css class
     'deleteButton' => '.remove-ticket', // css class
     'model' => $model[0],
@@ -128,81 +128,195 @@ $form = ActiveForm::begin([
     ],
 ]);
 ?>
-    <div class="container-ticket">
+    <div class="row container-ticket">
         <?php foreach ($model as $i => $item): ?>
-        <div class="ticket col-md-4">
+        <div class="ticket col-md-12">
+            <div class="block-header">
+                <h2 class="order">СПИСОК ТОВАРОВ/ОСНОВНЫЕ ПАРАМЕТРЫ
+                    <i class="remove-ticket pull-right glyphicon glyphicon-remove"></i>
+                </h2>
+            </div>
             <?php
             // necessary for update action.
             if (! $item->isNewRecord) {
                 echo Html::activeHiddenInput($item, "[{$i}]id");
             }
             ?>
-            <button type="button" class="remove-ticket btn btn-danger btn-xs pull-right"><i class="glyphicon glyphicon-minus"></i></button>
             <div class="row">
-                <div class="col-md-12">
-                    <?= $form->field($item, "[{$i}]caption")?>
+                <div class="col-md-6 block-type-3">
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]caption")?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]color")?>
+                    </div>
+                </div>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
+                    </div>
+                </div>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]cost")?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]discount")?>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
+
+                <!-- Пятна -->
+                <div class="accordion col-md-3">
+                    <div class="sub-header">
+                        <h2 class="s1">Пятна</h2>
+                    </div>
+                    <?= $form->field($item, "[{$i}]param71")->dropDownList($item->boolArr)?>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Пищевые пятна</div>
+                        <div class="col-md-3">
+                            <?= $form->field($item, "[{$i}]param35")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param36")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param37")->checkbox()?>
+                        </div>
+                        <div class="col-md-3">
+                            <?= $form->field($item, "[{$i}]param38")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param39")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param40")->checkbox()?>
+                        </div>
+                        <div class="col-md-3">
+                            <?= $form->field($item, "[{$i}]param41")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param42")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param43")->checkbox()?>
+                        </div>
+                        <div class="col-md-3">
+                            <?= $form->field($item, "[{$i}]param44")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param45")->checkbox()?>
+                        </div>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Бытовые пятна</div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param46")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param47")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param48")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param49")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param50")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param51")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param52")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param53")->checkbox()?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param54")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param55")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param56")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param57")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param58")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param59")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param60")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param61")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param62")->checkbox()?>
+                        </div>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Косметические пятна</div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param63")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param64")->checkbox()?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param65")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param66")->checkbox()?>
+                        </div>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Лекарственные пятна</div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param67")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param68")->checkbox()?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param69")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param70")->checkbox()?>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
-                </div>
-                <div class="col-md-5">
-                    <?= $form->field($item, "[{$i}]color")?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($item, "[{$i}]cost")?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($item, "[{$i}]discount")?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <?= $form->field($item, "[{$i}]services")?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <div class="accordion">
-                                <p class="sub-header">Фурнитура cъемная</p>
+
+                <!-- Фурнитура -->
+                <div class="accordion col-md-3">
+                    <div class="sub-header">
+                        <h2 class="s2">Фурнитура</h2>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Фурнитура cъемная</div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <?= $form->field($item, "[{$i}]param1")->checkbox()?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($item, "[{$i}]param1n")->dropDownList($item->numberArr)->label(false)?>
+                                        <?= $form->field($item, "[{$i}]param1n")->input('text', ['class' => 'form-control small-input'])->label(false)?>
                                     </div>
                                 </div>
-                                <?= $form->field($item, "[{$i}]param2")->checkbox()?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?= $form->field($item, "[{$i}]param2")->checkbox()?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <?= $form->field($item, "[{$i}]param3")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param4")->checkbox()?>
                             </div>
-                            <div class="accordion">
-                                <p class="sub-header">Фурнитура неcъемная</p>
+                        </div>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Фурнитура неcъемная</div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-8">
                                         <?= $form->field($item, "[{$i}]param5")->checkbox()?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($item, "[{$i}]param5n")->dropDownList($item->numberArr)->label(false)?>
+                                        <?= $form->field($item, "[{$i}]param5n")->input('text', ['class' => 'form-control small-input'])->label(false)?>
                                     </div>
                                 </div>
-                                <?= $form->field($item, "[{$i}]param6")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param7")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param8")->checkbox()?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?= $form->field($item, "[{$i}]param6")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param7")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param8")->checkbox()?>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <?= $form->field($item, "[{$i}]param9")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param10")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param11")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param12")->checkbox()?>
                             </div>
-                            <div class="accordion">
-                                <p class="sub-header">Дефекты изделия</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Дефекты -->
+                <div class="accordion col-md-3">
+                    <div class="sub-header">
+                        <h2 class="s3">Дефекты</h2>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Дефекты изделия</div>
+                        <div class="row">
+                            <div class="col-md-6">
                                 <?= $form->field($item, "[{$i}]param14")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param15")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param16")->checkbox()?>
@@ -214,108 +328,303 @@ $form = ActiveForm::begin([
                                 <?= $form->field($item, "[{$i}]param22")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param23")->checkbox()?>
                                 <?= $form->field($item, "[{$i}]param24")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param25")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param26")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param27")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param28")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param29")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param30")->checkbox()?>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="row">
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
+                                        <?= $form->field($item, "[{$i}]param25")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param26")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param27")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param28")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param29")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param30")->checkbox()?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-8">
                                         <?= $form->field($item, "[{$i}]param31")->checkbox()?>
                                     </div>
                                     <div class="col-md-4">
-                                        <?= $form->field($item, "[{$i}]param31n")->dropDownList($item->numberArr)->label(false)?>
+                                        <?= $form->field($item, "[{$i}]param31n")->input('text', ['class' => 'form-control small-input'])->label(false)?>
                                     </div>
                                 </div>
-                                <?= $form->field($item, "[{$i}]param32")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param33")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param34")->checkbox()?>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <?= $form->field($item, "[{$i}]param32")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param33")->checkbox()?>
+                                        <?= $form->field($item, "[{$i}]param34")->checkbox()?>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="accordion">
-                                <p class="sub-header">Пищевые пятна</p>
-                                <?= $form->field($item, "[{$i}]param35")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param36")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param37")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param38")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param39")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param40")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param41")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param42")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param43")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param44")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param45")->checkbox()?>
+                            <div class="col-md-12">
+                                <?= $form->field($item, "[{$i}]param13")->dropDownList($item->boolArr)?>
+                                <?= $form->field($item, "[{$i}]other")->textarea(['rows' => 5])?>
                             </div>
-                            <div class="accordion">
-                                <p class="sub-header">Бытовые пятна</p>
-                                <?= $form->field($item, "[{$i}]param46")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param47")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param48")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param49")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param50")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param51")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param52")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param53")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param54")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param55")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param56")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param57")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param58")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param59")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param60")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param61")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param62")->checkbox()?>
-                            </div>
-                            <div class="accordion">
-                                <p class="sub-header">Косметические пятна</p>
-                                <?= $form->field($item, "[{$i}]param63")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param64")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param65")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param66")->checkbox()?>
-                            </div>
-                            <div class="accordion">
-                                <p class="sub-header">Лекарственные пятна</p>
-                                <?= $form->field($item, "[{$i}]param67")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param68")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param69")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param70")->checkbox()?>
-                            </div>
-                            <div class="accordion">
-                                <p class="sub-header">Предоставляемые услуги</p>
-                                <?= $form->field($item, "[{$i}]param72")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param73")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param74")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param75")->checkbox()?>
-                                <?= $form->field($item, "[{$i}]param76")->checkbox()?>
-                            </div>
-                            <?= $form->field($item, "[{$i}]param13")->dropDownList($item->boolArr)?>
-                            <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
-                            <?= $form->field($item, "[{$i}]param71")->dropDownList($item->boolArr)?>
-                            <?= $form->field($item, "[{$i}]other")->textarea(['rows' => 5])?>
                         </div>
                     </div>
                 </div>
+
+                <!-- Услуги -->
+                <div class="accordion col-md-3">
+                    <div class="sub-header">
+                        <h2 class="s4">Услуги</h2>
+                    </div>
+                    <div class="type-container clearfix">
+                        <div class="type-header">Предоставляемые услуги</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param72")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param73")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param74")->checkbox()?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($item, "[{$i}]param75")->checkbox()?>
+                            <?= $form->field($item, "[{$i}]param76")->checkbox()?>
+                        </div>
+                        <div class="col-md-12">
+                            <?= $form->field($item, "[{$i}]services")?>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
         <? endforeach ?>
     </div>
     <div class="row">
         <div class="col-md-12">
-            <button style="display: block; width: 100%; margin-bottom: 10px" type="button" class="add-ticket btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i></button>
+            <?= Html::button('Добавить', ['class' => 'add-ticket button mod button-add']) ?>
         </div>
     </div>
 <?php DynamicFormWidget::end(); ?>
 <?php ActiveForm::end() ?>
 
 <style>
-    .sub-header{
-        background-color: #337acb;
-        padding: 5px;
-        border-radius: 2px;
+
+    label{
         color: white;
     }
-    .ticket-print-btn{
-        font-size: 36px;
+    .form-control {
+        height: 48px;
+        border-radius: 0px;
+        box-shadow: none;
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        -ms-appearance: none;
+        -o-appearance: none;
+        position: relative;
     }
 
+    input.form-control.small-input{
+        width: 25px;
+        height: 25px;
+        padding: 4px;
+        border: 1px solid #4fc1e9;
+    }
+
+    select.form-control{
+        overflow: hidden;
+        background: url("img/arrow.png") no-repeat right #ffffff;
+    }
+
+    .datepicker{
+        overflow: hidden;
+        background: url("img/date.png") no-repeat right #ffffff;
+    }
+
+    .block-header{
+        height: 90px;
+        padding: 30px 100px;
+        background-color: #394958;
+    }
+
+    .block-header i{
+        line-height: 30px;
+        cursor: pointer;
+    }
+
+    .block-header h2.order{
+        padding-left: 50px;
+        font-size: 18px;
+        line-height: 36px;
+        color: white;
+        background: url("img/order.png") no-repeat;
+    }
+
+    .block-type-1{
+        padding: 55px 55px 0 55px;
+        background-color: #4fc1e9;
+        border-right: 1px solid #20b1e8;
+        height: 300px;
+    }
+
+    .block-type-1:first-child{
+        padding-left: 100px;
+    }
+
+    .block-type-1:last-child{
+        padding-right: 100px;
+    }
+
+    .reclean{
+        height: 90px;
+        padding-top: 80px;
+        background: url("img/reclean.png") no-repeat center;
+    }
+
+    .reclean p{
+        text-align: center;
+        font-size: 12px;
+        color: #c5f3ff;
+    }
+
+    .block-type-2{
+        padding: 55px 55px;
+        background-color: #2aa5d2;
+        border-right: 1px solid #4fc1e9;
+    }
+
+    .block-type-2.extend-padding{
+        padding: 77px 55px;
+    }
+
+    .cost-container-1{
+        background: url("img/rub.png") no-repeat right;
+        padding: 5px 50px 5px 0;
+    }
+
+    .cost-container-2{
+        background: url("img/percent.png") no-repeat right;
+        padding: 5px 50px 5px 0;
+    }
+
+    .cost{
+        font-size: 50px;
+        text-align: center;
+        color: #ffffff;
+    }
+
+    .cost span{
+        border-bottom: 1px solid #4fc1e9;
+    }
+
+    .cost-label{
+        text-align: center;
+        color: #ffffff;
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+    .button{
+        display: block;
+        position: relative;
+        margin: 0 auto;
+        width: 260px;
+        height: 55px;
+        text-align: center;
+        line-height: 50px;
+        font-weight: 700;
+        color: #ffffff;
+        background-color: #394958;
+        border: solid #0a2a36;
+        border-width: 0 0 4px 0;
+    }
+
+    .button:hover{
+        background-color: #223241;
+        text-decoration: none;
+        color: #ffffff;
+    }
+
+    .button.mod{
+        padding-right: 50px;
+        background-repeat: no-repeat;
+        background-position: 224px center;
+    }
+    .button.mod:after{
+        position: absolute;
+        content: "";
+        width: 1px;
+        height: 55px;
+        right: 50px;
+        top: 0px;
+        background-color: #2d3b48;
+    }
+    .button-save{
+        background-image: url("img/save.png");
+    }
+
+    .button-print{
+        background-image: url("img/print.png");
+    }
+
+    .button-add{
+        background-image: url("img/add.png");
+    }
+    /*********************/
+
+    .container-ticket label {
+        color: #666;
+    }
+
+    .container-ticket .form-control {
+        border: 1px solid #c6c6c6;
+    }
+
+    .block-type-3{
+        padding: 55px 55px;
+        background-color: white;
+        border-right: 1px solid #eaeaea;
+    }
+
+    .block-type-3.extend-padding{
+        padding: 77px 55px;
+    }
+
+    .sub-header{
+        padding: 10px 0 10px 145px;
+        background-color: #2598c2;
+    }
+
+    .sub-header h2{
+        padding: 20px 70px;
+        font-size: 21px;
+        color: white;
+    }
+
+    .sub-header h2.s1{
+        background: url("img/10.png") no-repeat left;
+    }
+
+    .sub-header h2.s2{
+        background: url("img/20.png") no-repeat left;
+    }
+
+    .sub-header h2.s3{
+        background: url("img/30.png") no-repeat left;
+    }
+
+    .sub-header h2.s4{
+        background: url("img/40.png") no-repeat left;
+    }
+
+    .type-container{
+        background-color: white;
+        margin-top: 5px;
+    }
+
+    .type-header{
+        padding: 15px 0 15px 0;
+        background-color: #4fc1e9;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        color: white;
+    }
+
+    input[type=checkbox] {
+
+    }
 </style>

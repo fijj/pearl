@@ -94,7 +94,7 @@ $(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
 $('body').on('click', '.accordion p', function(){
     $(this).parent().toggleClass('open');
 });
-
+/**
 //Notificaton
 setInterval(function () {
     if(document.location.search != '?r=site%2Flogin') {
@@ -108,7 +108,7 @@ setInterval(function () {
         }, 'json');
     }
 }, 5000);
-
+*/
 //Ticket ajax load
 $('#orders-typeid').on('change', function(){
     var type = $(this).val();
@@ -126,18 +126,24 @@ $('#orders-typeid').on('change', function(){
 });
 
 $(document).on("beforeSubmit", "#order-form", function () {
-    var form = $(this);
-    if(form.find('.has-error').length) {
+    var form1 = $(this);
+    var form2 = $('#ticket-form');
+    if(form1.find('.has-error').length) {
         return false;
     }
 
     $.ajax({
-        url: form.attr('action'),
+        url: form1.attr('action'),
         type: 'post',
-        data: form.serialize(),
-        success: function(data) {
-            $('#ticket-form').submit();
+        data: {
+            'form1' : form1.serialize(),
+            'form2' : form2.serialize()
         },
+
+        success: function(data) {
+
+        },
+
         error: function(){
             alert('ошибка');
         }

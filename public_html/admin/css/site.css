@@ -254,7 +254,7 @@ table.order-table thead th, table.order-table tbody tr td{
 /************** TICKET *****************/
 .accordion{
     overflow: hidden;
-    height: 35px;
+
 }
 .accordion.open{
     height: auto;

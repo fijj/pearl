@@ -27,7 +27,7 @@ $form = ActiveForm::begin([
     'widgetBody' => '.container-ticket', // required: css class selector
     'widgetItem' => '.ticket', // required: css class
     'limit' => 999, // the maximum times, an element can be cloned (default 999)
-    'min' => 0, // 0 or 1 (default 1)
+    'min' => 1, // 0 or 1 (default 1)
     'insertButton' => '.add-ticket', // css class
     'deleteButton' => '.remove-ticket', // css class
     'model' => $model[0],
@@ -131,45 +131,56 @@ $form = ActiveForm::begin([
     ],
 ]);
 ?>
-    <div class="container-ticket">
+    <div class="row container-ticket">
         <?php foreach ($model as $i => $item): ?>
-        <div class="ticket col-md-4">
+        <div class="ticket col-md-12">
+            <div class="block-header">
+                <h2 class="order">СПИСОК ТОВАРОВ/ОСНОВНЫЕ ПАРАМЕТРЫ
+                    <i class="remove-ticket pull-right glyphicon glyphicon-remove"></i>
+                </h2>
+            </div>
             <?php
             // necessary for update action.
             if (! $item->isNewRecord) {
                 echo Html::activeHiddenInput($item, "[{$i}]id");
             }
             ?>
-            <button type="button" class="remove-ticket btn btn-danger btn-xs pull-right"><i class="glyphicon glyphicon-minus"></i></button>
             <div class="row">
-                <div class="col-md-12">
-                    <?= $form->field($item, "[{$i}]caption")?>
+                <div class="col-md-6 block-type-3">
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]caption")?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]color")?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]height")?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]width")?>
+                    </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]area")?>
+                    </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
-                </div>
-                <div class="col-md-5">
-                    <?= $form->field($item, "[{$i}]color")?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($item, "[{$i}]cost")?>
-                </div>
-                <div class="col-md-3">
-                    <?= $form->field($item, "[{$i}]discount")?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($item, "[{$i}]height")?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($item, "[{$i}]width")?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($item, "[{$i}]area")?>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]cost")?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]discount")?>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -317,23 +328,4 @@ $form = ActiveForm::begin([
         </div>
     </div>
 <?php DynamicFormWidget::end(); ?>
-<div class="row">
-    <div class="col-md-12">
-        <?= Html::a('<i class ="glyphicon glyphicon-print"></i>', ['ticket/print', 'id' => $item->orderId], ['class' => 'ticket-print-btn', 'target' => '_blank']) ?>
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary pull-right hidden-print']) ?>
-    </div>
-</div>
 <?php ActiveForm::end() ?>
-
-<style>
-    .sub-header{
-        background-color: #337acb;
-        padding: 5px;
-        border-radius: 2px;
-        color: white;
-    }
-    .ticket-print-btn{
-        font-size: 36px;
-    }
-
-</style>

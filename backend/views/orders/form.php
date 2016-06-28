@@ -27,6 +27,7 @@ $form = ActiveForm::begin([
     'id' => 'order-form',
     'options' => [
         'ajax' => $ajax,
+        'enableAjaxValidation' => true,
     ]
 ])
 ?>
@@ -49,19 +50,26 @@ $form = ActiveForm::begin([
 
     select.form-control{
         overflow: hidden;
-        background: url("img/arrow.png") no-repeat 148px #ffffff;
-        background-size: cover 55px 48px;
+        background: url("img/arrow.png") no-repeat right #ffffff;
+    }
 
+    .datepicker{
+        overflow: hidden;
+        background: url("img/date.png") no-repeat right #ffffff;
     }
 
     .block-header{
         height: 90px;
         padding: 30px 100px;
         background-color: #394958;
-
     }
 
-    .block-header h2{
+    .block-header i{
+        line-height: 30px;
+        cursor: pointer;
+    }
+
+    .block-header h2.order{
         padding-left: 50px;
         font-size: 18px;
         line-height: 36px;
@@ -101,9 +109,11 @@ $form = ActiveForm::begin([
         background-color: #2aa5d2;
         border-right: 1px solid #4fc1e9;
     }
+
     .block-type-2.extend-padding{
         padding: 77px 55px;
     }
+
     .cost-container-1{
         background: url("img/rub.png") no-repeat right;
         padding: 5px 50px 5px 0;
@@ -174,11 +184,41 @@ $form = ActiveForm::begin([
         background-image: url("img/print.png");
     }
 
+    /*********************/
+
+    .container-ticket label {
+        color: #666;
+    }
+
+    .container-ticket .form-control {
+        border: 1px solid #c6c6c6;
+    }
+
+    .block-type-3{
+        padding: 55px 55px;
+        background-color: white;
+        border-right: 1px solid #eaeaea;
+    }
+
+    .block-type-3.extend-padding{
+        padding: 77px 55px;
+    }
+
+    .sub-header{
+        background-color: #2598c2;
+        padding-top: 35px;
+    }
+
+    .sub-header h2{
+        font-size: 21px;
+        color: white;
+    }
+
 </style>
     <div class="row">
         <div class="col-md-12">
             <div class="block-header">
-                <h2>КВИТАНЦИЯ</h2>
+                <h2 class="order">КВИТАНЦИЯ</h2>
             </div>
         </div>
     </div>
