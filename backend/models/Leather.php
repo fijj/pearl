@@ -12,10 +12,10 @@ class Leather extends Ticket
 
     public function rules(){
         return [
-            [['caption'], 'required'],
             [['param1n', 'param5n', 'param34_14n', 'discount'], 'integer'],
             [['cost'], 'double'],
             [[
+                'caption',
                 'orderId',
                 'clientId',
                 'caption',

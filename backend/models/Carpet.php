@@ -11,10 +11,10 @@ class Carpet extends Ticket
 
     public function rules(){
         return [
-            [['caption'], 'required'],
             [['param1n', 'param5n', 'param31n', 'discount', 'height', 'width', 'area'], 'integer'],
             [['cost'], 'double'],
             [[
+                'caption',
                 'orderId',
                 'clientId',
                 'caption',

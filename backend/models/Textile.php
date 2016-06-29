@@ -11,10 +11,10 @@ class Textile extends Ticket
 
     public function rules(){
         return [
-            [['caption'], 'required'],
             [['param1n', 'param5n', 'param31n', 'discount'], 'integer'],
             [['cost'], 'double'],
             [[
+                'caption',
                 'orderId',
                 'clientId',
                 'caption',
