@@ -60,26 +60,6 @@ $('#reception-code').keyup(function() {
     };
 }());
 
-$(document).on("beforeSubmit", "#order-form[ajax=true]", function () {
-    var form = $(this);
-    if(form.find('.has-error').length) {
-        return false;
-    }
-
-    $.ajax({
-        url: form.attr('action'),
-        type: 'post',
-        data: form.serialize(),
-        success: function(data) {
-            document.location.href="index.php?r=reception/index";
-        },
-        error: function(){
-            alert('ошибка');
-        }
-    });
-    return false;
-});
-
 $(document).on('click', function(){
     $('#reception-code').focus();
 });
@@ -128,19 +108,27 @@ $('#orders-typeid').on('change', function(){
 $(document).on("beforeSubmit", "#order-form", function () {
     var form1 = $(this);
     var form2 = $('#ticket-form');
-    if(form1.find('.has-error').length) {
+    if(form1.find('.has-error').length || form2.find('.has-error').length) {
         return false;
     }
 
     $.ajax({
         url: form1.attr('action'),
         type: 'post',
-        data: {
-            'form1' : form1.serialize(),
-            'form2' : form2.serialize()
-        },
+        data: form1.serialize() +'&'+ form2.serialize(),
 
         success: function(data) {
+            if(xxxAction == 'update'){
+                window.location.reload();
+            }
+
+            if(xxxAction == 'reception'){
+                document.location.href="index.php?r=reception/index";
+            }
+
+            if(xxxAction == 'create'){
+                document.location.href="index.php?r=orders/update&id=" + data;
+            }
 
         },
 

@@ -25,10 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <?
 $form = ActiveForm::begin([
     'id' => 'order-form',
-    'options' => [
-        'ajax' => $ajax,
-        'enableAjaxValidation' => true,
-    ]
 ])
 ?>
 <style>
@@ -46,6 +42,13 @@ $form = ActiveForm::begin([
         -ms-appearance: none;
         -o-appearance: none;
         position: relative;
+    }
+
+    input.form-control.small-input{
+        width: 25px;
+        height: 25px;
+        padding: 4px;
+        border: 1px solid #4fc1e9;
     }
 
     select.form-control{
@@ -184,10 +187,17 @@ $form = ActiveForm::begin([
         background-image: url("img/print.png");
     }
 
+    .button-add{
+        background-image: url("img/add.png");
+    }
     /*********************/
 
     .container-ticket label {
         color: #666;
+    }
+
+    .ticket{
+        margin-top: 25px;
     }
 
     .container-ticket .form-control {
@@ -205,15 +215,50 @@ $form = ActiveForm::begin([
     }
 
     .sub-header{
+        padding: 10px 0 10px 145px;
         background-color: #2598c2;
-        padding-top: 35px;
     }
 
     .sub-header h2{
+        padding: 20px 70px;
         font-size: 21px;
         color: white;
     }
 
+    .sub-header h2.s1{
+        background: url("img/10.png") no-repeat left;
+    }
+
+    .sub-header h2.s2{
+        background: url("img/20.png") no-repeat left;
+    }
+
+    .sub-header h2.s3{
+        background: url("img/30.png") no-repeat left;
+    }
+
+    .sub-header h2.s4{
+        background: url("img/40.png") no-repeat left;
+    }
+
+    .type-container{
+        background-color: white;
+        margin-top: 5px;
+    }
+
+    .type-header{
+        margin-bottom: 15px;
+        padding: 15px 0 15px 0;
+        background-color: #4fc1e9;
+        font-size: 14px;
+        font-weight: 500;
+        text-align: center;
+        color: white;
+    }
+
+    input[type=checkbox] {
+
+    }
 </style>
     <div class="row">
         <div class="col-md-12">
@@ -233,7 +278,7 @@ $form = ActiveForm::begin([
                 <? if ($action == 'update'): ?>
                     <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray(), ['disabled' => '']) ?>
                 <? else: ?>
-                    <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray()) ?>
+                    <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray(), ['prompt'=>'Тип услуги']) ?>
                 <? endif ?>
             </div>
             <div class="col-md-2 block-type-1">
@@ -279,14 +324,21 @@ $form = ActiveForm::begin([
                     <?= Html::submitButton('Сохранить', ['class' => 'button mod button-save']) ?>
                 </div>
                 <div class="col-md-6">
-                    <?= Html::a('Печатать', [''], ['class' => 'button mod button-print']) ?>
+                    <?= Html::a('Печатать', ['ticket/print', 'id' => $orders->id], ['class' => 'button mod button-print']) ?>
                 </div>
             </div>
         </div>
     </div>
-<? if ($action == 'update'): ?>
-    <?= Html::a('Квитанция', ['ticket/update', 'id' => $orders->id], ['class' => 'btn btn-warning']) ?>
-<? endif ?>
 <?php ActiveForm::end() ?>
 
-<div class="ticket-ajax-load"></div>
+<div class="ticket-ajax-load">
+    <? if($action == 'update' || $action == 'reception'): ?>
+        <?= $this->render('@backend/views/ticket/form/'.$template,[
+            'model' => $model
+        ]); ?>
+    <? endif; ?>
+</div>
+
+<script>
+    var xxxAction = '<?= $action ?>';
+</script>

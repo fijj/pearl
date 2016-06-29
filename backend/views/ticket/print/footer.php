@@ -32,6 +32,22 @@ use yii\widgets\ActiveForm;
                     <b><?= $order->cost ?> руб.</b>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    Оплачено:
+                </td>
+                <td style="text-align: right">
+                    <b><?= $order->paid ?> руб.</b>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Задолженность:
+                </td>
+                <td style="text-align: right">
+                    <b><?= $order->debt ?> руб.</b>
+                </td>
+            </tr>
         </table>
     </div>
 
@@ -143,6 +159,7 @@ use yii\widgets\ActiveForm;
     hr{
         width: 100%;
         float: left;
+        margin-top: 14px;
     }
 
     .info {
@@ -181,8 +198,7 @@ use yii\widgets\ActiveForm;
         overflow-y: hidden;
     }
     .footer{
-        position: absolute;
-        bottom: 20px;
+        margin-top: 20px;
         width: 100%;
     }
 
@@ -201,7 +217,7 @@ use yii\widgets\ActiveForm;
 
     .barcode{
         position: absolute;
-        bottom: 0px;
+        bottom: 10px;
         right: 0px;
     }
 

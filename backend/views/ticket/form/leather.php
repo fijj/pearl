@@ -5,14 +5,6 @@ use yii\widgets\ActiveForm;
 use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $this yii\web\View */
 
-$this->title = $title;
-$this->params['breadcrumbs'] = [
-    ['label' => 'Заказы', 'url' => ['orders/index']],
-    ['label' => $order->number, 'url' => ['orders/update', 'id' => $order->id]],
-    ['label' => 'Квитанция'],
-];
-
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?

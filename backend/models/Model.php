@@ -41,7 +41,7 @@ class Model extends \yii\base\Model
         return $models;
     }
 
-    public static  function uploadFile($dir, $file, $fileName, $oldName, $hash = false)
+    public static function uploadFile($dir, $file, $fileName, $oldName, $hash = false)
 
     {
         $model = UploadedFile::getInstanceByName($file);

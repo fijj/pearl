@@ -143,11 +143,8 @@ class Orders extends ActiveRecord
 
 
     public function calculate(){
-        if($this->cost == 0){
-            $this->cost = $this->deliveryCost + $this->ticketCost;
-        }else{
 
-        }
+        $this->cost = $this->deliveryCost + $this->ticketCost;
         $this->debt = $this->cost - $this->paid;
         $this->costTotal = $this->cost * (100 - $this->point->discount) / 100;
     }

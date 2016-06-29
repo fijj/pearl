@@ -57,4 +57,37 @@ class Ticket extends ActiveRecord
     public function getClients(){
         return $this->hasOne(Clients::className(), ['id' => 'clientId']);
     }
+
+    //Определение типа квитанции
+    public static function ticketModel($typeId)
+    {
+        switch ($typeId){
+            case(Orders::TYPE_SUIT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_COAT):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_TEXTILE):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_PILLOW):
+                $ticket = Textile::className();
+                break;
+            case(Orders::TYPE_LEATHER_PAINT):
+                $ticket = Leather::className();
+                break;
+            case(Orders::TYPE_CARPET):
+                $ticket = Carpet::className();
+                break;
+            case(Orders::TYPE_FURNITURE):
+                $ticket = Textile::className();
+                break;
+        }
+
+        return $ticket;
+    }
 }
