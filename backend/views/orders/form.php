@@ -67,9 +67,30 @@ $form = ActiveForm::begin([
         background-color: #394958;
     }
 
+    .numeric {
+        position: absolute;
+        right: 50px;
+        top: 47px;
+        width: 70px;
+        height: 70px;
+        font-size: 40px;
+        line-height: 68px;
+        border-radius: 100%;
+        text-align: center;
+        z-index: 10;
+        background-color: #8bc34a;
+        color: white;
+        -webkit-box-shadow: 0px 0px 9px 0px rgba(50, 50, 50, 0.31);
+        -moz-box-shadow: 0px 0px 9px 0px rgba(50, 50, 50, 0.31);
+        box-shadow: 0px 0px 9px 0px rgba(50, 50, 50, 0.31);
+    }
+
     .block-header i{
         line-height: 30px;
         cursor: pointer;
+        position: absolute;
+        right: 40px;
+        top: 20px;
     }
 
     .block-header h2.order{

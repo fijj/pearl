@@ -126,8 +126,9 @@ $form = ActiveForm::begin([
     <div class="row container-ticket">
         <?php foreach ($model as $i => $item): ?>
         <div class="ticket col-md-12">
-            <div class="block-header">
+            <div class="block-header numeric">
                 <h2 class="order">СПИСОК ТОВАРОВ/ОСНОВНЫЕ ПАРАМЕТРЫ
+                    <div class="numeric"></div>
                     <i class="remove-ticket pull-right glyphicon glyphicon-remove"></i>
                 </h2>
             </div>

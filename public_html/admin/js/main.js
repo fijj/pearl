@@ -138,3 +138,12 @@ $(document).on("beforeSubmit", "#order-form", function () {
     });
     return false;
 });
+
+//Счетчик квитанций
+$(document).ready(function () {
+    var self = $('.numeric');
+    var len = self.length;
+    for (var i = 0; i < len ; i++){
+        $(self[i]).html(i+1);
+    }
+});

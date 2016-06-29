@@ -125,6 +125,7 @@ $form = ActiveForm::begin([
         <div class="ticket col-md-12">
             <div class="block-header">
                 <h2 class="order">СПИСОК ТОВАРОВ/ОСНОВНЫЕ ПАРАМЕТРЫ
+                    <div class="numeric"></div>
                     <i class="remove-ticket pull-right glyphicon glyphicon-remove"></i>
                 </h2>
             </div>
