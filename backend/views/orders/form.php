@@ -129,6 +129,7 @@ $form = ActiveForm::begin([
     }
 
     .block-type-2{
+        height: 210px;
         padding: 55px 55px;
         background-color: #2aa5d2;
         border-right: 1px solid #4fc1e9;
@@ -210,9 +211,13 @@ $form = ActiveForm::begin([
 
     .button-add{
         background-image: url("img/add.png");
+        margin: 50px auto;
     }
     /*********************/
-
+    .container-ticket{
+        background-color: #f2f2f2;
+        padding-bottom: 50px;
+    }
     .container-ticket label {
         color: #666;
     }
@@ -225,7 +230,17 @@ $form = ActiveForm::begin([
         border: 1px solid #c6c6c6;
     }
 
+    .accordion{
+        height: 83px;
+    }
+
+    .accordion.open{
+        height: auto;
+    }
+
     .block-type-3{
+        min-height: 200px;
+        max-height: 286px;
         padding: 55px 55px;
         background-color: white;
         border-right: 1px solid #eaeaea;
@@ -235,8 +250,12 @@ $form = ActiveForm::begin([
         padding: 77px 55px;
     }
 
+    .bt-3-placeholder{
+        height: 176px;
+    }
+
     .sub-header{
-        padding: 10px 0 10px 145px;
+        padding: 10px 0 10px 25%;
         background-color: #2598c2;
     }
 
@@ -262,9 +281,54 @@ $form = ActiveForm::begin([
         background: url("img/40.png") no-repeat left;
     }
 
+    .collapse-btn{
+        position: absolute;
+        right: 50px;
+        top: 25px;
+        height: 35px;
+        width: 35px;
+        border-radius: 100%;
+        background-color: rgb(79, 193, 233);
+        cursor: pointer;
+    }
+
+    .collapse-btn:before{
+        content: "+";
+        position: absolute;
+        font-size: 28px;
+        color: #ffffff;
+        left: 9px;
+        top: -3px;
+    }
+
+    .collapse-btn.open:before{
+        content: "-";
+        left: 13px;
+        top: -5px;
+    }
+
+    .collapse-btn:after{
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 30px;
+        top: 2px;
+        right: 70px;
+        background-color: #2aa5d2;
+    }
+
     .type-container{
         background-color: white;
         margin-top: 5px;
+        padding-bottom: 10px;
+        font-size: 11px;
+    }
+    .type-container .form-group {
+        margin: 0;
+    }
+
+    .type-container .help-block {
+        margin: 0;
     }
 
     .type-header{
@@ -278,7 +342,33 @@ $form = ActiveForm::begin([
     }
 
     input[type=checkbox] {
+        position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+    }
 
+    input[type=checkbox] + label.css-label {
+        padding-left:20px;
+        height:15px;
+        display:inline-block;
+        line-height:15px;
+        background-repeat:no-repeat;
+        background-position: 0 0;
+        font-size:15px;
+        vertical-align:middle;
+        cursor:pointer;
+
+    }
+
+    input[type=checkbox]:checked + label.css-label {
+        background-position: 0 -15px;
+    }
+    label.css-label {
+        background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_c3c063acf4ee262666c6e3d6130dcb0c.png);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
 </style>
     <div class="row">

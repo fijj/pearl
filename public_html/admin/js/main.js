@@ -68,13 +68,10 @@ $(document).on('click', function(){
 //DATEPICKER REFRESH
 $(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
     $(item).find("textarea").val('');
+    counter();
+    chekBoxStyle();
 });
 
-//Accordion
-$('body').on('click', '.accordion p', function(){
-    $(this).parent().toggleClass('open');
-});
-/**
 //Notificaton
 setInterval(function () {
     if(document.location.search != '?r=site%2Flogin') {
@@ -88,7 +85,7 @@ setInterval(function () {
         }, 'json');
     }
 }, 5000);
-*/
+
 //Ticket ajax load
 $('#orders-typeid').on('change', function(){
     var type = $(this).val();
@@ -140,10 +137,31 @@ $(document).on("beforeSubmit", "#order-form", function () {
 });
 
 //Счетчик квитанций
-$(document).ready(function () {
+function counter(){
     var self = $('.numeric');
     var len = self.length;
     for (var i = 0; i < len ; i++){
         $(self[i]).html(i+1);
     }
+}
+
+//Аккардион
+$('body').on('click', '.collapse-btn', function(){
+    $(this).toggleClass('open');
+    $(this).parent().parent().toggleClass('open');
+});
+
+//Добавления label для чекбокса
+function chekBoxStyle(){
+    $("input[type='checkbox']").after(function(){
+        console.log();
+        if($(this).next('label').length == 0){
+            return '<label for='+ $(this).attr('id') +' class="css-label">';
+        }
+    });
+}
+
+$(document).ready(function(){
+    counter();
+    chekBoxStyle();
 });
