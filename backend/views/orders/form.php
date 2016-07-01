@@ -253,7 +253,17 @@ $form = ActiveForm::begin([
     .bt-3-placeholder{
         height: 176px;
     }
+    .accordion{
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+    .accordion:first-child{
+        padding-left: 15px;
+    }
 
+    .accordion:last-child{
+        padding-right: 15px;
+    }
     .sub-header{
         padding: 10px 0 10px 25%;
         background-color: #2598c2;
@@ -370,6 +380,53 @@ $form = ActiveForm::begin([
         -ms-user-select: none;
         user-select: none;
     }
+
+    @media (min-width: 992px) {
+        .block-type-1{
+            padding: 55px 10px 55px 10px;
+        }
+
+        .block-type-1:first-child {
+            padding-left: 10px;
+        }
+
+        .block-type-1:last-child {
+            padding-right: 10px;
+        }
+        .block-type-2{
+            padding: 55px 30px 55px 0px;
+        }
+        .cost-container{
+            padding: 5px 90px 5px 0px;
+        }
+        .button.mod{
+            width: 200px;
+            background-position: 163px center;
+        }
+        .block-type-3{
+            padding: 55px 10px;
+        }
+        .block-type-3 label{
+            font-size: 12px;
+        }
+        .sub-header{
+            padding: 10px 0 10px 5%;
+        }
+        .collapse-btn{
+            right: 30px;
+        }
+
+        .type-container {
+            font-size: 10.4px;
+        }
+        .type-container > .col-md-3, .type-container > .col-md-6{
+            padding-left: 5px;
+            padding-right: 1px;
+        }
+        input[type=checkbox] + label.css-label {
+            padding-left: 15px;
+        }
+    }
 </style>
     <div class="row">
         <div class="col-md-12">
@@ -384,7 +441,7 @@ $form = ActiveForm::begin([
                 <?= $form->field($orders, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
                 <?= $form->field($orders, 'outDate')->input('date', ['class' => 'datepicker form-control']) ?>
             </div>
-            <div class="col-md-2 block-type-1">
+            <div class="col-md-3 block-type-1">
                 <?= $form->field($orders, 'pointId')->dropDownList(Point::dropDownArray()) ?>
                 <? if ($action == 'update'): ?>
                     <?= $form->field($orders, 'typeId')->dropDownList(Type::dropDownArray(), ['disabled' => '']) ?>
@@ -402,7 +459,7 @@ $form = ActiveForm::begin([
                     <p>перечисток: <strong><?= $orders->ccount ?></strong></p>
                 </div>
             </div>
-            <div class="col-md-3 block-type-1">
+            <div class="col-md-2 block-type-1">
                 <?= $form->field($orders, 'deliveryCost') ?>
                 <?= $form->field($orders, 'paid') ?>
             </div>
@@ -411,7 +468,7 @@ $form = ActiveForm::begin([
     <div class="row">
         <div class="col-md-12">
             <div class="col-md-3 block-type-2">
-                <div class="cost-container-1">
+                <div class="cost-container cost-container-1">
                     <div class="cost">
                         <span><?= ($orders->cost) ? Yii::$app->formatter->asDecimal($orders->cost, 0) : '...' ?></span>
                     </div>
@@ -421,7 +478,7 @@ $form = ActiveForm::begin([
                 </div>
             </div>
             <div class="col-md-3 block-type-2">
-                <div class="cost-container-2">
+                <div class="cost-container cost-container-2">
                     <div class="cost">
                         <span><?= ($orders->cost) ? Yii::$app->formatter->asDecimal($orders->costTotal, 0) : '...' ?></span>
                     </div>

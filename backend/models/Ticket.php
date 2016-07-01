@@ -41,7 +41,7 @@ class Ticket extends ActiveRecord
         0 => 'общее',
         1 => 'среднее',
         2 => 'сильное',
-        3 => 'очнеь сильное'
+        3 => 'очень сильное'
     ];
 
     public $salinityArr = [

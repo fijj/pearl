@@ -55,6 +55,9 @@ $('#reception-code').keyup(function() {
                 $('.scanner-header').remove();
                 $( ".result" ).html( data );
                 datepicker();
+                counter();
+                checkBoxStyle();
+                dyForm();
             });
         }, 200));
     };
@@ -66,11 +69,13 @@ $(document).on('click', function(){
 
 //Dynamic form
 //DATEPICKER REFRESH
-$(".dynamicform_wrapper_ticket").on("afterInsert", function(e, item) {
-    $(item).find("textarea").val('');
-    counter();
-    chekBoxStyle();
-});
+function dyForm() {
+    $(".dynamicform_wrapper_ticket").on("afterInsert", function (e, item) {
+        $(item).find("textarea").val('');
+        counter();
+        checkBoxStyle();
+    });
+}
 
 //Notificaton
 setInterval(function () {
@@ -94,7 +99,9 @@ $('#orders-typeid').on('change', function(){
         type: 'get',
         success: function(data) {
             $('.ticket-ajax-load').html(data);
-
+            counter();
+            checkBoxStyle();
+            dyForm();
         },
         error: function(){
             alert('ошибка');
@@ -152,16 +159,28 @@ $('body').on('click', '.collapse-btn', function(){
 });
 
 //Добавления label для чекбокса
-function chekBoxStyle(){
+function checkBoxStyle(){
     $("input[type='checkbox']").after(function(){
-        console.log();
         if($(this).next('label').length == 0){
             return '<label for='+ $(this).attr('id') +' class="css-label">';
         }
     });
 }
 
+//Динамический просчет стоимости
+$('html').on('change', '#ticket-form input', function() {
+    var costInput = $('input').filter(function() {
+        return this.id.match(/-cost/);
+    });
+
+    $.each(costInput, function (index, value) {
+        alert($(value).val());
+    });
+});
+
+
 $(document).ready(function(){
     counter();
-    chekBoxStyle();
+    checkBoxStyle();
+    dyForm();
 });

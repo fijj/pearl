@@ -135,33 +135,31 @@ $form = ActiveForm::begin([
                     echo Html::activeHiddenInput($item, "[{$i}]id");
                 }
                 ?>
-                <div class="row">
-                    <div class="col-md-6 block-type-3">
-                        <div class="col-md-4">
-                            <?= $form->field($item, "[{$i}]caption")?>
-                        </div>
-                        <div class="col-md-4">
-                            <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
-                        </div>
-                        <div class="col-md-4">
-                            <?= $form->field($item, "[{$i}]color")?>
-                        </div>
+                <div class="col-md-6 block-type-3">
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]caption")?>
                     </div>
-                    <div class="col-md-3 block-type-3">
-                        <div class="col-md-6">
-                            <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)?>
-                        </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]marking")->dropDownList($item->markingArr)?>
                     </div>
-                    <div class="col-md-3 block-type-3">
-                        <div class="col-md-6">
-                            <?= $form->field($item, "[{$i}]cost")?>
-                        </div>
-                        <div class="col-md-6">
-                            <?= $form->field($item, "[{$i}]discount")?>
-                        </div>
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]color")?>
+                    </div>
+                </div>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]wear")->dropDownList($item->wearArr)?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]pollution")->dropDownList($item->pollutionArr)->label('Степень загр.')?>
+                    </div>
+                </div>
+                <div class="col-md-3 block-type-3">
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]cost")?>
+                    </div>
+                    <div class="col-md-6">
+                        <?= $form->field($item, "[{$i}]discount")?>
                     </div>
                 </div>
                 <div class="row">
@@ -302,7 +300,7 @@ $form = ActiveForm::begin([
                     <div class="accordion col-md-3">
                         <div class="sub-header">
                             <h2 class="s3">Дефекты</h2>
-                            <div class="collapse-btn open"></div>
+                            <div class="collapse-btn"></div>
                         </div>
                         <div class="type-container clearfix">
                             <div class="type-header">Дефекты изделия</div>

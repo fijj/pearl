@@ -36,7 +36,7 @@ class Orders extends ActiveRecord
 
     public function rules(){
         return [
-            [['paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
+            [['date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
             [['number', 'contract', 'ccount', 'delivery'], 'integer'],
             [['cost', 'paid', 'costTotal', 'deliveryCost'], 'double'],
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
