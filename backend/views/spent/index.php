@@ -30,38 +30,36 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                 ],
                 [
-                    'attribute' => 'sp1'
+                    'attribute' => 'Общие расходы',
+                    'format' => 'raw',
+                    'value' => function($data){
+                        foreach ($data->common->attributeLabels() as $key => $label){
+                            $array[] = $label.' : <b>'.$data->common->getAttribute($key).'</b>';
+                        }
+                        return implode('<br />', $array);
+                    }
                 ],
                 [
-                    'attribute' => 'sp2'
+                    'attribute' => 'Расходы химчистка',
+                    'format' => 'raw',
+                    'value' => function($data){
+                        foreach ($data->cleaner->attributeLabels() as $key => $label){
+                            $array[] = $label.' : <b>'.$data->cleaner->getAttribute($key).'</b>';
+                        }
+                        return implode('<br />', $array);
+                    }
                 ],
                 [
-                    'attribute' => 'sp3'
+                    'attribute' => 'Расходы ковры',
+                    'format' => 'raw',
+                    'value' => function($data){
+                        foreach ($data->carpet->attributeLabels() as $key => $label){
+                            $array[] = $label.' : <b>'.$data->carpet->getAttribute($key).'</b>';
+                        }
+                        return implode('<br />', $array);
+                    }
                 ],
-                [
-                    'attribute' => 'sp4'
-                ],
-                [
-                    'attribute' => 'sp5'
-                ],
-                [
-                    'attribute' => 'sp6'
-                ],
-                [
-                    'attribute' => 'sp7'
-                ],
-                [
-                    'attribute' => 'sp8'
-                ],
-                [
-                    'attribute' => 'sp9'
-                ],
-                [
-                    'attribute' => 'sp10'
-                ],
-                [
-                    'attribute' => 'sp11'
-                ],
+
                 [
                     'class' => 'yii\grid\ActionColumn',
                 ],

@@ -26,6 +26,14 @@ $('.btn-danger, .confirm-msg').on('click', function(e){
     }
 });
 
+//Alert Widget
+$(document).ready(function () {
+    setTimeout(function () {
+        $('.alert').alert('close');
+    }, 1000);
+});
+
+
 //MASK
 $(document).ready(function(){
     $("#clients-phone").mask("+7 (999) 999-99-99");

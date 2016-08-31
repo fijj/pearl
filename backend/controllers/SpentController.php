@@ -5,7 +5,10 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
-use backend\models\Spent;
+use backend\models\spent\SpentRelation;
+use backend\models\spent\SpentCommon;
+use backend\models\spent\SpentCleaner;
+use backend\models\spent\SpentCarpet;
 use yii\data\ActiveDataProvider;
 
 /**
@@ -58,7 +61,7 @@ class SpentController extends Controller
     }
     public function actionIndex(){
         $dataProvider = new ActiveDataProvider([
-            'query' => Spent::find(),
+            'query' => SpentRelation::find(),
             'sort' => [
                 'defaultOrder' => [
                     'date' => SORT_DESC,
@@ -71,33 +74,79 @@ class SpentController extends Controller
     }
 
     public function actionCreate(){
-        $spent = new Spent();
-        if ($spent->load(Yii::$app->request->post()) && $spent->validate()) {
-            $spent->save();
+    
+        $spentRelation = new SpentRelation();
+        $spentCommon = new SpentCommon();
+        $spentCleaner = new SpentCleaner();
+        $spentCarpet = new SpentCarpet();
+
+        if(
+            $spentRelation->load(Yii::$app->request->post())&&
+            $spentCommon->load(Yii::$app->request->post())&&
+            $spentCleaner->load(Yii::$app->request->post())&&
+            $spentCarpet->load(Yii::$app->request->post())&&
+            $spentRelation->validate()&&
+            $spentCommon->validate()&&
+            $spentCleaner->validate()&&
+            $spentCarpet->validate()
+        ){
+
+            $spentRelation->save();
+            $spentCommon->relationId = $spentCleaner->relationId = $spentCarpet->relationId = $spentRelation->id;
+            $spentCommon->save();
+            $spentCleaner->save();
+            $spentCarpet->save();
             Yii::$app->getSession()->setFlash('success', 'Расходы добавлены');
             return $this->redirect(['spent/index']);
         }
+
+
         return $this->render('form',[
-            'spent' => $spent,
+            'spentRelation' => $spentRelation,
+            'spentCommon' => $spentCommon,
+            'spentCleaner' => $spentCleaner,
+            'spentCarpet' => $spentCarpet,
             'action' => 'create'
         ]);
 
     }
 
     public function actionUpdate($id){
-        $spent = Spent::findOne($id);
-        if ($spent->load(Yii::$app->request->post()) && $spent->validate()) {
-            $spent->save();
+
+        $spentRelation = SpentRelation::findOne($id);
+        $spentCommon = SpentCommon::findOne(['relationId' => $id]);
+        $spentCleaner = SpentCleaner::findOne(['relationId' => $id]);
+        $spentCarpet = SpentCarpet::findOne(['relationId' => $id]);
+
+        if(
+            $spentRelation->load(Yii::$app->request->post())&&
+            $spentCommon->load(Yii::$app->request->post())&&
+            $spentCleaner->load(Yii::$app->request->post())&&
+            $spentCarpet->load(Yii::$app->request->post())&&
+            $spentRelation->validate()&&
+            $spentCommon->validate()&&
+            $spentCleaner->validate()&&
+            $spentCarpet->validate()
+        ){
+
+            $spentRelation->save();
+            $spentCommon->save();
+            $spentCleaner->save();
+            $spentCarpet->save();
             Yii::$app->getSession()->setFlash('success', 'Изменения сохранены');
         }
+        
         return $this->render('form',[
-            'spent' => $spent,
+            'spentRelation' => $spentRelation,
+            'spentCommon' => $spentCommon,
+            'spentCleaner' => $spentCleaner,
+            'spentCarpet' => $spentCarpet,
             'action' => 'update'
         ]);
     }
 
     public function actionDelete($id){
-        $spent = spent::findOne($id);
+        $spent = SpentRelation::findOne($id);
         $spent->delete();
         Yii::$app->getSession()->setFlash('success', 'Запись удалена');
         return $this->redirect(['spent/index']);

@@ -2,9 +2,7 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use backend\models\settings\Point;
-use backend\models\settings\Status;
-use backend\models\settings\Type;
+
 
 /* @var $this yii\web\View */
 
@@ -15,7 +13,7 @@ $this->params['breadcrumbs'][] = [
 ];
 if($action == "update"){
     $this->params['breadcrumbs'][] = [
-        'label' => $spent->date,
+        'label' => $spentRelation->date,
     ];
 }else{
     $this->params['breadcrumbs'][] = [
@@ -31,54 +29,95 @@ $form = ActiveForm::begin([
 ])
 ?>
     <div class="row">
-        <div class="col-md-4">
-            <?= $form->field($spent, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
+        <div class="col-md-2">
+            <?= $form->field($spentRelation, 'date')->input('date', ['class' => 'datepicker form-control']) ?>
         </div>
     </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp1')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp2')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp3')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp4')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp5')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp6')->input('text', ['value' => '0.00']) ?>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>Общие расходы</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <?= $form->field($spentCommon, 'materials') ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($spentCommon, 'advertising_online') ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($spentCommon, 'advertising_offline') ?>
+                        </div>
+                        <div class="col-md-6">
+                            <?= $form->field($spentCommon, 'other') ?>
+                        </div>
+                        <div class="col-md-12">
+                            <?= $form->field($spentCommon, 'comment')->textarea() ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp7')->input('text', ['value' => '0.00']) ?>
+        <div class="col-md-4">
+            <h3>Расходы химчистка</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'pay') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'tax') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'rent') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'chemicals') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'reward') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCleaner, 'other') ?>
+                        </div>
+                        <div class="col-md-12">
+                            <?= $form->field($spentCleaner, 'comment')->textarea() ?>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp8')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp9')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp10')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-4">
-                    <?= $form->field($spent, 'sp11')->input('text', ['value' => '0.00']) ?>
-                </div>
-                <div class="col-md-12">
-                    <?= $form->field($spent, 'comment')->textarea() ?>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <h3>Расходы ковры</h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'pay') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'tax') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'rent') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'chemicals') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'reward') ?>
+                        </div>
+                        <div class="col-md-4">
+                            <?= $form->field($spentCarpet, 'other') ?>
+                        </div>
+                        <div class="col-md-12">
+                            <?= $form->field($spentCarpet, 'comment')->textarea() ?>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
