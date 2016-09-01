@@ -21,7 +21,8 @@ class FlotAsset extends AssetBundle
         'js/flot/jquery.flot.min.js',
         'js/flot/jquery.flot.time.min.js',
         'js/flot/jquery.flot.navigate.min.js',
-        'js/chart.js'
+        'js/chart.js',
+        'js/highstock/js/highstock.js',
     ];
 
     public $depends = [

@@ -4,6 +4,7 @@ use Yii;
 use backend\models\Orders;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use backend\models\settings\Point;
 
 
 class Stats extends Model{
@@ -12,6 +13,13 @@ class Stats extends Model{
     public $type;
     public $interval = 0;
     public $point;
+    public $split;
+
+    public static $splitArr = [
+        0 => 'Не разбивать',
+        1 => 'По точкам',
+        2 => 'По типам'
+    ];
 
     public static $modeArr = [
         'label' => [
@@ -45,6 +53,7 @@ class Stats extends Model{
             'type' => 'По типу вещи',
             'interval' => 'По времени',
             'point' => 'По точкам',
+            'split' => 'Разбить'
         ];
     }
 
@@ -54,39 +63,39 @@ class Stats extends Model{
         ];
     }
 
-    public function stats(){
+    public function series($typeId = null, $pointId = null){
+
+        $type = ($typeId == null) ? $this->type : $typeId;
+        $point = ($pointId == null) ? $this->point : $pointId;
+
         $orders = Orders::find()->select(['MAX(date) as date', self::$modeArr['sql'][$this->mode].' as value'])
         ->groupBy(self::$intervalArr['sql'][$this->interval])
-        ->andFilterWhere(['typeId' => $this->type])
-        ->andFilterWhere(['pointId' => $this->point])
+        ->andFilterWhere(['typeId' => $type])
+        ->andFilterWhere(['pointId' => $point])
         ->asArray()
         ->all();
         return ArrayHelper::map($orders, 'date', 'value');
     }
 
-    public function dateArr(){
+    public function getData(){
+        
         $minDate = Orders::find()->select('MIN(date) as date')->one();
         $maxDate = Orders::find()->select('MAX(date) as date')->one();
         $minDate = $minDate->date;
         $maxDate = $maxDate->date;
         $dateArr = [];
         $date = new \DateTime($minDate);
-        $stats = $this->stats();
-        while($date->format('Y-m-d') != $maxDate){
+        $series = $this->series();
+
+        while($date->format('Y-m-d') <= $maxDate){
             $dateArr[$date->format('Y-m-d')] = 0 ;
             $date->modify('+1 day');
         }
-        foreach ($dateArr as $key => $value){
-            $newArr[] = [strtotime($key.' UTC')*1000, $stats[$key]];
-        }
-        return Json::encode($newArr);
-    }
 
-    public static function json($data){
-        $array = [];
-        foreach ($data as $i){
-            $array[] = [strtotime($i['date'].' UTC')*1000, (int)$i['value']];
+        foreach ($dateArr as $key => $value){
+            $newArr[] = [strtotime($key.' UTC')*1000, (int)$series[$key]];
         }
-        return Json::encode($array);
+
+        return Json::encode($newArr);
     }
 }

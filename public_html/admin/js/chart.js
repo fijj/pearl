@@ -1,4 +1,5 @@
 //FLOT
+/**
 $(function() {
 
     for (var i = 0; i < data.length; ++i) {
@@ -109,7 +110,80 @@ $(function() {
         }
     });
 });
-
+**/
 $('select').on('change', function(){
     $('#stats-form').submit();
+});
+
+//NEW CHART
+$(function () {
+
+    Highcharts.setOptions({
+        lang: {
+            loading: 'Загрузка...',
+            months: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+            weekdays: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+            shortMonths: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сент', 'Окт', 'Нояб', 'Дек'],
+            exportButtonTitle: "Экспорт",
+            printButtonTitle: "Печать",
+            rangeSelectorFrom: "С",
+            rangeSelectorTo: "По",
+            rangeSelectorZoom: "Период",
+            downloadPNG: 'Скачать PNG',
+            downloadJPEG: 'Скачать JPEG',
+            downloadPDF: 'Скачать PDF',
+            downloadSVG: 'Скачать SVG',
+            printChart: 'Напечатать график'
+        }
+    });
+
+    var chart = new Highcharts.StockChart({
+        chart: {
+            renderTo: 'highchart-container',
+            alignTicks: false
+        },
+
+        rangeSelector: {
+            selected: 5
+        },
+
+        title: {
+            //text: 'AAPL Stock Volume'
+        },
+
+        series: [{
+            type: 'column',
+            name: 'Люди',
+            data: data,
+            dataGrouping: {
+                units: [
+                    [
+                        'day',
+                        [1]
+                    ],
+                ]
+            },
+        }]
+    });
+
+    var chart = $('#highchart-container').highcharts();
+
+    $('input[name="chart-type"]').on('change', function () {
+        var val = $(this).data('value');
+        chart.series[0].update({
+            type : val
+        });
+    });
+
+    $('input[name="chart-aprox"]').on('change', function () {
+        var val = $(this).data('value');
+        chart.series[0].update({
+            dataGrouping:{
+                units: [
+                    [val, [1]]
+                ]
+            }
+        });
+    });
+
 });

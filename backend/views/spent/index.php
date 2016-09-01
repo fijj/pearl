@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'value' => function($data){
                         foreach ($data->common->attributeLabels() as $key => $label){
-                            $array[] = $label.' : <b>'.$data->common->getAttribute($key).'</b>';
+                            $array[] = $label.' : <b class="spent s1-'.$key.'">'.$data->common->getAttribute($key).'</b>';
                         }
                         return implode('<br />', $array);
                     }
@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'value' => function($data){
                         foreach ($data->cleaner->attributeLabels() as $key => $label){
-                            $array[] = $label.' : <b>'.$data->cleaner->getAttribute($key).'</b>';
+                            $array[] = $label.' : <b class="spent s2-'.$key.'">'.$data->cleaner->getAttribute($key).'</b>';
                         }
                         return implode('<br />', $array);
                     }
@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'format' => 'raw',
                     'value' => function($data){
                         foreach ($data->carpet->attributeLabels() as $key => $label){
-                            $array[] = $label.' : <b>'.$data->carpet->getAttribute($key).'</b>';
+                            $array[] = $label.' : <b class="spent s2-'.$key.'">'.$data->carpet->getAttribute($key).'</b>';
                         }
                         return implode('<br />', $array);
                     }
@@ -71,5 +71,17 @@ $this->params['breadcrumbs'][] = $this->title;
 <style>
     .main-body.container{
         width: auto;
+    }
+    table{
+        font-size: 12px;
+    }
+    .spent{
+        padding: 5px;
+        border-radius: 3px;
+        cursor: pointer;
+    }
+
+    .light{
+        background-color: #00b3ee
     }
 </style>

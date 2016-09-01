@@ -33,11 +33,23 @@ $(document).ready(function () {
     }, 1000);
 });
 
+//Подсветка расходв
+$(document).ready(function () {
+    $('.spent').on('mouseover', function () {
+        var str = $(this).attr('class');
+        var arr = str.split(' ');
+        $('.' + arr[1]).addClass('light');
+        $.spentClassString = arr[1];
+    }).on('mouseleave',function (arr) {
+        $('.' + $.spentClassString).removeClass('light');
+    });
+});
 
 //MASK
 $(document).ready(function(){
     $("#clients-phone").mask("+7 (999) 999-99-99");
 });
+
 $(document).ready(function(){
     $('.search-option-checkbox').on('change',function(){
         if(this.checked){

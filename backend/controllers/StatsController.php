@@ -3,6 +3,7 @@ namespace backend\controllers;
 
 use backend\models\Stats;
 use Yii;
+use yii\base\Object;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -58,7 +59,7 @@ class StatsController extends Controller
     public function actionIndex(){
         $model = new Stats();
         $model->load(Yii::$app->request->get());
-        $data = $model->dateArr();
+        $data = $model->getData();
         return $this->render('index',[
             'model' => $model,
             'data' => $data
