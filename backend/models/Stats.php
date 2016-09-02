@@ -98,4 +98,20 @@ class Stats extends Model{
 
         return Json::encode($newArr);
     }
+
+    public static function getMonthArr(){
+        $minDate = Orders::find()->select('MIN(date) as date')->one();
+        $maxDate = Orders::find()->select('MAX(date) as date')->one();
+        $minDate = $minDate->date;
+        $maxDate = $maxDate->date;
+        $dateArr = [];
+        $date = new \DateTime($minDate);
+
+        while($date->format('Y-m') <= $maxDate){
+            $dateArr[] = $date->format('m-Y') ;
+            $date->modify('+1 month');
+        }
+
+        return $dateArr;
+    }
 }

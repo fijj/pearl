@@ -21,52 +21,76 @@ $this->params['breadcrumbs'][] = $this->title;
         'action' => Url::to(['stats/index'])
     ])
     ?>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <?= $form->field($model, 'mode')->dropDownList(Stats::$modeArr['label']) ?>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <?= $form->field($model, 'type')->dropDownList(Type::dropDownArray(), ['prompt' => 'Все']) ?>
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-2">
         <?= $form->field($model, 'point')->dropDownList(Point::dropDownArray(), ['prompt' => 'Все']) ?>
     </div>
+
     <div class="col-lg-3">
-        <?= $form->field($model, 'interval')->dropDownList(Stats::$intervalArr['label']) ?>
+        <?= /**$form->field($model, 'interval')->dropDownList(Stats::$intervalArr['label'])**/null ?>
     </div>
     <?php ActiveForm::end() ?>
 
 <div class="col-md-12">
     <div class="btn-group btn-group-xs" data-toggle="buttons">
-        <label class="btn btn-primary active">
+        <label class="btn btn-default active">
             <input type="radio" name="chart-type" data-value="column" id="option1" autocomplete="off" checked> column
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-default">
             <input type="radio" name="chart-type" data-value="line" id="option2" autocomplete="off"> line
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-default">
             <input type="radio" name="chart-type" data-value="area" id="option3" autocomplete="off"> area
         </label>
     </div>
 
     <div class="btn-group btn-group-xs" data-toggle="buttons">
-        <label class="btn btn-primary active">
+        <label class="btn btn-default active">
             <input type="radio" name="chart-aprox" data-value="day" id="option4" autocomplete="off" checked> по дням
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-default">
             <input type="radio" name="chart-aprox" data-value="week" id="option5" autocomplete="off"> по неделям
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-default">
             <input type="radio" name="chart-aprox" data-value="month" id="option6" autocomplete="off"> по месяцам
         </label>
-        <label class="btn btn-primary">
+        <label class="btn btn-default">
             <input type="radio" name="chart-aprox" data-value="year" id="option7" autocomplete="off"> по годам
         </label>
     </div>
 </div>
-<div class="chart-btn-container clearfix">
 
-<!--<div id="placeholder" class="demo-placeholder"></div>-->
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <? foreach ($monthArr as $month): ?>
+                <th>
+                    <?= $month; ?>
+                </th>
+            <? endforeach ?>
+        </tr>
+    </thead>
+    <tbody>
+            <? foreach ($stats as $item): ?>
+                <tr>
+                    <td><?= $item['label'] ?></td>
+                    <? foreach ($item['values'] as $val): ?>
+                        <? if($month = $val)?>
+                            <td><?= $val->orders->cost ?></td>
+                    <? endforeach; ?>
+                </tr>
+            <? endforeach ?>
+    </tbody>
+</table>
+
 <div id="highchart-container" style="height: 600px"></div>
+
 <script>
     var data = <?= $data ?>;
     var label = '<?= $label ?>';
