@@ -69,10 +69,10 @@ class SiteController extends Controller
                 'profitToday' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = CURDATE()')->sum('cost') * ((100 - $point->discount)/100),
                 'peopleTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = DATE_ADD(CURDATE(), INTERVAL -1 DAY)')->count(),
                 'profitTomorrow' => Orders::find()->where(['pointId' => $point->id])->andWhere('`date` = DATE_ADD(CURDATE(), INTERVAL -1 DAY)')->sum('cost') * ((100 - $point->discount)/100),
-                'peopleThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->count(),
-                'profitThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->sum('cost') * ((100 - $point->discount)/100),
-                'peoplePrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->count(),
-                'profitPrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->sum('cost') * ((100 - $point->discount)/100),
+                'peopleThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->andWhere('YEAR(`date`) = YEAR(CURDATE())')->count(),
+                'profitThisMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(CURDATE())')->andWhere('YEAR(`date`) = YEAR(CURDATE())')->sum('cost') * ((100 - $point->discount)/100),
+                'peoplePrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->andWhere('YEAR(`date`) = YEAR(CURDATE())')->count(),
+                'profitPrevMonth' => Orders::find()->where(['pointId' => $point->id])->andWhere('MONTH(`date`) = MONTH(DATE_ADD(CURDATE(), INTERVAL -1 MONTH))')->andWhere('YEAR(`date`) = YEAR(CURDATE())')->sum('cost') * ((100 - $point->discount)/100),
                 'debt' => Orders::find()->where(['pointId' => $point->id])->sum('debt'),
             ];
         }

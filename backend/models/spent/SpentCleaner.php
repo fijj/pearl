@@ -5,7 +5,7 @@ use yii\db\ActiveRecord;
 
 
 class SpentCleaner extends ActiveRecord{
-
+    
     public static function tableName(){
         return 'spent_cleaner';
     }
@@ -28,5 +28,13 @@ class SpentCleaner extends ActiveRecord{
             'other' => 'Прочие',
             'comment' => 'Комментарий',
         ];
+    }
+
+    public function getTotal(){
+        return $this->pay + $this->tax + $this->rent + $this->chemicals + $this->reward + $this->other;
+    }
+
+    public function getModelLabel(){
+        return 'Расходы химчистка';
     }
 }

@@ -27,4 +27,12 @@ class SpentCommon extends ActiveRecord{
             'comment' => 'Комментарий',
         ];
     }
+
+    public function getTotal(){
+        return $this->materials + $this->advertising_online + $this->advertising_offline + $this->other;
+    }
+
+    public function getModelLabel(){
+        return 'Расходы общие';
+    }
 }

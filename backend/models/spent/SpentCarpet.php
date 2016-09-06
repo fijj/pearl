@@ -29,4 +29,12 @@ class SpentCarpet extends ActiveRecord{
             'comment' => 'Комментарий',
         ];
     }
+
+    public function getModelLabel(){
+        return 'Расходы ковры';
+    }
+
+    public function getTotal(){
+        return $this->pay + $this->tax + $this->rent + $this->chemicals + $this->reward + $this->other;
+    }
 }

@@ -28,7 +28,7 @@ class Stats extends Model{
         ],
         'sql' => [
             0 => 'COUNT(*)',
-            1 => 'SUM(`cost`)'
+            1 => 'SUM(`costTotal`)'
         ],
     ];
 
@@ -93,7 +93,7 @@ class Stats extends Model{
         }
 
         foreach ($dateArr as $key => $value){
-            $newArr[] = [strtotime($key.' UTC')*1000, (int)$series[$key]];
+            $newArr[] = [strtotime($key.' UTC')*1000, (double)$series[$key]];
         }
 
         return Json::encode($newArr);

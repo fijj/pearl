@@ -138,9 +138,10 @@ $(function () {
     });
 
     var chart = new Highcharts.StockChart({
+        numberFormat : 'decimalPoint',
         chart: {
             renderTo: 'highchart-container',
-            alignTicks: false
+            alignTicks: false,
         },
 
         rangeSelector: {
@@ -150,10 +151,10 @@ $(function () {
         title: {
             //text: 'AAPL Stock Volume'
         },
-
+        
         series: [{
             type: 'column',
-            name: 'Люди',
+            name: 'Значение',
             data: data,
             dataGrouping: {
                 units: [

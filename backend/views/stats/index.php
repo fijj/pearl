@@ -65,44 +65,183 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
 </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>#</th>
-            <? foreach ($monthArr as $month): ?>
-                <th>
-                    <?= $month; ?>
-                </th>
-            <? endforeach ?>
-        </tr>
-    </thead>
-    <tbody>
-            <? foreach ($stats as $item): ?>
-                <tr>
-                    <td><?= $item['label'] ?></td>
-                    <? foreach ($item['values'] as $val): ?>
-                        <? if($month = $val)?>
-                            <td><?= $val->orders->cost ?></td>
-                    <? endforeach; ?>
-                </tr>
-            <? endforeach ?>
-    </tbody>
-</table>
-
 <div id="highchart-container" style="height: 600px"></div>
 
+<div class="table-container">
+    <table class="table table-hover table-condensed">
+        <thead>
+            <tr>
+                <th class="head-helper"></th>
+                <? foreach ($monthArr as $month): ?>
+                    <th>
+                        <?= $month; ?>
+                    </th>
+                <? endforeach ?>
+            </tr>
+        </thead>
+        <tbody>
+                <? foreach ($stats as $item): ?>
+                    <tr>
+                        <td class="head-column"><?= $item['label'] ?></td>
+                        <? foreach ($item['values'] as $key => $val): ?>
+
+                                <td>
+                                    <? if($val['sum']): ?>
+                                        <?=Yii::$app->formatter->asDecimal($val['sum'], 2) ?>
+                                        <? $diff = $val['sum'] - $item['values'][$key - 1]['sum'] ?>
+                                        <? if ($diff > 0): ?>
+                                            <p class ="diff diff-plus">+<?= Yii::$app->formatter->asDecimal($diff, 2) ?></p>
+                                        <? else: ?>
+                                            <p class ="diff diff-minnus"><?= Yii::$app->formatter->asDecimal($diff, 2) ?></p>
+                                        <? endif ?>
+                                    <? endif ?>
+
+                                </td>
+                        <? endforeach; ?>
+                    </tr>
+                <? endforeach ?>
+
+
+                <tr style="border-top: solid 2px">
+                    <td class="head-column" style="border-top: solid 2px"><?= $spent[0]->common->modelLabel ?></td>
+                    <? foreach ($spent as $item): ?>
+                        <td><?= Yii::$app->formatter->asDecimal($item->common->total, 2) ?></td>
+                    <? endforeach ?>
+                </tr>
+
+                <tr>
+                    <td class="head-column"><?= $spent[0]->cleaner->modelLabel ?></td>
+                    <? foreach ($spent as $item): ?>
+                        <td><?= Yii::$app->formatter->asDecimal($item->cleaner->total, 2) ?></td>
+                    <? endforeach ?>
+                </tr>
+
+                <tr>
+                    <td class="head-column"><?= $spent[0]->carpet->modelLabel ?></td>
+                    <? foreach ($spent as $item): ?>
+                        <td><?= Yii::$app->formatter->asDecimal($item->carpet->total, 2) ?></td>
+                    <? endforeach ?>
+                </tr>
+
+                <tr style="border-top: solid 2px">
+                    <td class="head-column" style="border-top: solid 2px">Новых клиентов</td>
+                    <? foreach ($clients as $key => $client): ?>
+                        <td>
+                            <?= $client['count'] ?>
+                            <? $diff = $client['count'] - $clients[$key - 1]['count'] ?>
+                            <? if ($diff > 0): ?>
+                                <p class ="diff diff-plus">+<?= $diff ?></p>
+                            <? else: ?>
+                                <p class ="diff diff-minnus"><?= $diff ?></p>
+                            <? endif ?>
+                        </td>
+                    <? endforeach ?>
+                </tr>
+
+                <tr>
+                    <td class="head-column">
+                        <b>Клиентов с повторными визитами:</b>
+                    </td>
+                </tr>
+
+                <? foreach ($visits as $item): ?>
+                    <tr>
+                        <td class="head-column"><?= $item['label'] ?></td>
+                        <? foreach ($item['values'] as $key => $val): ?>
+
+                            <td>
+                                <? if($val['count']): ?>
+                                    <?= $val['count'] ?>
+                                    <? $diff = $val['count'] - $item['values'][$key - 1]['count'] ?>
+                                    <? if ($diff > 0): ?>
+                                        <p class ="diff diff-plus">+<?= $diff ?></p>
+                                    <? else: ?>
+                                        <p class ="diff diff-minnus"><?= $diff ?></p>
+                                    <? endif ?>
+                                <? endif ?>
+
+                            </td>
+                        <? endforeach; ?>
+                    </tr>
+                <? endforeach ?>
+        </tbody>
+    </table>
+</div>
 <script>
     var data = <?= $data ?>;
     var label = '<?= $label ?>';
 </script>
 <style>
+    .table-container{
+        position: relative;
+    }
+
+    .table{
+        margin-top: 125px;
+        overflow: auto;
+        font-size: 12px;
+        display: block;
+        vertical-align: middle;
+    }
+
+    tr{
+        height: 45px;
+    }
+
+    th{
+        width: 130px;
+        text-align: center;
+    }
+
+    td{
+        text-align: center;
+    }
+
+    .head-column{
+        position: absolute;
+        background-color: white;
+        width: 150px;
+        height: 46px;
+        border-right: 2px solid;
+        margin-top: -2px;
+    }
+
+    .head-helper{
+        display: block;
+        width: 150px;
+        height: 46px;
+    }
+
     .container{
         width: 100%;
     }
+
     .demo-placeholder {
         width: 100%;
         height: 600px;
         font-size: 14px;
         line-height: 1.2em;
+    }
+
+    i.glyphicon{
+        display: inline;
+        float: right;
+    }
+
+    .diff{
+        font-size: 9px;
+        opacity: 0.2;
+    }
+
+    .diff-plus{
+        color: green;
+    }
+
+    .diff-minnus{
+        color: red;
+    }
+
+    tr:hover .diff{
+        opacity: 1;
     }
 </style>
