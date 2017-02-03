@@ -118,8 +118,8 @@ class TicketController extends Controller
                     $item->orderId = $order->id;
                     $item->clientId = $order->clientId;
                     $item->save(false);
-                    $cost += $item->cost - ($item->cost * $item->discount / 100);
-                    $discount += $item->cost * $item->discount / 100;
+                    $cost += $item->cost * $item->quantity - ($item->cost * $item->quantity * $item->discount / 100);
+                    $discount += $item->cost * $item->quantity * $item->discount / 100;
                 }
                 //Обновление задолженности и стоимости с учетом скидки для точки
                 $order->ticketCost = $cost;

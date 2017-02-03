@@ -64,7 +64,7 @@ class StatsController extends Controller
     public function actionIndex(){
         $model = new Stats();
         $model->load(Yii::$app->request->get());
-        $data = $model->getData();
+        $data = $model->getProfitChartData();
         $types = Type::find()->all();
 
         $minDate = Orders::find()->select('MIN(date) as date')->one();

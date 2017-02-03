@@ -30,7 +30,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="col-lg-2">
         <?= $form->field($model, 'point')->dropDownList(Point::dropDownArray(), ['prompt' => 'Все']) ?>
     </div>
-
+    <div class="col-lg-2">
+        <?= $form->field($model, 'category')->dropDownList(Stats::$categoryArr, ['prompt' => 'Все вместе']) ?>
+    </div>
     <div class="col-lg-3">
         <?= /**$form->field($model, 'interval')->dropDownList(Stats::$intervalArr['label'])**/null ?>
     </div>

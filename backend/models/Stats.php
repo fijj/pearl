@@ -1,5 +1,6 @@
 <?php
 namespace backend\models;
+use backend\models\spent\SpentRelation;
 use Yii;
 use backend\models\Orders;
 use yii\helpers\Json;
@@ -12,6 +13,7 @@ class Stats extends Model{
     public $mode = 0;
     public $type;
     public $interval = 0;
+    public $category;
     public $point;
     public $split;
 
@@ -47,11 +49,20 @@ class Stats extends Model{
         ],
     ];
 
+    public static $categoryArr = [
+        0 => 'Ковры',
+        1 => 'Химчистка',
+    ];
+
+    const CATEGORY_0 = 0;
+    const CATEGORY_1 = 1;
+
     public function attributeLabels(){
         return [
             'mode' => 'По типу статистики',
             'type' => 'По типу вещи',
             'interval' => 'По времени',
+            'category' => 'По категориям',
             'point' => 'По точкам',
             'split' => 'Разбить'
         ];
@@ -59,26 +70,34 @@ class Stats extends Model{
 
     public function rules(){
         return [
-            [['mode', 'type', 'interval', 'point'], 'safe']
+            [['mode', 'type', 'interval', 'point', 'category'], 'safe']
         ];
     }
 
-    public function series($typeId = null, $pointId = null){
+    private function series(){
 
-        $type = ($typeId == null) ? $this->type : $typeId;
-        $point = ($pointId == null) ? $this->point : $pointId;
+        $orders = Orders::find()->select(['MAX(date) as date', self::$modeArr['sql'][$this->mode].' as value'])->groupBy(self::$intervalArr['sql'][$this->interval]);
 
-        $orders = Orders::find()->select(['MAX(date) as date', self::$modeArr['sql'][$this->mode].' as value'])
-        ->groupBy(self::$intervalArr['sql'][$this->interval])
-        ->andFilterWhere(['typeId' => $type])
-        ->andFilterWhere(['pointId' => $point])
-        ->asArray()
-        ->all();
-        return ArrayHelper::map($orders, 'date', 'value');
+        switch ($this->category){
+
+            case '' :
+                $orders->filterWhere(['typeId' => $this->type])->andFilterWhere(['pointId' => $this->point]);
+                break;
+
+            case 0 :
+                $orders->where(['typeId' => [5,7,8]]);
+                break;
+
+            case 1 :
+                $orders->where(['typeId' => [1,2,3,4,6]]);
+                break;
+        }
+
+        return ArrayHelper::map($orders->asArray()->all(), 'date', 'value');
     }
 
-    public function getData(){
-        
+    public function getProfitChartData(){
+
         $minDate = Orders::find()->select('MIN(date) as date')->one();
         $maxDate = Orders::find()->select('MAX(date) as date')->one();
         $minDate = $minDate->date;
@@ -95,9 +114,16 @@ class Stats extends Model{
         foreach ($dateArr as $key => $value){
             $newArr[] = [strtotime($key.' UTC')*1000, (double)$series[$key]];
         }
-
+        $spent = SpentRelation::find()->select(['date', ['spent_carpet' => 'tax']])->asArray()->all();
+        var_dump($spent);
         return Json::encode($newArr);
+
     }
+
+    public function getSpentChartData(){
+
+    }
+
 
     public static function getMonthArr(){
         $minDate = Orders::find()->select('MIN(date) as date')->one();
@@ -113,5 +139,9 @@ class Stats extends Model{
         }
 
         return $dateArr;
+    }
+    
+    public static function spentStats(){
+        
     }
 }

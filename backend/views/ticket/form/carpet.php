@@ -168,10 +168,13 @@ $form = ActiveForm::begin([
                     <div class="bt-3-placeholder"></div>
                 </div>
                 <div class="col-md-3 block-type-3">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
+                        <?= $form->field($item, "[{$i}]quantity")?>
+                    </div>
+                    <div class="col-md-4">
                         <?= $form->field($item, "[{$i}]cost")?>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                         <?= $form->field($item, "[{$i}]discount")?>
                     </div>
                     <div class="bt-3-placeholder"></div>

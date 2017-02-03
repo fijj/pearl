@@ -89,8 +89,8 @@ class OrdersController extends Controller
                     $ticket->orderId = $order->id;
                     $ticket->clientId = $order->clientId;
                     $ticket->save(false);
-                    $cost += $ticket->cost - ($ticket->cost * $ticket->discount / 100);
-                    $discount += $ticket->cost * $ticket->discount / 100;
+                    $cost += $ticket->cost * $ticket->quantity - ($ticket->cost * $ticket->quantity * $ticket->discount / 100);
+                    $discount += $ticket->cost * $ticket->quantity * $ticket->discount / 100;
                 }
                 $order->ticketCost = $cost;
                 $order->ticketDiscount = $discount;
@@ -152,8 +152,8 @@ class OrdersController extends Controller
                         $item->orderId = $orders->id;
                         $item->clientId = $orders->clientId;
                         $item->save(false);
-                        $cost += $item->cost - ($item->cost * $item->discount / 100);
-                        $discount += $item->cost * $item->discount / 100;
+                        $cost += $item->cost * $item->quantity - ($item->cost * $item->quantity * $item->discount / 100);
+                        $discount += $item->cost * $item->quantity * $item->discount / 100;
                     }
                     //Обновление задолженности и стоимости с учетом скидки для точки
                     $orders->ticketCost = $cost;

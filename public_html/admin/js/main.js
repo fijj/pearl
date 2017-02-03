@@ -188,14 +188,33 @@ function checkBoxStyle(){
 }
 
 //Динамический просчет стоимости
-$('html').on('change', '#ticket-form input', function() {
+$('html').on('keyup change', '#ticket-form input, #orders-deliverycost', function() {
+
+    var total = 0;
+
     var costInput = $('input').filter(function() {
         return this.id.match(/-cost/);
     });
 
-    $.each(costInput, function (index, value) {
-        alert($(value).val());
+    var quantityInput = $('input').filter(function() {
+        return this.id.match(/-quantity/);
     });
+
+    var discountInput = $('input').filter(function() {
+        return this.id.match(/-discount/);
+    });
+
+    $.each(costInput, function (index, value) {
+        var cost = parseInt($(value).val()) || 0;
+        var quantity = parseInt($(quantityInput[index]).val()) || 0;
+        var discount = parseInt($(discountInput[index]).val()) || 0;
+
+        total = total + (cost * quantity) - (cost * quantity * discount / 100);
+    });
+
+    var delivery = parseInt($('#orders-deliverycost').val()) || 0;
+
+    $('[data-type="cost"]').html(total + delivery) ;
 });
 
 

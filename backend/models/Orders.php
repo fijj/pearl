@@ -39,13 +39,14 @@ class Orders extends ActiveRecord
             [['date', 'number', 'typeId', 'pointId', 'statusId', 'outDate'], 'required', 'on' => 'default'],
             [['number', 'contract', 'ccount', 'delivery'], 'integer'],
             [['cost', 'paid', 'costTotal', 'deliveryCost'], 'double'],
+            [['bank_card'], 'safe'],
             [['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'contract', 'outDate', 'debt'], 'safe', 'on' => 'filter'],
         ];
     }
 
     public function scenarios(){
         return[
-            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt', 'ccount', 'delivery' ,'deliveryCost'],
+            'default' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'statusId', 'outDate', 'costTotal', 'contract', 'debt', 'ccount', 'delivery' ,'deliveryCost', 'bank_card'],
             'filter' => ['cost', 'paid', 'date', 'number', 'typeId', 'pointId', 'clientId', 'statusId', 'outDate', 'contract', 'debt']
         ];
     }
@@ -71,6 +72,7 @@ class Orders extends ActiveRecord
             'ticketCost' => 'Стоимость услуг',
             'ticketDiscount' => 'Общая скидка',
             'managerId' => 'Менеджер',
+            'bank_card' => 'Оплата картой'
         ];
     }
 

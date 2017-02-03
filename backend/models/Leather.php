@@ -12,8 +12,9 @@ class Leather extends Ticket
 
     public function rules(){
         return [
-            [['param1n', 'param5n', 'param34_14n', 'discount'], 'integer'],
+            [['param1n', 'param5n', 'param34_14n', 'discount', 'quantity'], 'integer'],
             [['cost'], 'double'],
+            ['quantity', 'default', 'value' => 1],
             [[
                 'caption',
                 'orderId',
@@ -237,7 +238,8 @@ class Leather extends Ticket
             'cost' => 'Стоимость',
             'discount' => 'Скидка,%',
             'services' => 'Доп. услуги',
-            'salinity' => 'Степепь засаленности'
+            'salinity' => 'Степепь засаленности',
+            'quantity' => 'Количество'
         ];
     }
 }

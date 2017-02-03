@@ -20,6 +20,7 @@ use yii\widgets\ActiveForm;
                 <th>Пятна (без гарантии)</th>
                 <th>Услуги</th>
                 <th>Цена</th>
+                <th>Сумма</th>
             </tr>
             </thead>
             <tbody>
@@ -130,7 +131,7 @@ use yii\widgets\ActiveForm;
                 ?>
                 <tr>
                     <td style="text-align: center"><?= $key + 1 ?></td>
-                    <td style="text-align: center"><?= $model->caption ?></td>
+                    <td style="text-align: center"><?= $model->caption ?> <?= ($model->quantity > 1) ? "- $model->quantity ед." : '' ?></td>
                     <td style="text-align: center"><?= $model->color ?></td>
                     <td>
                         <b>Маркировка:</b><?= $model->markingArr[$model->marking] ?><br />
@@ -153,6 +154,9 @@ use yii\widgets\ActiveForm;
                     </td>
                     <td style="text-align: center">
                         <?= $model->cost ?>
+                    </td>
+                    <td style="text-align: center">
+                        <?= Yii::$app->formatter->asDecimal($model->cost * $model->quantity, 2) ?>
                     </td>
                 </tr>
             <? endforeach ?>

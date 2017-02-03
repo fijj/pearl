@@ -11,8 +11,9 @@ class Carpet extends Ticket
 
     public function rules(){
         return [
-            [['param1n', 'param5n', 'param31n', 'discount', 'height', 'width', 'area'], 'integer'],
+            [['param1n', 'param5n', 'param31n', 'discount', 'height', 'width', 'area', 'quantity'], 'integer'],
             [['cost'], 'double'],
+            ['quantity', 'default', 'value' => 1],
             [[
                 'caption',
                 'orderId',
@@ -199,7 +200,8 @@ class Carpet extends Ticket
             'services' => 'Доп. услуги',
             'height' => 'Высота',
             'width' => 'Ширина',
-            'area' => 'Площадь'
+            'area' => 'Площадь',
+            'quantity' => 'Количество'
         ];
     }
 }

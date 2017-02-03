@@ -161,9 +161,21 @@ $(function () {
                     [
                         'day',
                         [1]
-                    ],
+                    ]
                 ]
-            },
+            }
+        },{
+            type: 'column',
+            name: 'Расходы',
+            data: data,
+            dataGrouping: {
+                units: [
+                    [
+                        'day',
+                        [1]
+                    ]
+                ]
+            }
         }]
     });
 
@@ -174,11 +186,21 @@ $(function () {
         chart.series[0].update({
             type : val
         });
+        chart.series[1].update({
+            type : val
+        });
     });
 
     $('input[name="chart-aprox"]').on('change', function () {
         var val = $(this).data('value');
         chart.series[0].update({
+            dataGrouping:{
+                units: [
+                    [val, [1]]
+                ]
+            }
+        });
+        chart.series[1].update({
             dataGrouping:{
                 units: [
                     [val, [1]]

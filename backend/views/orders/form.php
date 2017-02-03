@@ -28,7 +28,9 @@ $form = ActiveForm::begin([
 ])
 ?>
 <style>
-
+    .red{
+        color: red;
+    }
     label{
         color: white;
     }
@@ -136,7 +138,7 @@ $form = ActiveForm::begin([
     }
 
     .block-type-2.extend-padding{
-        padding: 77px 55px;
+        padding: 40px 55px;
     }
 
     .cost-container-1{
@@ -146,6 +148,11 @@ $form = ActiveForm::begin([
 
     .cost-container-2{
         background: url("img/percent.png") no-repeat right;
+        padding: 5px 50px 5px 0;
+    }
+
+    .cost-container-3{
+        background: url("img/debt.png") no-repeat right;
         padding: 5px 50px 5px 0;
     }
 
@@ -202,10 +209,12 @@ $form = ActiveForm::begin([
         background-color: #2d3b48;
     }
     .button-save{
+        margin-top: -16px;
         background-image: url("img/save.png");
     }
 
     .button-print{
+        margin-top: 20px;
         background-image: url("img/print.png");
     }
 
@@ -372,7 +381,7 @@ $form = ActiveForm::begin([
         background-position: 0 -15px;
     }
     label.css-label {
-        background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_c3c063acf4ee262666c6e3d6130dcb0c.png);
+        background-image:url('img/chekbox.png');
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -380,7 +389,9 @@ $form = ActiveForm::begin([
         -ms-user-select: none;
         user-select: none;
     }
-
+    .field-orders-bank_card{
+        margin-top: 32px;
+    }
     @media (min-width: 992px) {
         .block-type-1{
             padding: 55px 10px 55px 10px;
@@ -462,6 +473,7 @@ $form = ActiveForm::begin([
             <div class="col-md-2 block-type-1">
                 <?= $form->field($orders, 'deliveryCost') ?>
                 <?= $form->field($orders, 'paid') ?>
+                <?= $form->field($orders, 'bank_card')->checkbox(['class' => 'bank']) ?>
             </div>
         </div>
     </div>
@@ -469,7 +481,7 @@ $form = ActiveForm::begin([
         <div class="col-md-12">
             <div class="col-md-3 block-type-2">
                 <div class="cost-container cost-container-1">
-                    <div class="cost">
+                    <div class="cost" data-type="cost">
                         <span><?= ($orders->cost) ? Yii::$app->formatter->asDecimal($orders->cost, 0) : '...' ?></span>
                     </div>
                     <div class="cost-label">
@@ -480,18 +492,26 @@ $form = ActiveForm::begin([
             <div class="col-md-3 block-type-2">
                 <div class="cost-container cost-container-2">
                     <div class="cost">
-                        <span><?= ($orders->cost) ? Yii::$app->formatter->asDecimal($orders->costTotal, 0) : '...' ?></span>
+                        <span><?= ($orders->costTotal) ? Yii::$app->formatter->asDecimal($orders->costTotal, 0) : '...' ?></span>
                     </div>
                     <div class="cost-label">
-                        Итого с учетом скидки
+                        Итого с учетом скидки<br />(для пункта приема)
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 block-type-2 extend-padding">
+            <div class="col-md-6 block-type-2">
                 <div class="col-md-6">
-                    <?= Html::submitButton('Сохранить', ['class' => 'button mod button-save']) ?>
+                    <div class="cost-container cost-container-3">
+                        <div class="cost">
+                            <span class="<?= ($orders->debt != 0) ? 'red' : '' ?>"><?= ($orders->debt) ? Yii::$app->formatter->asDecimal($orders->debt, 0) : '...' ?></span>
+                        </div>
+                        <div class="cost-label">
+                            Задолженность
+                        </div>
+                    </div>
                 </div>
                 <div class="col-md-6">
+                    <?= Html::submitButton('Сохранить', ['class' => 'button mod button-save']) ?>
                     <?= Html::a('Печатать', ['ticket/print', 'id' => $orders->id], ['class' => 'button mod button-print']) ?>
                 </div>
             </div>
